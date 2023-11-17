@@ -2,10 +2,13 @@
 from flask import Flask
 from models import db
 from datetime import datetime
+
 """Base class"""
+
 
 class Base(db.Model):
     """The Base class from which future classes will be derived"""
-    id = db.Column(db.string(30), primary_key=True)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    update_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    id = db.Column(db.String(30), primary_key=True, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    update_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)

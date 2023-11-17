@@ -1,5 +1,5 @@
 from models import app, db
-from models.base_model import Base
+from models.base import Base
 
 with app.app_context():
     db.create_all()

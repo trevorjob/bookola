@@ -1,6 +1,6 @@
 from models import app, db
 
-# from models.base_model import Base
+from models.base_model import Base
 from models.community import Communtiy
 from models.message import Message
 

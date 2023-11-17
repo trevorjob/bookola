@@ -6,7 +6,7 @@ from datetime import datetime
 """Base class"""
 
 
-class Base(db.Model):
+class Base:
     """The Base class from which future classes will be derived"""
 
     id = db.Column(db.String(30), primary_key=True, nullable=False)

@@ -31,7 +31,7 @@ class TestUserDocs(unittest.TestCase):
         cls.app_context.pop()
 
     def test_pep8_conformance_user(cls):
-        """Test that models/user.py conforms to PEP8."""
+        """Test that models/users.py conforms to PEP8."""
         pep8s = pycodestyle.StyleGuide(quiet=True)
         result = pep8s.check_files(['models/users.py'])
         cls.assertEqual(result.total_errors, 0,

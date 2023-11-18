@@ -5,35 +5,35 @@ Define the Review class for the 'reviews' table in the database.
 import models
 from models import db
 from models.base import Base
-from sqlalchemy.orm import relationship
+from models.books import Book
+from sqlalchemy.orm import relationships
 
 
-class review(Base):
+class Review(Base):
     """
     The Review class represents reviews for books in the 'reviews' table.
 
     Attributes:
-        review_id (int): The unique identifier for the review. It is a required primary key.
         user_id (str): The unique identifier of the user who wrote the review.
                     It is a foreign key that references the 'users' table.
         book_id (str): The unique identifier of the book.
                     It is a foreign key that references the 'users' table.
-        rating (int): The rating given to the book in the review. It is typically on a scale of 1 to 5.
-                    It is a required field.
-        review_text (str): The text of the review. It can be an empty string if a text review is not provided.
-                    It is a required field.
+        rating (int): The rating given to the book review. It is required.
+        review_text (str): The text review. It is a required field.
         review_date (date): The date when the review was written.
                     It is automatically set to the current date and time.
     """
     __tablename__ = 'reviews'
     # Review attributes/columns
-    id = db.Column(db.String(60), primary_key=True, autoincrement=True, nullable=False)
-    user_id = db.Column(db.String(60), ForeignKey=('users_id'), nullable=False)
-    book_id = db.Column(db.String(60), ForeignKey=('books_id'), nullable=False)
+    user_id = db.Column(db.String(60), db.ForeignKey('users.id'),
+                        nullable=False)
+    book_id = db.Column(db.String(60), db.ForeignKey('books.id'),
+                        nullable=False)
     review_text = db.Column(db.String(200), nullable=False)
-    review_date = db.Column(db.DateTime, default=db.func.current_date(), nullable=False)
+    review_date = db.Column(db.DateTime, default=db.func.current_date(),
+                            nullable=False)
     rating = db.Column(db.Integer, nullable=False)
 
     # Define relationships
-    book = relationship('Book', back_populates='reviews')
-    user = relationship('User', back_populates='reviews')
+    books = db.relationship('Book', backref='reviews')
+    users = db.relationship('User', backref='reviews')

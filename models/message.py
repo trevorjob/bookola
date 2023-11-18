@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from models import db
-from models.base_model import Base
+from models.base import Base
 
 """community model"""
 

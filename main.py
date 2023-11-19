@@ -1,8 +1,6 @@
 from models import app, db
 
 from models.base import Base
-from models.community import Communtiy
-from models.message import Message
 
 with app.app_context():
     db.create_all()

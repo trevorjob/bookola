@@ -1,3 +1,4 @@
+
 from models import app, db
 from models.base import Base
 

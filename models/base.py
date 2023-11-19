@@ -16,3 +16,4 @@ class Base(db.Model):
     def __repr__(self):
         """Representation of the Base object."""
         return f'<Base {self.id}>'
+

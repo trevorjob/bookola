@@ -4,9 +4,7 @@ Define the Review class for the 'reviews' table in the database.
 """
 import models
 from models import db
-from models.base import Base
-from models.books import Book
-from sqlalchemy.orm import relationships
+from models.base import *
 
 
 class Review(Base):
@@ -24,7 +22,6 @@ class Review(Base):
                     It is automatically set to the current date and time.
     """
     __tablename__ = 'reviews'
-    # Review attributes/columns
     user_id = db.Column(db.String(60), db.ForeignKey('users.id'),
                         nullable=False)
     book_id = db.Column(db.String(60), db.ForeignKey('books.id'),
@@ -33,7 +30,3 @@ class Review(Base):
     review_date = db.Column(db.DateTime, default=db.func.current_date(),
                             nullable=False)
     rating = db.Column(db.Integer, nullable=False)
-
-    # Define relationships
-    books = db.relationship('Book', backref='reviews')
-    users = db.relationship('User', backref='reviews')

@@ -38,4 +38,4 @@ class Book(Base):
     description = db.Column(db.String(128), nullable=True)
     cover_image_url = db.Column(db.String(128), nullable=True)
 
-    reviews = db.relationship("Review", backref="book")
+    # reviews = db.relationship("Review", backref="book")

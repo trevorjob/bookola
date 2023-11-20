@@ -4,8 +4,8 @@ Define the Book class for the 'books' table in the database.
 """
 import models
 from models import db
-from models.base import Base
-from sqlalchemy.orm import relationship
+from models.base import *
+from models.reviews import *
 
 
 class Book(Base):
@@ -37,5 +37,3 @@ class Book(Base):
     language = db.Column(db.String(60), nullable=True)
     description = db.Column(db.String(128), nullable=True)
     cover_image_url = db.Column(db.String(128), nullable=True)
-
-    reviews = db.relationship('Review', backref='book')

@@ -4,7 +4,8 @@ Define the User class for the 'users' table in the database.
 """
 import models
 from models import db
-from models.base import Base
+from models.base import *
+from models.reviews import *
 from datetime import datetime
 
 
@@ -29,5 +30,3 @@ class User(Base):
     username = db.Column(db.String(60), nullable=False)
     password_hash = db.Column(db.String(80), nullable=False)
     profile_pic_url = db.Column(db.String(128), nullable=True)
-
-    reviews = db.relationship('Review', backref='user')

@@ -1,6 +1,12 @@
-
 from models import app, db
-from models.base import Base
+from models.base import *
+from models.author import *
+from models.books import *
+from models.community import *
+from models.reviews import *
+from models.users import *
+from models.message import *
+from models.genre import *
 
 with app.app_context():
     db.drop_all()

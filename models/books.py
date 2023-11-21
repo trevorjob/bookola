@@ -2,13 +2,18 @@
 """
 Define the Book class for the 'books' table in the database.
 """
-import models
 from models import db
 from models.base import *
-from models.reviews import *
 
 
-class Book(Base):
+book_genres = db.Table(
+    "book_genres",
+    db.Column("book_id", db.Integer, db.ForeignKey("book.id")),
+    db.Column("genre_id", db.Integer, db.ForeignKey("genre.id")),
+)
+
+
+class Book(Base, db.Model):
     """
     The Book class represents book information in the 'books' table.
 
@@ -28,14 +33,16 @@ class Book(Base):
                 It can be None if the cover image is not available.
         rating (Integer): Rating.
     """
-    __tablename__ = 'books'
+
+    __tablename__ = "book"
     # Book attributes/columns
     title = db.Column(db.String(128), nullable=False)
-    author = db.Column(db.String(128), nullable=False)
     publication_date = db.Column(db.Date, nullable=True)
-    genre = db.Column(db.String(60), nullable=True)
     language = db.Column(db.String(60), nullable=True)
     description = db.Column(db.String(128), nullable=True)
     cover_image_url = db.Column(db.String(128), nullable=True)
-
-    # reviews = db.relationship("Review", backref="book")
+    genre_id = db.Column(db.String(60), db.ForeignKey("genre.id"), nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
+    author = db.relationship("Author", backref="book")
+    genres = db.relationship("Genre", secondary=book_genres, back_populates="book")
+    reviews = db.relationship("Review", backref="book")

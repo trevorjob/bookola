@@ -25,7 +25,7 @@ body {
   height: 90vh;
   display: flex;
   flex-direction: column;
-  width: 80vh;
+  width: 80vw;
   align-items: stretch;
   background-color: #252323;
 }

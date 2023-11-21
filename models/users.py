@@ -2,14 +2,12 @@
 """
 Define the User class for the 'users' table in the database.
 """
-import models
 from models import db
-from models.base import *
-from models.reviews import *
-from datetime import datetime
+from models.base import Base
+from models.community import user_communities
 
 
-class User(Base):
+class User(Base, db.Model):
     """
     Table name in the database
 
@@ -22,7 +20,8 @@ class User(Base):
         password_hash (str): The hashed password of the user. Required field.
         profile_pic_url (str): The URL of the user's profile picture.
     """
-    __tablename__ = 'users'
+
+    __tablename__ = "user"
     # User attributes/columns
     email = db.Column(db.String(128), unique=True, nullable=False)
     first_name = db.Column(db.String(60), nullable=False)
@@ -31,4 +30,7 @@ class User(Base):
     password_hash = db.Column(db.String(80), nullable=False)
     profile_pic_url = db.Column(db.String(128), nullable=True)
 
-    # reviews = db.relationship("Review", backref="user")
+    reviews = db.relationship("Review", back_populates="user")
+    communities = db.relationship(
+        "Community", secondary=user_communities, back_populates="user"
+    )

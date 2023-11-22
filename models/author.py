@@ -3,13 +3,11 @@
 Define the Author class for the 'authors' table in the database.
 """
 
-import models
 from models import db
 from models.base import *
-from models.reviews import *
 
 
-class Author(Base):
+class Author(Base, db.Model):
     """
     The Author class represents book information in the 'authors' table.
 
@@ -17,8 +15,7 @@ class Author(Base):
         __tablename__ (str): The name of the database table.
 
     """
-    __tablename__ = 'authors'
-    user_id = db.Column(db.String(60), db.ForeignKey('users.id'),
-                        nullable=False)
-    book_id = db.Column(db.String(60), db.ForeignKey('books.id'),
-                        nullable=False)
+
+    __tablename__ = "author"
+    name = db.Column(db.String(60), nullable=False)
+    books = db.relationship("Book", backref="author")

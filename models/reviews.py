@@ -2,12 +2,11 @@
 """
 Define the Review class for the 'reviews' table in the database.
 """
-import models
 from models import db
 from models.base import *
 
 
-class Review(Base):
+class Review(Base, db.Model):
     """
     The Review class represents reviews for books in the 'reviews' table.
 
@@ -21,12 +20,9 @@ class Review(Base):
         review_date (date): The date when the review was written.
                     It is automatically set to the current date and time.
     """
-    __tablename__ = 'reviews'
-    user_id = db.Column(db.String(60), db.ForeignKey('users.id'),
-                        nullable=False)
-    book_id = db.Column(db.String(60), db.ForeignKey('books.id'),
-                        nullable=False)
+
+    __tablename__ = "review"
+    user_id = db.Column(db.String(60), db.ForeignKey("user.id"), nullable=False)
+    book_id = db.Column(db.String(60), db.ForeignKey("book.id"), nullable=False)
     review_text = db.Column(db.String(200), nullable=False)
-    review_date = db.Column(db.DateTime, default=db.func.current_date(),
-                            nullable=False)
-    rating = db.Column(db.Integer, nullable=False)
+    # user = db.relationship("User", back_populates="review")

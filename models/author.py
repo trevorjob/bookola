@@ -17,7 +17,7 @@ class Author(Base):
         __tablename__ (str): The name of the database table.
 
     """
-    __tablename__ = 'authors'
+    __tablename__ = 'Authors'
     user_id = db.Column(db.String(60), db.ForeignKey('users.id'),
                         nullable=False)
     book_id = db.Column(db.String(60), db.ForeignKey('books.id'),

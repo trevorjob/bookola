@@ -5,7 +5,6 @@ Define the Author class for the 'authors' table in the database.
 
 from models import db
 from models.base import *
-from models.books import *
 
 
 class Author(Base, db.Model):
@@ -19,4 +18,4 @@ class Author(Base, db.Model):
 
     __tablename__ = "author"
     name = db.Column(db.String(60), nullable=False)
-    books = db.relationship("Book", back_populates="author")
+    books = db.relationship("Book", backref="author")

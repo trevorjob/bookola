@@ -3,6 +3,7 @@
 from flask import Flask
 from models import db
 from datetime import datetime
+from uuid import uuid4
 
 
 class Base:
@@ -14,4 +15,4 @@ class Base:
 
     def __repr__(self):
         """Representation of the Base object."""
-        return f"<Base {self.id}>"
+        return f"<{type(self)} {self.id}>"

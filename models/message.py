@@ -14,4 +14,4 @@ class Message(Base, db.Model):
     community_id = db.Column(
         db.String(60), db.ForeignKey("community.id"), nullable=False
     )
-    user = db.relationship('User', backref='message')
+    user = db.relationship("User", backref="message")

@@ -16,9 +16,11 @@ from models.user import *
 #     db.create_all()
 
 
-@app.route("/", m)
+@app.route("/", methods=["GET", "POST"])
 def home():
-    request.form.get
+    if request.method == "POST":
+        email = request.form.get("email")
+        print(f"thsi is the login email {email}")
 
     return render_template("login.html")
 

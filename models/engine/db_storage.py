@@ -12,6 +12,7 @@ from models.user import User
 
 class DbStorage:
     """Methods that manipulate DB data"""
+
     def all(self, cls=None):
         """
         Retrieve all objects of a specified class or
@@ -26,8 +27,9 @@ class DbStorage:
         if cls:
             return cls.query.all()
         else:
-            return db.session.query(Author, Base, Book, Community,
-                                    Message, Review, User).all()
+            return db.session.query(
+                Author, Base, Book, Community, Message, Review, User
+            ).all()
 
     def new(self, obj):
         """
@@ -91,7 +93,6 @@ class DbStorage:
             return cls.query.count()
         else:
             count = 0
-            for model_class in [Author, Base, Book, Community,
-                                Message, Review, User]:
+            for model_class in [Author, Base, Book, Community, Message, Review, User]:
                 count += model_class.query.count()
             return count

@@ -1,0 +1,58 @@
+.bi-search{
+    background-color: black;
+    color: #fff;
+    position: relative;
+    top: px;
+    right: 48px;
+    padding: 12px;
+}
+
+body{
+    margin-top: 20px;
+    background-color: ligtgreen;
+}
+
+.main{
+    padding: 15px;
+    font-family: poppins;
+}
+
+.topbar{
+    background-color: teal;
+    overflow: hidden;
+}
+
+.topbar a{
+    float: right;
+    color: whitesmoke;
+    text-align: center;
+    padding: 20px 20px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.sidebar{
+    background-color: #333;
+    color: white;
+    height: 100%;
+}
+
+.sidebar a{
+    margin-left: 10px;
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding-bottom: 10px;
+    font-size: 20px;
+
+}
+
+.card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.content{
+    background-color: whitesmoke;
+}

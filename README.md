@@ -34,10 +34,4 @@ git clone https://github.com/redeks12/bookola.git
 2. cd bookola
 3. npm install
 4. set up environment variables:
-   Create a .env file in the root directory and configure the following variables:
-   PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/bookhaven
-   SECRET_KEY=your_secret_key
-5. Start the application:
-   npm start
-6. Open your browser and visit http://localhost:3000 to view Bookola.
+

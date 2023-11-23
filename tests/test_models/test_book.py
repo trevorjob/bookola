@@ -3,12 +3,12 @@
 import unittest
 import models
 from models.base import Base
-from models.books import Book
+from models.book import Book
 import inspect
 from models import db, app, Flask
 import pep8 as pycodestyle
 from datetime import datetime
-Book = models.books.Book
+Book = models.book.Book
 
 
 class TestUserDocs(unittest.TestCase):
@@ -31,25 +31,25 @@ class TestUserDocs(unittest.TestCase):
         cls.app_context.pop()
 
     def test_pep8_conformance_user(cls):
-        """Test that models/books.py conforms to PEP8."""
+        """Test that models/book.py conforms to PEP8."""
         pep8s = pycodestyle.StyleGuide(quiet=True)
-        result = pep8s.check_files(['models/books.py'])
+        result = pep8s.check_files(['models/book.py'])
         cls.assertEqual(result.total_errors, 0,
                         "Found code style errors (and warnings).")
 
     def test_pep8_conformance_test_user(cls):
-        """Test that tests/test_models/test_books.py conforms to PEP8."""
+        """Test that tests/test_models/test_book.py conforms to PEP8."""
         pep8s = pycodestyle.StyleGuide(quiet=True)
-        result = pep8s.check_files(['tests/test_models/test_books.py'])
+        result = pep8s.check_files(['tests/test_models/test_book.py'])
         cls.assertEqual(result.total_errors, 0,
                         "Found code style errors (and warnings).")
 
     def test_user_module_docstring(cls):
-        """Test for the user.py module docstring"""
+        """Test for the book.py module docstring"""
         cls.assertIsNot(Book.__doc__, None,
-                        "books.py needs a docstring")
+                        "book.py needs a docstring")
         cls.assertTrue(len(Book.__doc__) >= 1,
-                       "books.py needs a docstring")
+                       "book.py needs a docstring")
 
     def test_user_class_docstring(cls):
         """Test for the Book class docstring"""
@@ -59,7 +59,7 @@ class TestUserDocs(unittest.TestCase):
                        "Book class needs a docstring")
 
     def test_user_func_docstrings(cls):
-        """Test for the presence of docstrings in User methods"""
+        """Test for the presence of docstrings in Book methods"""
         for func_name, func_obj in cls.functions:
             with cls.subTest(function=func_name):
                 cls.assertIsNotNone(

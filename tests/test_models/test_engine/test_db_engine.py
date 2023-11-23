@@ -3,6 +3,9 @@
 import unittest
 from models import app, db
 from models.engine.db_storage import DbStorage
+from models.books import Book
+from models.users import User
+from models.community import Community
 import models
 
 
@@ -23,8 +26,8 @@ class TestDBStorage(unittest.TestCase):
     def test_all(cls):
         """Test the 'all' method"""
         storage = DbStorage()
-        user = models.users.Users(username="Joe Doe")
-        book = models.books.Books(Id='1234ui5')
+        user = models.users.User(username="Joe Doe")
+        book = models.books.Book(Id='1234ui5')
         db.session.add_all([user, book])
         db.session.commit()
 
@@ -33,7 +36,7 @@ class TestDBStorage(unittest.TestCase):
         cls.assertEqual(len(all_objs), 2)
 
         # Test 'all' with specifying a class
-        users = storage.all(models.users.Users)
+        users = storage.all(models.users.User)
         cls.assertEqual(len(users), 1)
 
     def test_new(cls):
@@ -44,7 +47,7 @@ class TestDBStorage(unittest.TestCase):
 
         # Test 'new'
         storage.new(user)
-        db_objs = models.users.Users.query.all()
+        db_objs = models.users.User.query.all()
         cls.assertEqual(len(db_objs), 1)
         cls.assertEqual(db_objs[0], user)
 
@@ -52,28 +55,28 @@ class TestDBStorage(unittest.TestCase):
         """Test the 'reload' method"""
         storage = DbStorage()
 
-        user = models.users.Users(username='Jon Doe')
+        user = models.users.User(username='Jon Doe')
 
         # Test 'new' 'save' and 'relaod'
         storage.new(user)
         storage.save(user)
         storage.reload()
 
-        db_objs = models.users.Users.query.all()
+        db_objs = models.users.User.query.all()
         cls.assertEqaul(len(db_objs), 0)
 
     def test_delete(cls):
         """Test the 'delete' method"""
         storage = DbStorage()
 
-        user = models.users.Users(username="Jon Doe")
+        user = models.users.User(username="Jon Doe")
 
         # Test 'new', 'delete', and 'save'
         storage.new(user)
         storage.delete(user)
         storage.save()
 
-        db_objs = models.users.Users.query.all()
+        db_objs = models.users.User.query.all()
         cls.assertEqual(len(db_objs), 0)
 
     def test_close(cls):
@@ -87,12 +90,12 @@ class TestDBStorage(unittest.TestCase):
         """Test the 'get' method"""
         storage = DbStorage()
 
-        user = models.users.Users(username="Jon Doe")
+        user = models.users.User(username="Jon Doe")
         db.session.add(user)
         db.session.commit()
 
         # Test 'get'
-        get_user = storage.get(models.users.Users, user.id)
+        get_user = storage.get(models.users.User, user.id)
         cls.assertEqual(get_user, user)
 
     def test_count(cls):
@@ -100,9 +103,9 @@ class TestDBStorage(unittest.TestCase):
         storage = DbStorage()
 
         # Create some test data
-        user1 = models.users.Users(username="Jon Doe")
-        user2 = models.users.Users(username="Amy Joe")
-        book = models.books.Books(id="24749501fdgr")
+        user1 = models.users.User(username="Jon Doe")
+        user2 = models.users.User(username="Amy Joe")
+        book = models.books.Book(id="24749501fdgr")
         db.session.add([user1, user2, book])
         db.session.commit()
 

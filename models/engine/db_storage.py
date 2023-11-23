@@ -3,11 +3,11 @@
 from models import db
 from models.author import Author
 from models.base import Base
-from models.books import Book
-from models.community import Communtiy
+from models.book import Book
+from models.community import Community
 from models.message import Message
 from models.reviews import Review
-from models.users import User
+from models.user import User
 
 
 class DbStorage:
@@ -26,7 +26,7 @@ class DbStorage:
         if cls:
             return cls.query.all()
         else:
-            return db.session.query(Author, Base, Book, Communtiy,
+            return db.session.query(Author, Base, Book, Community,
                                     Message, Review, User).all()
 
     def new(self, obj):
@@ -91,7 +91,7 @@ class DbStorage:
             return cls.query.count()
         else:
             count = 0
-            for model_class in [Author, Base, Book, Communtiy,
+            for model_class in [Author, Base, Book, Community,
                                 Message, Review, User]:
                 count += model_class.query.count()
             return count

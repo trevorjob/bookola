@@ -30,7 +30,7 @@ class TestUserDocs(unittest.TestCase):
         cls.app_context.pop()
 
     def test_pep8_conformance_user(cls):
-        """Test that models/users.py conforms to PEP8."""
+        """Test that models/reviews.py conforms to PEP8."""
         pep8s = pycodestyle.StyleGuide(quiet=True)
         result = pep8s.check_files(['models/reviews.py'])
         cls.assertEqual(result.total_errors, 0,
@@ -51,7 +51,7 @@ class TestUserDocs(unittest.TestCase):
                        "reviews.py needs a docstring")
 
     def test_user_class_docstring(cls):
-        """Test for the City class docstring"""
+        """Test for the review class docstring"""
         cls.assertIsNot(Review.__doc__, None,
                         "Review class needs a docstring")
         cls.assertTrue(len(Review.__doc__) >= 1,

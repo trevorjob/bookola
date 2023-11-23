@@ -41,3 +41,4 @@ git clone https://github.com/redeks12/bookola.git
 5. Start the application:
    npm start
 6. Open your browser and visit http://localhost:3000 to view Bookola.
+

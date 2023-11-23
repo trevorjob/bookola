@@ -1,0 +1,180 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: poppins;
+    list-style: none;
+    text-decoration: none;
+}
+
+header{
+    width: 100%;
+    height: 100vh;
+    background: #;
+}
+
+/* navigation bar */
+.navbar{
+    background-color: #007BFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 80px;
+}
+
+.navbar h1{
+    color: #fff;
+    font-size: 25px;
+    font-weight: 500;
+    padding: 0px 20px;
+}
+
+.nav-menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* z-index: 1000; */
+}
+
+.nav-menu li{
+    display: inline-block;
+}
+
+.nav-menu li a{
+    color: #fff;
+    padding: 0px 10px;
+    margin-right: 20px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.search-box .search{
+    padding: 12px 8px;
+    border-radius: 40px;
+    font-size: 15px;
+}
+
+.nav-menu .search-box i{
+    background-color: #556B2F;
+    color: #fff;
+    position: relative;
+    top: 2px;
+    right: 50px;
+    padding: 12px;
+    border-radius: 40px;
+
+}
+
+#main-header{
+    display: flex;
+    margin: auto;
+    width: 75%;
+    height: 80vh;
+    justify-content: space-around;
+}
+
+#main-header h5{
+    color: #009688;
+    font-size: 22px;
+    font-weight: 500;
+
+}
+
+#main-header h2{
+    font-size: 40px;
+    width: 340px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#main-header p{
+    margin-bottom: 50px;
+}
+
+#main-header .btn{
+    background: #556B2F;
+    color: #fff;
+    border: 1px solid #556B2F;
+    border-radius: 40px;
+    font-size: 20px;
+    font-weight: 400;
+    padding: 12px 30px;
+    transition: all .5s;
+
+}
+
+#main-header .btn:hover{
+    background: #fff;
+    color: #556B2F;
+}
+
+#main-header img{
+    height: auto;
+    width: 500px;
+}
+/* 
+genre styles */
+section{
+    padding-bottom: 150px;
+    width: 95%;
+    margin: auto
+}
+
+.genre-header{
+    padding: 20px 0;
+    text-align: center;
+}
+.genre-header h2{
+    font-size: 30px;
+    padding-bottom: 14px;
+}
+
+.genre-books{
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.genre-books .books{
+    position: relative;
+    padding: 20px 30px;
+    width: 360px;
+    height: auto;
+}
+
+.genre-books .books .book-img{
+    background-color: aliceblue;
+    position: relative;
+    left: 35%;
+    padding: 18px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    border-radius: 5%;
+}
+
+.genre-books .books img{
+    width: 100%;
+}
+
+.genre-books .books h4{
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+ .genre-books .btn {
+    background: #556B2F;
+    color: #fff;
+    border: 1px solid #556B2F;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 400;
+    padding: 10px 5px; 
+    
+
+
+}

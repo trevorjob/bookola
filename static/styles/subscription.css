@@ -1,0 +1,29 @@
+
+.bi-search{
+    background-color: black;
+    color: #fff;
+    position: relative;
+    top: px;
+    right: 48px;
+    padding: 12px;
+} 
+
+.text-small{
+    font-size: 0.9rem;
+}
+
+.rounded-lg{
+    border-radius: 1rem !important;
+
+}
+
+
+.custom-seperator{
+    width: 5rem;
+    height: 6px;
+    border-radius: 1rem;
+}
+
+.text-uppercase{
+    letter-spacing: 0.2em;
+}

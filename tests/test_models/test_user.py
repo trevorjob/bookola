@@ -3,12 +3,12 @@
 import unittest
 import models
 from models.base import Base
-from models.users import User
+from models.user import User
 import inspect
 from models import db, app, Flask
 import pep8 as pycodestyle
 from datetime import datetime
-User = models.users.User
+User = models.user.User
 
 
 class TestUserDocs(unittest.TestCase):
@@ -31,16 +31,16 @@ class TestUserDocs(unittest.TestCase):
         cls.app_context.pop()
 
     def test_pep8_conformance_user(cls):
-        """Test that models/users.py conforms to PEP8."""
+        """Test that models/user.py conforms to PEP8."""
         pep8s = pycodestyle.StyleGuide(quiet=True)
-        result = pep8s.check_files(['models/users.py'])
+        result = pep8s.check_files(['models/user.py'])
         cls.assertEqual(result.total_errors, 0,
                         "Found code style errors (and warnings).")
 
     def test_pep8_conformance_test_user(cls):
-        """Test that tests/test_models/test_users.py conforms to PEP8."""
+        """Test that tests/test_models/test_user.py conforms to PEP8."""
         pep8s = pycodestyle.StyleGuide(quiet=True)
-        result = pep8s.check_files(['tests/test_models/test_users.py'])
+        result = pep8s.check_files(['tests/test_models/test_user.py'])
         cls.assertEqual(result.total_errors, 0,
                         "Found code style errors (and warnings).")
 
@@ -52,7 +52,7 @@ class TestUserDocs(unittest.TestCase):
                        "user.py needs a docstring")
 
     def test_user_class_docstring(cls):
-        """Test for the City class docstring"""
+        """Test for the User class docstring"""
         cls.assertIsNot(User.__doc__, None,
                         "User class needs a docstring")
         cls.assertTrue(len(User.__doc__) >= 1,

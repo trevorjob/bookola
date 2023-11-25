@@ -43,4 +43,4 @@ class User(Base, db.Model):
         "Community",
         secondary=user_communities,
         backref=db.backref("members", lazy="dynamic"),
-    )
+    ) 

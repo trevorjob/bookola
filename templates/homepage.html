@@ -45,7 +45,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="./chatroom.html" class="nav-link">Chat rooms</a>
+
+                        <a href="chat_room.html" class="nav-link">Chat rooms</a>
                     </li>
 
                     <li class="nav-item">
@@ -56,35 +57,38 @@
                         <a href="subscription.html" class="nav-link">Subscription</a>
                     </li>
                 </ul>
+                
+                 <!-- Search Form -->
+    <form class="form-inline my-2 my-lg-0" action="search-results.html" method="get">
+        <div class="input-group">
+            <input class="form-control" type="search" placeholder="Search for a book" aria-label="Search" name="q">
+            <div class="input-group-append">
+                <button class="btn btn-outline-success" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
 
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Find a book">
-                    <i class="bi-search"></i>
-                  </form>
             </div>
 
         </div>
     </nav> 
-    <!-- Navigation bar end -->
+    <!-- Navigation bar end -->    
 
-
-    <!-- Hero section -->
-    <section class="bg-secondary text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-start">
-        <div class="container">
-            <div class="d-sm-flex align-items-center justify-content-between">
-                <div>
-                    <h5>Bookola <span class="text-warning">bookstore</span></h5>
-                    <h2 class="lead">Your Gateway to a World of Books.</h2>
-                    <p>Explore a vast collection of books tailored just for you.</p>
-                    <a href="subscription.html" class="btn btn-primary">Subscribe Now</a>
-                    <!-- <button class="btn btn-primary btn-lg" data-bs-target="subscription.html">Subscribe Now</button> -->
-                </div>
-                <img class="img-fluid w-50 d-none d-sm-block" src="./images/cover1.avif" alt="Book covers">
-            </div>
+<!-- Hero section -->
+<section id="hero-section" class="bg-secondary text-light p-5 p-lg-0 pt-lg-5 text-center">
+    <div class="container">
+        <div>
+            <h5>Bookola <span class="text-warning">bookstore</span></h5>
+            <h2 class="lead">Your Gateway to a World of Books.</h2>
+            <p>Explore a vast collection of books tailored just for you.</p>
+            <a href="subscription.html" class="btn btn-primary">Subscribe Now</a>
         </div>
-    </section>
+        <img id="bookImage" class="img-fluid w-50 mt-4" src="" alt="">
+    </div>
+</section>
 <!-- Hero section end -->
-
 
 <!--New Arrivals -->
 <section class="p-5">
@@ -184,7 +188,6 @@
 <!-- end of book of the week -->
 
 
-
 <!-- genre -->
 <section class="p-5">
     <div class="container">
@@ -198,7 +201,9 @@
                         </div>
                         <h3 class="card-title mb-3">History</h3>
                         <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto, nisi.</p>
-                        <a href="#" class="btn btn-primary">View All</a>
+
+                        <a href="history.html" class="btn btn-primary">View All</a>
+
                         
                     </div>
                 </div>
@@ -212,7 +217,8 @@
                         </div>
                         <h3 class="card-title mb-3">Science</h3>
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt, harum?</p>
-                        <a href="#" class="btn btn-primary">View All</a>
+
+                        <a href="science.html" class="btn btn-primary">View All</a>
                         
                     </div>
                 </div>
@@ -226,7 +232,8 @@
                         </div>
                         <h3 class="card-title mb-3">Romance</h3>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, quia.</p>
-                        <a href="#" class="btn btn-primary">View All</a>
+
+                        <a href="romance.html" class="btn btn-primary">View All</a>
                         
                     </div>
                 </div>
@@ -240,33 +247,17 @@
                         </div>
                         <h3 class="card-title mb-3">Fiction</h3>
                         <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fugit, eveniet?</p>
-                        <a href="#" class="btn btn-primary">View All</a>
+
+                        <a href="fiction.html" class="btn btn-primary">View All</a>
                         
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
- 
-
-
-
-
-        
-
         </div>
     </div>
 </section>
 
-<!-- end of arrivals -->
-
-
-
-
+<!-- end of genre-->
 
 
 <!-- Footer -->
@@ -285,5 +276,8 @@
 
     <!-- bootstrap javascript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- custom javascript -->
+    <script src="./js/homepage.js"></script>
 </body>
 </html>

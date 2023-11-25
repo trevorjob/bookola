@@ -81,6 +81,8 @@ def subcribe(subscription_name):
 
 @app.route('/user', methods=["GET", "POST", "DELETE", "PUT"])
 def user(user):
+    email = request.form.get('email')
+
     return render_template('user.html')
 
 @app.route('/homepage/chatroom', methods=["GET"])

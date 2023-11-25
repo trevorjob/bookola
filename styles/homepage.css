@@ -1,5 +1,4 @@
  
-/* Add any additional styles for the hero section here if needed */
 #hero-section {
     background-size: cover;
     background-position: center;
@@ -11,7 +10,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh; /* Adjust the height as needed */
+    height: 100vh; 
 }
 
 #hero-section h5,
@@ -23,14 +22,14 @@
 
 
 
- .bi-search{
+ /* .bi-search{
     background-color: black;
     color: #fff;
     position: relative;
     top: 8px;
     right: 48px;
     padding: 12px;
-}
+} */
 
 .btn:hover{
     background: #fff;

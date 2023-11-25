@@ -12,14 +12,14 @@
     <title>Science Books</title>
     <style>
         /*  custom styles */
- .bi-search{
+ /* .bi-search{
     background-color: black;
     color: #fff;
     position: relative;
     top: 8px;
     right: 48px;
     padding: 12px;
-}
+} */
     </style>
 </head>
 <body>
@@ -66,10 +66,18 @@
                 </li>
             </ul>
 
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Find a book">
-               <a href="search.html"> <i class="bi-search"></i></a></i>
-              </form>
+             <!-- Search Form -->
+    <form class="form-inline my-2 my-lg-0" action="search-results.html" method="get">
+        <div class="input-group">
+            <input class="form-control" type="search" placeholder="Search for a book" aria-label="Search" name="q">
+            <div class="input-group-append">
+                <button class="btn btn-outline-success" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
         </div>
 
     </div>

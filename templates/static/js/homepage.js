@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to change the background image
     function changeBackgroundImage() {
         const randomImage = bookImages[Math.floor(Math.random() * bookImages.length)];
-        const imageUrl = `./images/${randomImage}`;
+        const imageUrl = `../static/assets/images/${randomImage}`;
         heroSection.style.backgroundImage = `url(${imageUrl})`;
     }
 

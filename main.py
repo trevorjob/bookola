@@ -23,6 +23,36 @@ def get_data(data):
 def get_info(info, check):
     return db.session.execute(db.select(info).where(info.id == check)).scalar()
 
+def getFormData(name):
+    """get the form data for a given name from the site"""
+    return request.form.get(name)
+
+
+def getOneFromDB(model, id):
+    """get one model from the database"""
+    return db.session.execute(db.select(model).where(model.id == id)).scalar()
+
+
+def getAllFromDB(model):
+    """get all models from the database"""
+    return db.session.execute(db.select(model)).scalars().all()
+
+
+def saveDB():
+    """save to the database"""
+    db.session.commit()
+
+
+def addToDB(model):
+    """add a model to the database"""
+    db.session.add(model)
+
+
+def updateDB(model, update, value):
+    """update a model in the database"""
+    model[update] = value
+
+
 @app.route("/", methods=["GET", "POST"])
 def login():
     email = None
@@ -43,15 +73,22 @@ def login():
 
     return render_template("login.html", email=email)
 
-@app.route('/homepage', methods=["GET"])
+
+@app.route("/homepage", methods=["GET"])
 def homepage():
     lastest_books = Book.query.order_by(Book.created_at.desc()).limit(4).all()
     book_of_the_week = Book.query.order_by(Book.created_at.desc()).limit(4).all()
     genres = Genre.query.all()
 
-    return render_template("homepage.html", lastest_books=lastest_books, book_of_the_week=book_of_the_week, genres=genres)
+    return render_template(
+        "homepage.html",
+        lastest_books=lastest_books,
+        book_of_the_week=book_of_the_week,
+        genres=genres,
+    )
 
-@app.route('/signup', methods=['GET', 'POST'])
+
+@app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
         first_name = get_data("firstname")
@@ -67,25 +104,35 @@ def signup():
             return redirect(url_for("signup"))
         
         password_hash = generate_password_hash(password)
-    
-        new_user = User(first_name=first_name, last_name=last_name, email=email, username=username, password_hash=password_hash)
+
+        new_user = User(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            username=username,
+            password_hash=password_hash,
+        )
         db.session.add(new_user)
         db.session.commit()
         flash("Account created successfully. You can log in.", "success")
         return redirect(url_for("login"))
-    
+
     return render_template("signup.html")
+
 
 @app.route("/subscription", methods=["GET"])
 def subscription():
     subscription_packages = [
         {"name": "Free or Regular", "price": 0.00},
         {"name": "Premium", "price": 5.99},
-        {"name": "Platinum", "price": 10.00}
+        {"name": "Platinum", "price": 10.00},
     ]
-    return render_template('subscription.html', subscription_packages=subscription_packages)
+    return render_template(
+        "subscription.html", subscription_packages=subscription_packages
+    )
 
-@app.route('/subscribe/<subscription_name>', methods=["GET"])
+
+@app.route("/subscribe/<subscription_name>", methods=["GET"])
 def subcribe(subscription_name):
     """Logic to process the selected subscription package"""
     if subscription_name == "Free or Regular":
@@ -95,10 +142,9 @@ def subcribe(subscription_name):
     elif subscription_name == "Platinum":
         payment_amount = 10.00
     else:
-        return render_template('error.html', error_message='Invalid subscription package')
-        
-    return render_template('subscription_confirmation.html', subscription_name=subscription_name, payment_amount=payment_amount) 
-
+        return render_template(
+            "error.html", error_message="Invalid subscription package"
+        )
 
 @app.route('/user/<id>', methods=["GET", "POST", "DELETE", "PUT"])
 def user_profile(id):
@@ -138,26 +184,34 @@ def user_profile(id):
 
         db.session.commit()
         return "User information updated successfully"
+    
+
+
 
 @app.route('/chatroom', methods=["GET"])
 def chatroom():
     communities = Community.query.all()
     return render_template('chat_room.html', communities=communities)
 
-@app.route('/create_chatroom', methods=["GET", "POST", "DELETE", "PUT"])
-def create_chat():
-    return render_template("create_chatroom.html")
+
 
 @app.route("/chat_select", methods=["GET"])
-def select_chat():
-    return render_template("chat_select.html")
+def select_chat(subscription_name):
+
+    return render_template("chat_selet.html")
+
+@app.route(
+    "/create_chatroom", methods=["GET", "POST", "DELETE", "PUT"]
+)
+def create_chatroom():
+    return render_template("create_chatroom.html")
+
 """
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':
         email = get_data('email')
         user = get_info( User, email)
-
         if user:
             password_reset_token = generate_password_reset_token(user)
 
@@ -169,10 +223,12 @@ def forgot_password():
     
     return render_template('forgot_password.html')
 """
+
 @app.errorhandler(404)
 @app.errorhandler(500)
 def handle_errors(error):
-    return render_template('error.html', error=error), error.code
+    return render_template("error.html", error=error), error.code
+
 
 if __name__ == "__main__":
     app.run(debug=True)

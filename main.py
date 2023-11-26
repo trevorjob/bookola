@@ -53,28 +53,7 @@ def updateDB(model, update, value):
     model[update] = value
 
 
-@app.route("/", methods=["GET", "POST"])
-def login():
-    email = None
-
-    if request.method == "POST":
-        email = get_data("email")
-        password = get_data("password")
-
-        user = User.query.filter_by(email=email).first()
-        
-        if user and check_password_hash(user.password_hash, password):
-            new_login = User(email=email, password=password)
-            db.session.add(new_login)
-            db.session.commit()
-            return redirect(url_for("homepage"))
-        else:
-            return redirect(url_for("signup"))
-
-    return render_template("login.html", email=email)
-
-
-@app.route("/homepage", methods=["GET"])
+@app.route("/", methods=["GET"])
 def homepage():
     lastest_books = Book.query.order_by(Book.created_at.desc()).limit(4).all()
     book_of_the_week = Book.query.order_by(Book.created_at.desc()).limit(4).all()
@@ -87,6 +66,19 @@ def homepage():
         genres=genres,
     )
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """login redirection"""
+    if request.method == 'POST':
+        email = get_data('email')
+        password = get_data('password')
+
+        user = User.query.filter_by(email=email).first()
+
+        if user and check_password_hash(user.password_hash, password):
+            return redirect(url_for('homepage'))
+        return redirect(url_for('login'))
+    return render_template('login.html')
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():

@@ -10,7 +10,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh; 
+    height: 70vh; 
 }
 
 #hero-section h5,
@@ -18,6 +18,7 @@
 #hero-section p,
 #hero-section a {
     text-align: center;
+    font-size: 30px;
 }
 
 

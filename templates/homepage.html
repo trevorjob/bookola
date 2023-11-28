@@ -33,33 +33,33 @@
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a href="#home" class="nav-link">Home</a>
+                        <a href="home" class="nav-link">Home</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="signup.html" class="nav-link">Sign Up</a>
+                        <a href="{{ url_for('signup') }}" class="nav-link">Sign Up</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="user.html" class="nav-link">My Account</a>
+                        <a href="{{ url_for('user') }}" class="nav-link">My Account</a>
                     </li>
 
                     <li class="nav-item">
 
-                        <a href="chat_room.html" class="nav-link">Chat rooms</a>
+                        <a href="{{ url_for('chatroom') }}" class="nav-link">Chat rooms</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#blog" class="nav-link">Blog</a>
+                        <a href="blog" class="nav-link">Blog</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="subscription.html" class="nav-link">Subscription</a>
+                        <a href="{{ url_for('subscription') }}" class="nav-link">Subscription</a>
                     </li>
                 </ul>
                 
                  <!-- Search Form -->
-    <form class="form-inline my-2 my-lg-0" action="search-results.html" method="get">
+    <form class="form-inline my-2 my-lg-0" action="{{ url_for('search_results') }}" method="get">
         <div class="input-group">
             <input class="form-control" type="search" placeholder="Search for a book" aria-label="Search" name="q">
             <div class="input-group-append">
@@ -83,7 +83,7 @@
             <h5>Bookola <span class="text-warning">bookstore</span></h5>
             <h2 class="lead">Your Gateway to a World of Books.</h2>
             <p>Explore a vast collection of books tailored just for you.</p>
-            <a href="subscription.html" class="btn btn-primary">Subscribe Now</a>
+            <a href="{{ url_for('subscription') }}" class="btn btn-primary">Subscribe Now</a>
         </div>
         <img id="bookImage" class="img-fluid w-50 mt-4" src="" alt="">
     </div>
@@ -198,9 +198,8 @@
                         <h3 class="card-title mb-3">History</h3>
                         <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto, nisi.</p>
 
-                        <a href="history.html" class="btn btn-primary">View All</a>
+                        <a href="{{ url_for('books') }}" class="btn btn-primary">View All</a>
 
-                        
                     </div>
                 </div>
             </div>

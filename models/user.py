@@ -2,8 +2,10 @@
 """
 Define the User class for the 'users' table in the database.
 """
-from models import db
+from models import db, mail
 from models.base import Base
+from flask import current_app, url_for
+from flask_mail import Message
 
 
 user_communities = db.Table(
@@ -37,6 +39,7 @@ class User(Base, db.Model):
     username = db.Column(db.String(60), nullable=False)
     password_hash = db.Column(db.String(80), nullable=False)
     profile_pic_url = db.Column(db.String(128), nullable=True)
+    # password_token = db.Column(db.String(128), nullable=True)
 
     reviews = db.relationship("Review", backref="user")
     communities = db.relationship(
@@ -44,3 +47,12 @@ class User(Base, db.Model):
         secondary=user_communities,
         backref=db.backref("members", lazy="dynamic"),
     ) 
+
+
+def send_password_reset_email(email, token):
+    subject = 'Password Reset Request'
+    reset_url = url_for('reset_password', token=token, _external=True)
+    body = f'Click the following link to reset your password: {reset_url}'
+
+    message = Message(subject, recipients=[email], body=body)
+    mail.send(message)

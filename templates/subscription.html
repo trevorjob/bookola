@@ -38,32 +38,33 @@
             <div class="collapse navbar-collapse" id="navmenu">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a href="homepage.html" class="nav-link">Home</a>
+                        <a href="{{ url_for('homepage') }}" class="nav-link">Home</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="signup.html" class="nav-link">Sign Up</a>
+                        <a href="{{ url_for('signup') }}" class="nav-link">Sign Up</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="user.html" class="nav-link">My Account</a>
+                        <a href="{{ url_for('user') }}" class="nav-link">My Account</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="chatroom.html" class="nav-link">Chat rooms</a>
+                        <a href="{{ url_for('chatroom') }}" class="nav-link">Chat rooms</a>
                     </li>
 
                     <li class="nav-item">
                         <a href="#blog" class="nav-link">Blog</a>
                     </li>
 
-                    <li class="nav-item">
+<!--                <li class="nav-item">
                         <a href="#subscribe" class="nav-link">Subscription</a>
                     </li>
+-->
                 </ul>
 
                 <!-- Search Form -->
-    <form class="form-inline my-2 my-lg-0" action="search-results.html" method="get">
+    <form class="form-inline my-2 my-lg-0" action="{{ url_for('search_results') }}" method="get">
         <div class="input-group">
             <input class="form-control" type="search" placeholder="Search for a book" aria-label="Search" name="q">
             <div class="input-group-append">

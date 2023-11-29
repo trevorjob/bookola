@@ -77,7 +77,7 @@ def get_payment_amount(subscription_name):
     }
     return package_prices.get(subscription_name, 0.00)
 
-@app.route("/", methods=["GET"])
+@app.route("/homepage", methods=["GET"])
 def homepage():
     lastest_books = Book.query.order_by(Book.created_at.desc()).limit(4).all()
     book_of_the_week = Book.query.order_by(Book.created_at.desc()).limit(4).all()
@@ -91,18 +91,24 @@ def homepage():
     )
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/", methods=["GET", "POST"])
 def login():
     """login redirection"""
     if request.method == 'POST':
         email = get_data('email')
         password = get_data('password')
 
-        user = User.query.filter_by(email=email).first()
-
-        if user and check_password_hash(user.password_hash, password):
-            return redirect(url_for('homepage'))
+        if email is not None and password is not None:
+            user = User.query.filter_by(email=email).first()
+            
+            if user and check_password_hash(user.password_hash, password):
+                login_user(user)
+                return redirect(url_for('homepage'))
         return redirect(url_for('login'))
+    
+    if current_user.is_authenticated:
+        return redirect(url_for('homepage'))
+
     return render_template('login.html')
     
 
@@ -209,7 +215,7 @@ def user_profile():
 
 @app.route("/books", methods=["GET"])
 def books():
-    return render_template("books.html")
+    return render_template('book.html')
 
 
 @app.route("/subscription", methods=["GET", "POST"])
@@ -301,16 +307,18 @@ def reset_password(token):
 
 @app.route('/logout')
 def logout():
-    logout_user()
-    print('Logged out successful')
+    if current_user.is_authenticated:
+        logout_user()
+        print('Logged out successful')
+
     return redirect(url_for('login'))
 
-"""
+
 @app.errorhandler(404)
 @app.errorhandler(500)
 def handle_errors(error):
     return render_template("error.html")
-"""
+
 
 if __name__ == "__main__":
     app.run(debug=True)

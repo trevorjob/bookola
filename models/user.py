@@ -6,6 +6,7 @@ from models import db, mail
 from models.base import Base
 from flask import current_app, url_for
 from flask_mail import Message
+from flask_login import UserMixin
 
 
 user_communities = db.Table(
@@ -17,7 +18,7 @@ user_communities = db.Table(
 )
 
 
-class User(Base, db.Model):
+class User(Base, db.Model, UserMixin):
     """
     Table name in the database
 
@@ -47,6 +48,10 @@ class User(Base, db.Model):
         secondary=user_communities,
         backref=db.backref("members", lazy="dynamic"),
     ) 
+
+def is_active(self):
+        # Define your own logic for determining if the user is active or not
+        return True
 
 
 def send_password_reset_email(email, token):

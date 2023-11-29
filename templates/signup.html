@@ -22,7 +22,7 @@
             <form class="row g-3 mt-3 needs-validation" action="" method="post" novalidate>
               <div class="col-md-6">
                 <label for="firstname" class="form-label">First Name</label>
-                <input type="text" class="form-control rounded-pill" name="firstname" id="enterfirstname" placeholder="Sheldon" value="" required>
+                <input type="text" class="form-control rounded-pill" name="firstname" id="enterfirstname" placeholder="Sheldon" value="" required autocomplete="given-name">
                 <div class="invalid-feedback">
                   Enter First Name !
                 </div>
@@ -30,7 +30,7 @@
 
               <div class="col-md-6">
                 <label for="lastname" class="form-label">Last Name</label>
-                <input type="text" class="form-control rounded-pill" name="lastname" id="enterlastname" placeholder="Cooper" value="" required>
+                <input type="text" class="form-control rounded-pill" name="lastname" id="enterlastname" placeholder="Cooper" value="" required autocomplete="family-name">
                 <div class="invalid-feedback">
                   Enter Last Name !
                 </div>
@@ -38,7 +38,7 @@
 
               <label for="username" class="form-label">Username</label>
               <div class="input-group has-validation">
-                <input type="text" class="form-control rounded-pill" name="username" placeholder="sheldon12" aria-describedby="inputGroupPrepend" required>
+                <input type="text" class="form-control rounded-pill" name="username" placeholder="sheldon12" aria-describedby="inputGroupPrepend" required autocomplete="username">
                 <div class="invalid-feedback">
                   Please Create a unique username.
                 </div>
@@ -46,7 +46,7 @@
 
               <label for="email" class="form-label">Email</label>
               <div class="input-group has-validation">
-                <input type="email" class="form-control rounded-pill" name="email" placeholder="sheldon@gmail.com" aria-describedby="inputGroupPrepend" required>
+                <input type="email" class="form-control rounded-pill" name="email" placeholder="sheldon@gmail.com" aria-describedby="inputGroupPrepend" autocomplete="email">
                 <div class="invalid-feedback">
                   Please Enter Valid Email.
                 </div>
@@ -72,7 +72,7 @@
               </div>
               <span class="extra-line text-center">
                 <span>Already have an account?</span>
-                <a href="login.html">Login</a>
+                <a href="{{ url_for('login') }}">Login</a>
               </span>
             </form>
           </div>

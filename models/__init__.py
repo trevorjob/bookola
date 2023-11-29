@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
-from flask_migrate import Migrate
 from flask_login import LoginManager
+import stripe
 
 app = Flask(__name__, template_folder='../templates/', static_folder='../templates/static/')
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///sites.db"
@@ -16,6 +16,7 @@ app.config['MAIL_USE_SSL'] = False
 mail = Mail(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
+stripe.api_key = ""
 
 if __name__ == "__main__":
     app.run(debug=True)

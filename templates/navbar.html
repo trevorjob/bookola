@@ -1,0 +1,84 @@
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-lg bg-primary navbar-dark py-3 fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img
+        src="./static/assets/images/favicon.png"
+        alt="Logo"
+        width="25"
+        height="25"
+        class="d-inline-block align-text-top"
+      />
+      Bookola
+    </a>
+
+    <!-- <a href="#" class="navbar-brand">Bookola</a> -->
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navmenu"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navmenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a href="{{ url_for('homepage') }}" class="nav-link">Home</a>
+        </li>
+        {% if current_user.is_authenticated %}
+
+        <li class="nav-item">
+          <a href="{{ url_for('user') }}" class="nav-link">My Account</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ url_for('select_chat') }}" class="nav-link">Chat rooms</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="blog" class="nav-link">Blog</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ url_for('subscription') }}" class="nav-link"
+            >Subscription</a
+          >
+        </li>
+
+        <li class="nav-item">
+          <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{{ url_for('signup') }}" class="nav-link">Sign In</a>
+        </li>
+      </ul>
+      {% endif %}
+
+      <!-- Search Form -->
+      <form
+        class="form-inline my-2 my-lg-0"
+        action="{{ url_for('search_results') }}"
+        method="get"
+      >
+        <div class="input-group">
+          <input
+            class="form-control"
+            type="search"
+            placeholder="Search for a book"
+            aria-label="Search"
+            name="q"
+          />
+          <div class="input-group-append">
+            <button class="btn btn-outline-success" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</nav>

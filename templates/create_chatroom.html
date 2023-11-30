@@ -1,97 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% include "base.html" %} {% block styles %}
 
-    <!-- favicon -->
-    <link rel="shortcut icon" href="../templates/static/assets/images/favicon.png" type="image/x-icon" />
-
-    <!-- google font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="../templates/static/styles/base.css" />
-    <link rel="stylesheet" href="../templates/static/styles/navbar.css" />
-    <link rel="stylesheet" href="../templates/static/styles/utilities.css" />
-    <link rel="stylesheet" href="../templates/static/styles/create_chatroom.css"/>
-    <title>create chat room</title>
-  </head>
-  <body>
-    <div class="top-desc">
-      <p>Bookola</p>
-      <a class="exit-btn" href="#">back</a>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/create_chatroom.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="top-desc">
+  <p>Bookola</p>
+  <a class="exit-btn" href="#">back</a>
+</div>
+<form action="{{url_for('create_chatroom')}}" method="POST">
+  <div class="info">
+    <div>
+      <label for="name">name</label>
+      <input type="name" name="name" placeholder="Your Name" id="name" />
     </div>
-    <form action="" method="">
-      <div class="info">
-        <div>
-          <label for="name">name</label>
-          <input type="name" name="name" placeholder="Your Name" id="name" />
-        </div>
-        <!-- <div>
+    <!-- <div>
           <label for="any-join">anybody can join</label>
-          <input type="checkbox" name="any-join" id="any-join" />
+          <input type="checkbox" name="" name="any-join" id="any-join" />
         </div> -->
-      </div>
-      <div class="genre-tiles container-fluid">
-        <div class="row">
-          <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
-            <div class="tile">
-              <input type="checkbox" id="tile1" class="checkbox" />
-              <label for="tile1" class="tile-label">Horror</label>
-            </div>
-          </div>
-
-          <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
-            <div class="tile">
-              <input type="checkbox" id="tile2" class="checkbox" />
-              <label for="tile2" class="tile-label">Fantasy</label>
-            </div>
-          </div>
-          <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
-            <div class="tile">
-              <input type="checkbox" id="tile3" class="checkbox" />
-              <label for="tile3" class="tile-label">Sci-fi</label>
-            </div>
-          </div>
-          <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
-            <div class="tile">
-              <input type="checkbox" id="tile4" class="checkbox" />
-              <label for="tile4" class="tile-label">Comedy</label>
-            </div>
-          </div>
-          <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
-            <div class="tile">
-              <input type="checkbox" id="tile5" class="checkbox" />
-              <label for="tile5" class="tile-label">Romance</label>
-            </div>
-          </div>
-          <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
-            <div class="tile">
-              <input type="checkbox" id="tile6" class="checkbox" />
-              <label for="tile6" class="tile-label">Adventure</label>
-            </div>
-          </div>
+  </div>
+  <div class="genre-tiles container-fluid">
+    <div class="row">
+      <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
+        <div class="tile">
+          <input type="checkbox" name="" id="tile1" class="checkbox" />
+          <label for="tile1" class="tile-label">Horror</label>
         </div>
       </div>
-      <div class="submit-div">
-        <button type="submit" class="submit">Submit</button>
-      </div>
-    </form>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-  </body>
-</html>
+      <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
+        <div class="tile">
+          <input type="checkbox" name="" id="tile2" class="checkbox" />
+          <label for="tile2" class="tile-label">Fantasy</label>
+        </div>
+      </div>
+      <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
+        <div class="tile">
+          <input type="checkbox" name="" id="tile3" class="checkbox" />
+          <label for="tile3" class="tile-label">Sci-fi</label>
+        </div>
+      </div>
+      <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
+        <div class="tile">
+          <input type="checkbox" name="" id="tile4" class="checkbox" />
+          <label for="tile4" class="tile-label">Comedy</label>
+        </div>
+      </div>
+      <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
+        <div class="tile">
+          <input type="checkbox" name="" id="tile5" class="checkbox" />
+          <label for="tile5" class="tile-label">Romance</label>
+        </div>
+      </div>
+      <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
+        <div class="tile">
+          <input type="checkbox" name="" id="tile6" class="checkbox" />
+          <label for="tile6" class="tile-label">Adventure</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="submit-div">
+    <button type="submit" class="submit">Submit</button>
+  </div>
+</form>
+
+{% endblock %}

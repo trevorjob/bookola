@@ -1,0 +1,36 @@
+#hero-section {
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.5s ease-in-out;
+}
+
+#hero-section .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+}
+
+#hero-section h5,
+#hero-section h2,
+#hero-section p,
+#hero-section a {
+    text-align: center;
+}
+
+
+
+ /* .bi-search{
+    background-color: black;
+    color: #fff;
+    position: relative;
+    top: 8px;
+    right: 48px;
+    padding: 12px;
+} */
+
+.btn:hover{
+    background: #fff;
+    color: #556B2F;
+}

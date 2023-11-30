@@ -1,0 +1,50 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.error-container {
+    max-width: 600px;
+    padding: 20px;
+    background-color:aliceblue;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.error-message {
+    margin-bottom: 20px;
+}
+
+.error-message h1 {
+    color: #ff6347;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.error-message p {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.error-message blockquote {
+    font-style: italic;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.error-image {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    margin-top: 20px;
+}

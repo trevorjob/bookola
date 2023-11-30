@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from models import db
 from models.base import Base
+from models.user import user_communities
 
 """community model"""
 
@@ -15,7 +16,7 @@ class Community(Base, db.Model):
     creator = db.relationship(
         "User", backref=db.backref("created_communities", lazy="dynamic")
     )
-    messages = db.relationship("Message", backref="community")
+    messages = db.relationship("ChatMessage", backref="community")
     # users = db.relationship(
     #     "User", secondary=user_communities, back_populates="community"
     # )

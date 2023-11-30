@@ -1,232 +1,162 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- bootsrap cdn -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{% include "base.html" %} {% block styles %}
+<!-- font awesome icons -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+  integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/subscription.css') }}"
+/>
 
-    <!-- bootstrap icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    
-    <!--script js-->
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="{{ url_for('static', path='./static/js/stript.js') }}"></script>
+{% endblock %} {% block nav %} {% include "navbar.html" %}{% endblock %} {%
+block content %}
 
-    <!-- font awesome icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- pricing -->
+<section class="bg-secondary p-5 p-lg-0 pt-lg-5 text-sm-start">
+  <div class="container py-5">
+    <div class="row text-center">
+      <div class="col-lg-4 mb-5 mb-lg-0">
+        <div class="bg-white p-5 rounded-lg shadow">
+          <h1 class="h6 text-uppercase font-weight-bold mb-4">Regular</h1>
 
-    <!-- custom css -->
-    <link rel="stylesheet" href="./static/styles/subscription.css">
-    <!-- favicon -->
-    <link rel="shortcut icon" href="./static/assets/images/favicon.png" type="image/x-icon">
+          <h2 class="h1 font-weight-bold">
+            $0
+            <span class="text-small font-weight-normal ml-2"> /month</span>
+          </h2>
 
-    <title>Bookola-Subscription</title>
-</head>
-<body>
-    <!-- Navigation bar -->
-    <nav class="navbar navbar-expand-lg bg-primary navbar-dark py-3 fixed-top">
-        <div class="container">
+          <div class="custom-seperator my-4 mx-auto bg-primary"></div>
+          <ul class="list-unstyled my-5 text-small text-left">
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">1 User.</i>
+            </li>
 
-            <a class="navbar-brand" href="#">
-                <img src="./static/assets/images/favicon.png" alt="Logo" width="25" height="25" class="d-inline-block align-text-top">
-                Bookola
-              </a>
-              
-            <!-- <a href="#" class="navbar-brand">Bookola</a> -->
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">Access to basic library.</i>
+            </li>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <li class="mb-3">
+              <i class="bi bi-check mr-2"
+                >Limited number of simultaneous reads and downloads.</i
+              >
+            </li>
 
-            <div class="collapse navbar-collapse" id="navmenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="{{ url_for('homepage') }}" class="nav-link">Home</a>
-                    </li>
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">Customer support.</i>
+            </li>
 
-                    <li class="nav-item">
-                        <a href="{{ url_for('signup') }}" class="nav-link">Sign Up</a>
-                    </li>
+            <li class="mb-3 text-muted">
+              <i class="fa fa-times mr-2"></i
+              ><del>Simultaneous reads and downloads.</del>
+            </li>
 
-                    <li class="nav-item">
-                        <a href="{{ url_for('user') }}" class="nav-link">My Account</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ url_for('chatroom') }}" class="nav-link">Chat rooms</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#blog" class="nav-link">Blog</a>
-                    </li>
-
-<!--                <li class="nav-item">
-                        <a href="#subscribe" class="nav-link">Subscription</a>
-                    </li>
--->
-                </ul>
-
-                <!-- Search Form -->
-    <form class="form-inline my-2 my-lg-0" action="{{ url_for('search_results') }}" method="get">
-        <div class="input-group">
-            <input class="form-control" type="search" placeholder="Search for a book" aria-label="Search" name="q">
-            <div class="input-group-append">
-                <button class="btn btn-outline-success" type="submit">
-                    <i class="bi bi-search"></i>
-                </button>
-            </div>
+            <li class="mb-3 text-muted">
+              <i class="fa fa-times mr-2"></i
+              ><del>Full access to the library.</del>
+            </li>
+            <li class="mb-3 text-muted">
+              <i class="fa fa-times mr-2"></i
+              ><del>Access to early releases.</del>
+            </li>
+          </ul>
+          <a href="#" class="btn btn-primary btn-block p-2 shadow rounded-pill"
+            >Subscribe</a
+          >
         </div>
-    </form>
+      </div>
 
-            </div>
+      <div class="col-lg-4 mb-5 mb-lg-0">
+        <div class="bg-white p-5 rounded-lg shadow">
+          <h1 class="h6 text-uppercase font-weight-bold mb-4">Premium</h1>
+          <h2 class="h1 font-weight-bold">
+            $5.99<span class="text-small font-weight-normal ml-2"> /month</span>
+          </h2>
 
+          <div class="custom-seperator my-4 mx-auto bg-primary"></div>
+          <ul class="list-unstyled my-5 text-small text-left">
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">3 Users.</i>
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">All regular sub.</i>
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">Access to early releases.</i>
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2"
+                >Increased number of simultaneous reads and downloads.</i
+              >
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2"
+                >Enhanced customer support with faster response time.</i
+              >
+            </li>
+
+            <li class="mb-3 text-muted">
+              <i class="fa fa-times mr-2"></i
+              ><del>Full access to the library.</del>
+            </li>
+          </ul>
+          <a href="#" class="btn btn-primary btn-block p-2 shadow rounded-pill"
+            >Subscribe</a
+          >
         </div>
-    </nav> 
-    <!-- Navigation bar end -->
+      </div>
 
+      <div class="col-lg-4 mb-5 mb-lg-0">
+        <div class="bg-white p-5 rounded-lg shadow">
+          <h1 class="h6 text-uppercase font-weight-bold mb-4">Platinum</h1>
+          <h2 class="h1 font-weight-bold">
+            $10<span class="text-small font-weight-normal ml-2"> /month</span>
+          </h2>
 
-    <!-- pricing -->
-    <section class="bg-secondary p-5 p-lg-0 pt-lg-5 text-sm-start">
-    <div class="container py-5">
-        <div class="row text-center">
-            <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="bg-white p-5 rounded-lg shadow">
-                    <h1 class="h6 text-uppercase font-weight-bold mb-4">Regular</h1>
+          <div class="custom-seperator my-4 mx-auto bg-primary"></div>
+          <ul class="list-unstyled my-5 text-small text-left">
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">5 Users.</i>
+            </li>
 
-                    <h2 class="h1 font-weight-bold">$0 <span class="text-small font-weight-normal ml-2"> /month</span> </h2>
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">All regular and premium sub.</i>
+            </li>
 
-                    <div class="custom-seperator my-4 mx-auto bg-primary"></div>
-                    <ul class="list-unstyled my-5 text-small text-left">
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">1 User.</i>
-                        </li>
+            <li class="mb-3">
+              <i class="bi bi-check mr-2"
+                >Full access to the entire library including rare books.</i
+              >
+            </li>
 
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">Access to basic library.</i>
-                        </li>
+            <li class="mb-3">
+              <i class="bi bi-check mr-2"
+                >Unlimited simultaneous reads and downloads.</i
+              >
+            </li>
 
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">Limited number of simultaneous reads and downloads.</i>
-                        </li>
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">Access to chat rooms.</i>
+            </li>
 
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">Customer support.</i>
-                        </li>
-
-                        <li class="mb-3 text-muted">
-                            <i class="fa fa-times mr-2"></i><del>Simultaneous reads and downloads.</del>
-                        </li>
-
-                        <li class="mb-3 text-muted">
-                            <i class="fa fa-times mr-2 "></i><del>Full access to the library.</del>
-                        </li>
-                        <li class="mb-3 text-muted">
-                            <i class="fa fa-times mr-2 "></i><del>Access to early releases.</del>
-                        </li>
-
-                    </ul>
-                    <a href="#" class="btn btn-primary btn-block p-2 shadow rounded-pill">Subscribe</a>
-                </div>
-
-            </div>
-
-            <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="bg-white p-5 rounded-lg shadow">
-                    <h1 class="h6 text-uppercase font-weight-bold mb-4">Premium</h1>
-                    <h2 class="h1 font-weight-bold">$5.99<span class="text-small font-weight-normal ml-2"> /month</span></h2>
-
-                    <div class="custom-seperator my-4 mx-auto bg-primary"></div>
-                    <ul class="list-unstyled my-5 text-small text-left">
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">3 Users.</i>
-                        </li>
-
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">All regular sub.</i>
-                        </li>
-
-                        
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">Access to early releases.</i>
-                        </li>
-
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">Increased number of simultaneous reads and downloads.</i>
-                        </li>
-
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">Enhanced customer support with faster response time.</i>
-                        </li>
-
-                        <li class="mb-3 text-muted">
-                            <i class="fa fa-times mr-2 "></i><del>Full access to the library.</del>
-                        </li>
-
-
-                    </ul>
-                    <button" id="checkout-premuim" class="btn btn-primary btn-block p-2 shadow rounded-pill">Subscribe</button>
-                </div>
-
-            </div>
-
-            <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="bg-white p-5 rounded-lg shadow">
-                    <h1 class="h6 text-uppercase font-weight-bold mb-4">Platinum</h1>
-                    <h2 class="h1 font-weight-bold">$10<span class="text-small font-weight-normal ml-2"> /month</span></h2>
-
-                    <div class="custom-seperator my-4 mx-auto bg-primary"></div>
-                    <ul class="list-unstyled my-5 text-small text-left">
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">5 Users.</i>
-                        </li>
-
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">All regular and premium sub.</i>
-                        </li>
-
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">Full access to the entire library including rare books.</i>
-                        </li>
-
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">Unlimited simultaneous reads and downloads.</i>
-                        </li>
-
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">Access to chat rooms.</i>
-                        </li>
-
-                        <li class="mb-3">
-                            <i class="bi bi-check mr-2">Monthly book review.</i>
-                        </li>
-
-                    </ul>
-                    <button id="checkout-platinum" class="btn btn-primary btn-block p-2 shadow rounded-pill">Subscribe</button>
-                </div>
-
-            </div>
-
-
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">Monthly book review.</i>
+            </li>
+          </ul>
+          <a href="#" class="btn btn-primary btn-block p-2 shadow rounded-pill"
+            >Subscribe</a
+          >
         </div>
-
+      </div>
     </div>
-    </section>
+  </div>
+</section>
 
-    <!-- Footer -->
-<footer class="p-5 bg-dark text-white text-center position-relative">
-    <div class="container">
-        <p class="lead">Copyright &copy; 2023 Team Bookola</p>
-
-        <a href="" class="position-absolute bottom-0 end-0 p-5">
-            <i class="bi bi-arrow-up-circle"></i>
-        </a>
-    </div>
-</footer>
-<!-- end of footer -->
-
-
-<!-- bootstrap javascript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
-</html>
+{% block footer %} {% include "footer.html" %}{% endblock %} {% endblock %}

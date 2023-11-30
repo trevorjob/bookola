@@ -5,7 +5,7 @@ from models.base import Base
 """community model"""
 
 
-class Message(Base, db.Model):
+class ChatMessage(Base, db.Model):
     """the community model to handle users and chats"""
 
     __tablename__ = "message"

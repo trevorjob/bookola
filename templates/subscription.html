@@ -7,10 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!-- bootstrap icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    
+    <!--script js-->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{{ url_for('static', path='./static/js/stript.js') }}"></script>
 
-<!-- font awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- custom css -->
     <link rel="stylesheet" href="./static/styles/subscription.css">
@@ -161,7 +165,7 @@
 
 
                     </ul>
-                    <a href="#" class="btn btn-primary btn-block p-2 shadow rounded-pill">Subscribe</a>
+                    <button" id="checkout-premuim" class="btn btn-primary btn-block p-2 shadow rounded-pill">Subscribe</button>
                 </div>
 
             </div>
@@ -198,7 +202,7 @@
                         </li>
 
                     </ul>
-                    <a href="#" class="btn btn-primary btn-block p-2 shadow rounded-pill">Subscribe</a>
+                    <button id="checkout-platinum" class="btn btn-primary btn-block p-2 shadow rounded-pill">Subscribe</button>
                 </div>
 
             </div>
@@ -214,7 +218,7 @@
     <div class="container">
         <p class="lead">Copyright &copy; 2023 Team Bookola</p>
 
-        <a href="#" class="position-absolute bottom-0 end-0 p-5">
+        <a href="" class="position-absolute bottom-0 end-0 p-5">
             <i class="bi bi-arrow-up-circle"></i>
         </a>
     </div>

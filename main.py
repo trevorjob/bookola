@@ -4,6 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.exc import IntegrityError
 from flask_login import current_user, login_user, logout_user, UserMixin
 from models import app, db, login_manager
+import stripe
+import os
 from models.author import *
 from models.base import *
 from models.book import *
@@ -12,8 +14,10 @@ from models.genre import *
 from models.message import *
 from models.reviews import *
 from models.user import *
+from models.subscribe import *
 from sqlalchemy import text
 
+stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
 
 # with app.app_context():
 #     db.drop_all()
@@ -67,15 +71,35 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
+def create_subscription(email, plan):
+    customer = stripe.Customer.create(email=email, source=request.form['stripeToken'])
+    
+    # Customize this logic based on your subscription plans and Stripe API
+    if plan == 'regular':
+        subscription = stripe.Subscription.create(
+            customer=customer.id,
+            items=[{'plan': 'regular_plan_id'}],
+        )
+    elif plan == 'premium':
+        subscription = stripe.Subscription.create(
+            customer=customer.id,
+            items=[{'plan': 'premium_plan_id'}],
+        )
+    elif plan == 'platinum':
+        subscription = stripe.Subscription.create(
+            customer=customer.id,
+            items=[{'plan': 'platinum_plan_id'}],
+        )
+
 def get_payment_amount(subscription_name):
-    """Get the payment amount based on the selected
-    subscription package."""
+    #Get the payment amount based on the selected subscription package.
     package_prices = {
         "Regular": 0.00,
         "Premium": 5.99,
         "Platinum": 10.00,
     }
     return package_prices.get(subscription_name, 0.00)
+
 
 @app.route("/homepage", methods=["GET"])
 def homepage():
@@ -217,27 +241,21 @@ def user_profile():
 def books():
     return render_template('book.html')
 
-
-@app.route("/subscription", methods=["GET", "POST"])
-def subscription():
-    """Subscription packages"""
-    packages = [
-        {"name": "Regular", "price": 0.00},
-        {"name": "Premium", "price": 5.99},
-        {"name": "Platinum", "price": 10.00},
-    ]
-    return render_template(
-        "subscription.html", packages=packages
+"""
+@app.post("/create-checkout-session")
+async def create_checkout_session(request: Request):
+    data = await request.json()
+    checkout_session = stripe.checkout.Session.create(
+        success_url="http://localhost:8000/success?session_id={CHECKOUT_SESSION_ID}",
+        cancel_url="http://localhost:8000/cancel",
+        payment_method_types=["card"],
+        line_items=[{
+            "price": data["priceId"],
+            "quantity": 1
+        }]
     )
-
-
-@app.route("/subscribe/<subscription_name>", methods=["GET"])
-def subcribe(subscription_name):
-    """Logic to process the selected subscription package"""
-    payment_amout = get_payment_amount(subscription_name)
-
-    return redirect('/')
-
+    return{"sessionId": checkout_session["id"]}
+"""
 
 @app.route('/chatroom', methods=["GET"])
 def chatroom():

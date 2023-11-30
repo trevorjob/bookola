@@ -1,47 +1,40 @@
-var stripe = Stripe('your_publishable_key');  // Replace with your actual Stripe publishable key
-var elements = stripe.elements();
-
-// Create an instance of the card Element.
-var card = elements.create('card');
-
-// Add an instance of the card Element into the `card-element` div.
-card.mount('#card-element');
-
-// Handle form submission
-var form = document.getElementById('payment-form');
-
-form.addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    stripe.createToken(card).then(function(result) {
-        if (result.error) {
-            // Inform the user if there was an error.
-            var errorElement = document.getElementById('card-errors');
-            errorElement.textContent = result.error.message;
-        } else {
-            // Send the token to your server.
-            stripeTokenHandler(result.token);
-        }
-    });
-});
-
-function stripeTokenHandler(token) {
-    // You can send the token to your server here.
-    // For example, using fetch():
-    fetch('/charge', {
-        method: 'POST',
+var createCheckoutSession = function(priceId) {
+    return fetch("/create-checkout-session", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json"
         },
-        body: JSON.stringify({ token: token.id }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        // You may redirect or show a success message here
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        // Handle the error, show an error message, etc.
+        body: JSON.stringify({
+            priceId: priceId
+        })
+    }).then(function(result) {
+        return result.json();
     });
 }
+
+const PREMIUM_PRICE_MONTHLY_ID = "price_1OHpulLr3itnznEm553iHv2g";
+const PLATINUM_PRICE_MONTHLY_ID = "price_1OHpydLr3itnznEm1hxM1If1";
+const stripe = Stripe("pk_test_51OHcDoLr3itnznEm1btTbj4lDDqwvgVMWYjnTMQXpqRuc5eatNhu1zQbtVImmezCMeO37jaFMUYmdHUrefnFSr6c00TTGoIeVW");
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    document
+    .getElementById('checkout-premuim')
+    .addEventListener("click", function(evt) {
+        createCheckoutSession(PREMIUM_PRICE_MONTHLY_ID).then(function(data) {
+            stripe
+            .redirectToCheckout({
+                sessionId: data.sessionId
+            })
+        })
+    });
+    document
+    .getElementById("checkout-platinum")
+    .addEventListener("click", function(evt) {
+        createCheckoutSession(PLATINUM_PRICE_MONTHLY_ID).then(function(data) {
+            stripe
+            .redirectToCheckout({
+                sessionId: data.sessionId
+            });
+        })
+    });
+})

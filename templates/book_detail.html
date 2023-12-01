@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- bootsrap cdn -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <!-- bootstrap icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="styles/homepage.css" />
+    <!-- favicon -->
+    <link
+      rel="shortcut icon"
+      href="../static/assets/images/favicon.png"
+      type="image/x-icon"
+    />
+
+    <title>Bookola - Book Detail</title>
+  </head>
+  <body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark py-3 fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img
+            src="../static/assets/images/favicon.png"
+            alt="Logo"
+            width="25"
+            height="25"
+            class="d-inline-block align-text-top"
+          />
+          Bookola
+        </a>
+
+        <!-- <a href="#" class="navbar-brand">Bookola</a> -->
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navmenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navmenu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a href="#home" class="nav-link">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="signup.html" class="nav-link">Sign Up</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="user.html" class="nav-link">My Account</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="chat_room.html" class="nav-link">Chat rooms</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="#blog" class="nav-link">Blog</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="subscription.html" class="nav-link">Subscription</a>
+            </li>
+          </ul>
+
+          <!-- Search Form -->
+          <form
+            class="form-inline my-2 my-lg-0"
+            action="search-results.html"
+            method="get"
+          >
+            <div class="input-group">
+              <input
+                class="form-control"
+                type="search"
+                placeholder="Search for a book"
+                aria-label="Search"
+                name="q"
+              />
+              <div class="input-group-append">
+                <button class="btn btn-outline-success" type="submit">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- Navigation bar end -->
+
+    <!-- Book Details Section -->
+    <section class="p-5">
+      <div class="container">
+        <!-- Book Image and Description -->
+        <div class="row">
+          <div class="col-md-4">
+            <img
+              src="../static/assets/images/book-with-red-cover_1101-95.avif"
+              class="img-fluid"
+              alt="Book Cover"
+            />
+          </div>
+          <div class="col-md-8">
+            <h2 class="text-dark p-5">There was a Country</h2>
+            <p class="text-muted">Chinua Achebe</p>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae
+              luctus libero. Curabitur aliquet justo sit amet dui sollicitudin,
+              at efficitur lacus varius.
+            </p>
+            <button class="btn btn-primary">Read Book</button>
+          </div>
+        </div>
+
+        <!-- End of Book Details Section -->
+
+        <!-- Similar Books Section -->
+        <div class="mt-5">
+          <h3 class="text-dark">Similar Books</h3>
+          <div class="row">
+            <!-- Similar Book 1 -->
+            <div class="col-md-2 mb-1">
+              <div class="card text-dark">
+                <img
+                  src="../static/assets/images/close-book-with-blue-cover_1101-92.avif"
+                  class="card-img-top"
+                  alt="Similar Book 1"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Half of a yellow sun</h5>
+                  <p class="card-text">Chimmamanda Adiche</p>
+                  <a href="#" class="btn btn-primary">Read</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Similar Book 2 -->
+            <div class="col-md-2 mb-1">
+              <div class="card text-dark">
+                <img
+                  src="../static/assets/images/book-with-red-cover_1101-95.avif"
+                  class="card-img-top"
+                  alt="Similar Book 2"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Tears of the sun</h5>
+                  <p class="card-text">Trevor Job</p>
+                  <a href="#" class="btn btn-primary">Read</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of Similar Books Section -->
+
+        <!-- Books by the Same Author Section -->
+        <div class="mt-5">
+          <h3 class="text-dark">Books by the Same Author</h3>
+          <div class="row">
+            <!-- Book by Same Author 1 -->
+            <div class="col-md-2 mb-1">
+              <div class="card text-dark">
+                <img
+                  src="../static/assets/images/close-book-with-blue-cover_1101-92.avif"
+                  class="card-img-top"
+                  alt="Book by Same Author 1"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Things Fall Apart</h5>
+                  <p class="card-text">Chinua Achebe</p>
+                  <a href="#" class="btn btn-primary">Read</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Book by Same Author 2 -->
+            <div class="col-md-2 mb-1">
+              <div class="card text-dark">
+                <img
+                  src="../static/assets/images/book-with-red-cover_1101-95.avif"
+                  class="card-img-top"
+                  alt="Book by Same Author 2"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">A Man of the People</h5>
+                  <p class="card-text">Chinua Achebe</p>
+                  <a href="#" class="btn btn-primary">Read</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End of Books by the Same Author Section -->
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="p-5 bg-dark text-white text-center position-relative">
+      <div class="container">
+        <p class="lead">Copyright &copy; 2023 Team Bookola</p>
+
+        <a href="#" class="position-absolute bottom-0 end-0 p-5">
+          <i class="bi bi-arrow-up-circle"></i>
+        </a>
+      </div>
+    </footer>
+    <!-- end of footer -->
+
+    <!-- bootstrap javascript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

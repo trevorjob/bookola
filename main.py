@@ -2,6 +2,8 @@
 """This is the main entry point of the web application.
 It contains the initialisation of a web application, including setting
 up route, defining views and configuring various settings."""
+import json
+from random import choice, choices, randint
 from uuid import uuid4
 from flask import jsonify, redirect, render_template, request, session, url_for
 from flask_login import UserMixin, current_user, login_user, logout_user
@@ -12,7 +14,6 @@ from models import app, db, login_manager, stripe, YOUR_DOMAIN
 import stripe
 from werkzeug.security import check_password_hash, generate_password_hash
 from models import app, db, login_manager, socketio
-from models.author import *
 from models.base import *
 from models.book import *
 from models.community import *
@@ -24,10 +25,37 @@ from models.subscribe import *
 from sqlalchemy import text
 
 
-# with app.app_context():
+with app.app_context():
+    book_of = choice(Book.query.all())
+    latest = choices(Book.query.all(), k=4)
+    gens = choices(Genre.query.all(), k=4)
 #     db.drop_all()
 #     db.create_all()
-#     Message
+#     with open("genres.json", "r", encoding="utf-8") as f:
+#         genres = json.load(f)
+#         for genre in genres:
+#             gen = Genre(id=genre["id"], name=genre["name"])
+#             db.session.add(gen)
+
+#     with open("books.json", "r", encoding="utf-8") as f:
+#         books = json.load(f)
+#         for book in books:
+#             for genre in genres:
+#                 if book["genre_id"] == genre["name"]:
+#                     boo = Book(
+#                         id=book["id"],
+#                         title=book["title"],
+#                         genre_id=genre["id"],
+#                         cover_image_url=book["cover_image_url"],
+#                         description=book["description"],
+#                         publication_date=book["publication_date"],
+#                         language=book["language"],
+#                         author=book["author"],
+#                         rating=randint(5, 10),
+#                     )
+#                     db.session.add(boo)
+
+#     db.session.commit()
 
 
 def get_data(data):
@@ -86,10 +114,9 @@ def load_user(user_id):
 
 @app.route("/homepage", methods=["GET"])
 def homepage():
-    """Homepage route"""
-    lastest_books = Book.query.order_by(Book.created_at.desc()).limit(4).all()
-    book_of_the_week = Book.query.order_by(Book.created_at.desc()).limit(4).all()
-    genres = Genre.query.all()
+    lastest_books = latest
+    book_of_the_week = book_of
+    genres = gens
 
     return render_template(
         "homepage.html",
@@ -162,96 +189,32 @@ def signup():
     return render_template("signup.html")
 
 
+
+# @app.route("/user", methods=["GET", "POST", "DELETE", "PUT"])
+# def user():
+#     return render_template("user.html")
+
+
 @app.route("/user", methods=["GET", "POST", "DELETE", "PUT"])
-def user():
-    """Users route to get, retrieve, upload information"""
-    return render_template("user.html")
-
-
-@app.route("/user/<id>", methods=["GET", "POST", "DELETE", "PUT"])
 def user_profile():
-    """Users profile route"""
-    if request.method == "GET":
-        email = user.email
-        first_name = user.first_name
-        last_name = user.last_name
-        username = user.username
-        user_data = get_data(User)
-        return render_template("user.html", user=user_data)
+    # if request.method == "GET":
+    #     return render_template("user.html", current_user=current_user)
 
-    elif request.method == "POST":
-        user_id = get_data(id)
-        if user_id:
-            user = get_info(User, id)
-            if user:
-                user.email = (get_data("email"),)
-                user.first_name = (get_data("first_name"),)
-                user.last_name = (get_data("last_name"),)
-                user.username = get_data("username")
-                db.session.commit()
-                return "User infor updated successfully"
-            else:
-                return (
-                    render_template("error.html", error_message="User not found"),
-                    404,
-                )
-        else:
-            new_user = User(
-                email=get_data("email"),
-                first_name=get_data("first_name"),
-                last_name=get_data("last_name"),
-                username=get_data("username"),
-            )
-            db.session.add()
-            db.session.commit()
-            return "User created successfully"
-
-    elif request.method == "DELETE":
-        if get_data("id"):
-            user = get_info(User, get_data("id"))
-            if user:
-                db.session.delete(user)
-                db.session.commit()
-                return "User deleted successfully"
-            else:
-                return (
-                    render_template("error.html", error_message="User not found"),
-                    404,
-                )
-        else:
-            return (
-                render_template("error.html", error_message="User ID not provided"),
-                400,
-            )
-
-    elif request.method == "PUT":
-        if get_data("id"):
-            user = get_info(User, get_data("id"))
-            if user:
-                user.email = get_data("email")
-                user.first_name = get_data("first_name")
-                user.last_name = get_data("last_name")
-                user.username = get_data("username")
-                db.session.commit()
-                return "User information updated successfully"
-            else:
-                return (
-                    render_template("error.html", error_message="User not found"),
-                    404,
-                )
-        else:
-            return (
-                render_template("error.html", error_message="User ID not provided"),
-                400,
-            )
+    if request.method == "POST":
+        current_user.email = get_data("email")
+        current_user.username = get_data("username")
+        print(get_data("email"))
+        print(get_data("username"))
+        db.session.commit()
 
     return render_template("user.html", current_user=current_user)
 
-
-@app.route("/books", methods=["GET"])
-def books():
-    """Book route"""
-    return render_template("books.html", current_user=current_user)
+@app.route("/books/<genre_id>", methods=["GET"])
+def books(genre_id):
+    genre = getOneFromDB(Genre, genre_id)
+    return render_template(
+        "books.html", current_user=current_user, books=genre.books, genre=genre.name
+    )
 
 @app.route("/subscription", methods=["GET", "POST"])
 def subscription():
@@ -425,10 +388,12 @@ def create_chatroom():
     return render_template("create_chatroom.html")
 
 
-@app.route("/search_results", methods=["GET"])
+@app.route("/search_results", methods=["POST"])
 def search_results():
-    """Search result for books"""
-    return render_template("search-result.html")
+
+    search_term = request.form.get("q")
+    results = Book.query.filter(Book.title.ilike(f"%{search_term}%")).all()
+    return render_template("search-result.html", results=results, q=search_term)
 
 
 @app.route("/forgot_password", methods=["GET", "POST"])

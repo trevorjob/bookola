@@ -33,22 +33,24 @@ content %}
   <div class="container">
     <h2 class="text-center text-dark">New Arrivals</h2>
     <div class="row text-center g-4">
-      <div class="col-md-6">
+      {% for book in lastest_books %}
+      <div class="col-md">
         <div class="card text-dark">
           <div class="card-body text-center">
             <div class="h1 mb-3">
               <img
-                src="{{ url_for('static', filename='assets/images/bookcover.avif') }}"
+                src="{{ book.cover_image_url }}"
                 class="card-img-top"
                 alt="books"
               />
             </div>
-            <h3 class="card-title mb-3">The Bike Guy</h3>
-            <p class="card-text">Emma Mayers</p>
+            <h3 class="card-title mb-3">{{ book.title }}</h3>
+            <p class="card-text">{{ book.author }}</p>
             <a href="#" class="btn btn-primary">Read Now</a>
           </div>
         </div>
       </div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -64,20 +66,14 @@ content %}
         <h2 class="text-center">Book of the month</h2>
         <img
           class="img-fluid"
-          src="{{ url_for('static', filename='assets/images/48lawsofp.jpg') }}"
+          src="{{ book_of_the_week.cover_image_url}}"
           alt=""
         />
       </div>
       <div class="col-md p-5">
-        <h2>48 Laws of Power.</h2>
-        <p class="lead">Robert Greene</p>
-        <p>
-          For anyone with an interest in conquest, self-defenses, wealth, power
-          or simply being an educated spectator, The 48 Laws of Power is one of
-          the most useful and entertaining books ever. This book 'teaches you
-          how to cheat, dissemble, feign, fight and advance your cause in the
-          modern world.'
-        </p>
+        <h2>{{book_of_the_week.title}}</h2>
+        <p class="lead">{{book_of_the_week.author}}</p>
+        <p>{{book_of_the_week.description}}</p>
         <a href="" class="btn btn-light mt-3">
           <i class="bi bi-chevron-right"></i> Read More</a
         >
@@ -90,9 +86,10 @@ content %}
 <!-- genre -->
 <section class="p-5">
   <div class="container">
-    <h2 class="text-center text-dark">Genre</h2>
+    <h2 class="text-center text-dark">Genres</h2>
     <div class="row text-center g-4">
-      <div class="col-md-6 col">
+      {% for genre in genres %}
+      <div class="col-md col">
         <div class="card text-dark">
           <div class="card-body text-center">
             <div class="h1 mb-3">
@@ -102,18 +99,21 @@ content %}
                 alt="books"
               />
             </div>
-            <h3 class="card-title mb-3">History</h3>
+            <h3 class="card-title mb-3">{{genre.name}}</h3>
             <p class="card-text">
               Lorem, ipsum dolor sit amet consectetur adipisicing elit.
               Architecto, nisi.
             </p>
 
-            <a href="{{ url_for('books') }}" class="btn btn-primary"
+            <a
+              href="{{ url_for('books', genre_id=genre.id) }}"
+              class="btn btn-primary"
               >View All</a
             >
           </div>
         </div>
       </div>
+      {% endfor %}
     </div>
   </div>
 </section>

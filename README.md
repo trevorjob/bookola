@@ -1,6 +1,6 @@
 # BOOKOLA - Your Ultimate Bookworm's Haven
 
-
+![Bookola](static/assets/images/simply-style-the-name--bookola--in-a-plaine-background.png)
 ![Bookola](https://res.cloudinary.com/www-thepencilapp-com/video/upload/w_700,e_loop/v1629885763/staticpage/publish/cover_fyuakr.gif)
 
 Welcome to Bookola, a sophisticated and feature-rich book website designed for all bibliophiles out there! Bookola is crafted using a combination of Flask, Flask-SQLAlchemy, JavaScript, HTML, CSS, Jinja templates, Flask-SocketIO, Flask-Login, Flask-Mail, and Stripe for subscription services. This comprehensive README will guide you through the installation process, key features, and customization options.
@@ -43,8 +43,8 @@ Bookola is a web platform dedicated to connecting readers with their next favori
 ### Prerequisites {#prerequisites}
 Before you begin, ensure you have the following:
 - **Node.js installed**
-- **Flask_SQLAchemyDB installed and running**
-- **HTML and CSS.e.t.c**
+- **Flask_SQLAchemy installed and running**
+- **HTML and CSS. E.t.c**
 
 ### Installation {#installation}
 1. **Clone the repository**

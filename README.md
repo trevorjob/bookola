@@ -16,11 +16,12 @@ Welcome to Bookola, a sophisticated and feature-rich book website designed for a
   - [Contributing {#contributing}](#contributing-contributing)
   - [License {#license}](#license-license)
 
-![Alt text](original.webp)
+
 ## Introduction {introduction}
+![Books AI GIF](https://cdn.theatlantic.com/thumbor/ep1l9PNMkiJzWJEIh4H_spkYAEY=/0x0:960x540/960x540/media/img/mt/2023/09/books_ai_4/original.gif)
 Bookola is a web platform dedicated to connecting readers with their next favorite books. It aims to create a space where users can explore, review, and discuss a wide range of literary works. Whether you're a bibliophile searching for your next read or an author looking to share your work, Bookola has something for everyone.
 
-## Features {#features}![Alt text](../../Pictures/Read1.svg)
+## Features {#features}
 - **Book Discovery:** Browse through an extensive collection of books, filter by genres, authors, and more.
 - **User Reviews:** Read and write reviews to share your thoughts on books, helping others make informed decisions.
 - **Book Catalog:** Explore an extensive book catalog with detailed information about each book. Users can search, filter, and view book details, including author, genre, and ratings.

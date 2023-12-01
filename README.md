@@ -55,7 +55,6 @@ Before you begin, ensure you have the following:
 2. **Create a virtual environment(optional):**
     - python -m venv venv
     - source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-    '''
 3. **Install dependencies:**
     - pip install -r requirement.txt
     - npm install

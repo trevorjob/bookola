@@ -49,35 +49,25 @@ Before you begin, ensure you have the following:
 - **HTML and CSS. E.t.c**
 
 ### Installation {#installation}
-1. **Clone the repository**
-  '''bash
-  git clone https://github.com/redeks12/bookola.git
-  cd bookola
-  '''
-2. **Create a virtual environment(optional)**:
-    '''bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+1. **Clone the repository:**
+  - git clone https://github.com/redeks12/bookola.git
+  - cd bookola
+2. **Create a virtual environment(optional):**
+    - python -m venv venv
+    - source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
     '''
 3. **Install dependencies:**
-    '''bash
-    pip install -r requirement.txt
-    npm install
-    '''
+    - pip install -r requirement.txt
+    - npm install
 4. **Set up the database:**
-    '''bash
-    flask db init
-    flask db migrate
-    flask db upgrade
-    '''
+    - flask db init
+    - flask db migrate
+    - flask db upgrade
 5. **Configure environment variables:**
-    '''bash
-    Create a .env file and add the necessary configurations, such as database URL, Stripe API keys, etc.
+    - Create a .env file and add the necessary configurations, such as database URL, Stripe API keys, etc.
 6. **Run the application:**
-    '''bash
-    flask run
-    Open your web browser and navigate to [http://localhost:5000](http://localhost:5000) to access Bookola.
-    '''
+    - flask run
+    - Open your web browser and navigate to [http://localhost:5000](http://localhost:5000) to access Bookola.
 
 ## Configuration {#configuration}
 Customize Bookola to suit your needs by adjusting the configuration settings in the __init.py file. Configure database connections, API keys, and other parameters to ensure seamless functionality.

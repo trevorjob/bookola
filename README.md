@@ -1,5 +1,5 @@
 # BOOKOLA - Your ULtimate Bookworm's Haven
-![Alt text](image.png)
+
 
 Welcome to Bookola, a sophisticated and feature-rich book website designed for all bibliophiles out there! Bookola is crafted using a combination of Flask, Flask-SQLAlchemy, JavaScript, HTML, CSS, Jinja templates, Flask-SocketIO, Flask-Login, Flask-Mail, and Stripe for subscription services. This comprehensive README will guide you through the installation process, key features, and customization options.
 
@@ -16,12 +16,11 @@ Welcome to Bookola, a sophisticated and feature-rich book website designed for a
   - [Contributing {#contributing}](#contributing-contributing)
   - [License {#license}](#license-license)
 
-
+![Alt text](original.webp)
 ## Introduction {introduction}
-![Alt text](image-1.png)
 Bookola is a web platform dedicated to connecting readers with their next favorite books. It aims to create a space where users can explore, review, and discuss a wide range of literary works. Whether you're a bibliophile searching for your next read or an author looking to share your work, Bookola has something for everyone.
 
-## Features {#features}
+## Features {#features}![Alt text](../../Pictures/Read1.svg)
 - **Book Discovery:** Browse through an extensive collection of books, filter by genres, authors, and more.
 - **User Reviews:** Read and write reviews to share your thoughts on books, helping others make informed decisions.
 - **Book Catalog:** Explore an extensive book catalog with detailed information about each book. Users can search, filter, and view book details, including author, genre, and ratings.

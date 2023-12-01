@@ -1,14 +1,15 @@
 #!/usr/bin/python3
+"""This is the main entry point of the web application.
+It contains the initialisation of a web application, including setting
+up route, defining views and configuring various settings."""
 from uuid import uuid4
-
 from flask import jsonify, redirect, render_template, request, session, url_for
 from flask_login import UserMixin, current_user, login_user, logout_user
 from flask_socketio import join_room, leave_room, send
 from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
-from models import app, db, login_manager
+from models import app, db, login_manager, stripe, YOUR_DOMAIN
 import stripe
-import os
 from werkzeug.security import check_password_hash, generate_password_hash
 from models import app, db, login_manager, socketio
 from models.author import *
@@ -22,7 +23,6 @@ from models.user import *
 from models.subscribe import *
 from sqlalchemy import text
 
-stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
 
 # with app.app_context():
 #     db.drop_all()
@@ -31,14 +31,17 @@ stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
 
 
 def get_data(data):
+    """A method that get data from the database"""
     return request.form.get(data)
 
 
 def get_json(data):
+    """A method that get data from the database in form of json"""
     return request.json.get(data)
 
 
 def get_info(info, check):
+    """Retrive infomation/data of a class"""
     return db.session.execute(db.select(info).where(info.id == check)).scalar()
 
 
@@ -77,41 +80,13 @@ sand = {}
 
 @login_manager.user_loader
 def load_user(user_id):
+    """A method for login through get users id"""
     return User.query.get(user_id)
-
-
-def create_subscription(email, plan):
-    customer = stripe.Customer.create(email=email, source=request.form['stripeToken'])
-    
-    # Customize this logic based on your subscription plans and Stripe API
-    if plan == 'regular':
-        subscription = stripe.Subscription.create(
-            customer=customer.id,
-            items=[{'plan': 'regular_plan_id'}],
-        )
-    elif plan == 'premium':
-        subscription = stripe.Subscription.create(
-            customer=customer.id,
-            items=[{'plan': 'premium_plan_id'}],
-        )
-    elif plan == 'platinum':
-        subscription = stripe.Subscription.create(
-            customer=customer.id,
-            items=[{'plan': 'platinum_plan_id'}],
-        )
-
-def get_payment_amount(subscription_name):
-    #Get the payment amount based on the selected subscription package.
-    package_prices = {
-        "Regular": 0.00,
-        "Premium": 5.99,
-        "Platinum": 10.00,
-    }
-    return package_prices.get(subscription_name, 0.00)
 
 
 @app.route("/homepage", methods=["GET"])
 def homepage():
+    """Homepage route"""
     lastest_books = Book.query.order_by(Book.created_at.desc()).limit(4).all()
     book_of_the_week = Book.query.order_by(Book.created_at.desc()).limit(4).all()
     genres = Genre.query.all()
@@ -127,7 +102,7 @@ def homepage():
 
 @app.route("/", methods=["GET", "POST"])
 def login():
-    """login redirection"""
+    """Login route"""
     if request.method == "POST":
         email = get_data("email")
         password = get_data("password")
@@ -154,6 +129,7 @@ def login():
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
+    """Signup route"""
     if request.method == "POST":
         first_name = get_data("firstname")
         last_name = get_data("lastname")
@@ -188,11 +164,13 @@ def signup():
 
 @app.route("/user", methods=["GET", "POST", "DELETE", "PUT"])
 def user():
+    """Users route to get, retrieve, upload information"""
     return render_template("user.html")
 
 
 @app.route("/user/<id>", methods=["GET", "POST", "DELETE", "PUT"])
 def user_profile():
+    """Users profile route"""
     if request.method == "GET":
         email = user.email
         first_name = user.first_name
@@ -272,45 +250,72 @@ def user_profile():
 
 @app.route("/books", methods=["GET"])
 def books():
+    """Book route"""
     return render_template("books.html", current_user=current_user)
 
-"""
-@app.post("/create-checkout-session")
-async def create_checkout_session(request: Request):
-    data = await request.json()
-    checkout_session = stripe.checkout.Session.create(
-        success_url="http://localhost:8000/success?session_id={CHECKOUT_SESSION_ID}",
-        cancel_url="http://localhost:8000/cancel",
-        payment_method_types=["card"],
-        line_items=[{
-            "price": data["priceId"],
-            "quantity": 1
-        }]
-    )
-    return{"sessionId": checkout_session["id"]}
-"""
 @app.route("/subscription", methods=["GET", "POST"])
 def subscription():
     """Subscription packages"""
     packages = [
         {"name": "Regular", "price": 0.00},
-        {"name": "Premium", "price": 5.99},
+        {"name": "Premum", "price": 5.99},
         {"name": "Platinum", "price": 10.00},
     ]
     return render_template(
         "subscription.html", packages=packages, current_user=current_user
     )
 
+@app.route("/checkout", methods=["GET", "POST"])
+def checkout_subs():
+    """A method route for subscription packages"""
+    if request.method == "POST":
+        subscription_level = request.form.get("subs")
+        
+        if subscription_level == 'free':
+            checkout_session = stripe.checkout.Session.create(
+                line_items= [
+                    {
+                        'price': "price_1OIK6TLr3itnznEmmFb6Rboj",
+                        'quantity':1
+                    }
+                ],
+                mode="payment",
+                success_url=YOUR_DOMAIN + "/success",
+                cancel_url=YOUR_DOMAIN + "/fail"
+            )
+            return redirect(checkout_session.url, code=303)
+        elif subscription_level == 'premium':
+            checkout_session = stripe.checkout.Session.create(
+                line_items= [
+                    {
+                        'price': "price_1OHpulLr3itnznEm553iHv2g",
+                        'quantity': 3
+                    }
+                ],
+                mode="subscription",
+                success_url=YOUR_DOMAIN + "/success",
+                cancel_url=YOUR_DOMAIN + "/fail"
+                )
+            return redirect(checkout_session.url, code=303)
+        elif subscription_level == 'platinum':
+            checkout_session = stripe.checkout.Session.create(
+                line_items= [
+                    {
+                        'price': "price_1OHpydLr3itnznEm1hxM1If1",
+                        'quantity': 5
+                    }
+                ],
+                mode="subscription",
+                success_url=YOUR_DOMAIN + "/Success",
+                cancel_url=YOUR_DOMAIN + "/fail"
+            )
+            return redirect(checkout_session.url, code=303)
+    return "Invalid subcription"
 
-@app.route("/subscribe/<subscription_name>", methods=["GET"])
-def subcribe(subscription_name):
-    """Logic to process the selected subscription package"""
-    payment_amout = get_payment_amount(subscription_name)
-
-    return redirect("/")
 
 @app.route("/chatroom/<community_id>", methods=["GET"])
 def chatroom(community_id):
+    """Community route"""
     session["chat"] = community_id
     check = False
     community = getOneFromDB(Community, community_id)
@@ -336,6 +341,7 @@ def chatroom(community_id):
 
 @socketio.on("connect")
 def connect(auth):
+    """Aunthenticate and connect users to the chatroom"""
     chat = session.get("chat")
     join_room(chat)
     community = getOneFromDB(Community, chat)
@@ -345,6 +351,7 @@ def connect(auth):
 
 @socketio.on("disconnect")
 def disconnect():
+    """Disconnect users for the chat room"""
     chat = session.get("chat")
     leave_room(chat)
 
@@ -355,6 +362,7 @@ def disconnect():
 
 @socketio.on("message")
 def message(data):
+    """Users messages/chats"""
     chat = session.get("chat")
     if not chat:
         return
@@ -371,6 +379,7 @@ def message(data):
 
 
 def check_id(model, id):
+    """Confirmation and authentication"""
     if not model.communities:
         return False
     for mod in model.communities:
@@ -381,6 +390,7 @@ def check_id(model, id):
 
 @app.route("/chat_select", methods=["GET"])
 def select_chat():
+    """Users select chat"""
     communities = getAllFromDB(Community)
     user = current_user
     check = False
@@ -403,6 +413,7 @@ def select_chat():
 
 @app.route("/create_chatroom", methods=["GET", "POST", "DELETE", "PUT"])
 def create_chatroom():
+    """Users create chatroom"""
     print(request.method)
     if request.method == "POST":
         name = get_data("name")
@@ -416,11 +427,13 @@ def create_chatroom():
 
 @app.route("/search_results", methods=["GET"])
 def search_results():
+    """Search result for books"""
     return render_template("search-result.html")
 
 
 @app.route("/forgot_password", methods=["GET", "POST"])
 def forgot_password():
+    """Forgot password route"""
     if request.method == "POST":
         email = request.form.get("email")
         user = User.query.filter_by(email=email).first()
@@ -443,6 +456,7 @@ def forgot_password():
 
 @app.route("/reset_password/<token>", methods=["GET", "POST"])
 def reset_password(token):
+    """Reset password and authentication"""
     user = User.query.filter_by(password_reset_token=token).first()
 
     if not user:
@@ -468,6 +482,7 @@ def reset_password(token):
 
 @app.route("/logout")
 def logout():
+    """Logout users"""
     if current_user.is_authenticated:
         logout_user()
         print("Logged out successful")
@@ -475,10 +490,23 @@ def logout():
     return redirect(url_for("login"))
 
 
-# @app.errorhandler(404)
-# @app.errorhandler(500)
-# def handle_errors(error):
-#     return render_template("error.html")
+@app.route("/success")
+def success():
+    """Success page route"""
+    return render_template("success.html")
+
+@app.route("/fail")
+def fail():
+    """Failure to load page route"""
+    return render_template("fail.html")
+
+
+
+@app.errorhandler(404)
+@app.errorhandler(500)
+def handle_errors(error):
+    """404 & 500 error handler"""
+    return render_template("error.html")
 
 
 if __name__ == "__main__":

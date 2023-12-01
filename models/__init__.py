@@ -19,7 +19,9 @@ mail = Mail(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 socketio = SocketIO(app)
-stripe.api_key = ""
+stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
+YOUR_DOMAIN = "http://localhost:5000"
+
 
 if __name__ == "__main__":
     app.run(debug=True)

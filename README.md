@@ -37,6 +37,8 @@ Bookola is a web platform dedicated to connecting readers with their next favori
 - **Book Recommendations:** Receive personalized book recommendations based on your reading history and preferences.
 
 ## Getting Started {#getting-started}
+[Getting started](https://media.tenor.com/r3XdvPsAV3kAAAAC/despicable-me-minions.gif)
+
 ### Prerequisites {#prerequisites}
 Before you begin, ensure you have the following:
 - **Node.js installed**

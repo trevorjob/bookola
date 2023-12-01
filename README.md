@@ -50,8 +50,8 @@ Before you begin, ensure you have the following:
 
 ### Installation {#installation}
 1. **Clone the repository:**
-  - git clone https://github.com/redeks12/bookola.git
-  - cd bookola
+    - git clone https://github.com/redeks12/bookola.git
+    - cd bookola
 2. **Create a virtual environment(optional):**
     - python -m venv venv
     - source venv/bin/activate  # On Windows, use `venv\Scripts\activate`

@@ -31,7 +31,9 @@
         {% if current_user.is_authenticated %}
 
         <li class="nav-item">
-          <a href="{{ url_for('user') }}" class="nav-link">My Account</a>
+          <a href="{{ url_for('user_profile') }}" class="nav-link"
+            >My Account</a
+          >
         </li>
 
         <li class="nav-item">
@@ -62,7 +64,7 @@
       <form
         class="form-inline my-2 my-lg-0"
         action="{{ url_for('search_results') }}"
-        method="get"
+        method="post"
       >
         <div class="input-group">
           <input

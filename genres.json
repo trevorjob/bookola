@@ -1,0 +1,106 @@
+[
+  {
+    "name": "Fantasy",
+    "id": "26a54e3d-da60-44a7-a88b-fb88cd4fdc8a"
+  },
+  {
+    "name": "Dystopian",
+    "id": "1cce62f3-c99e-4285-a30f-82c3dc4f9760"
+  },
+  {
+    "name": "Science Fiction",
+    "id": "22b50761-e783-45ca-931c-3faf4359e0ed"
+  },
+  {
+    "name": "Mystery",
+    "id": "abdbfa6b-9321-480f-b164-bf3acd2db36f"
+  },
+  {
+    "name": "Urban Fantasy",
+    "id": "f5db4170-f54c-4a64-89f8-2398491359b2"
+  },
+  {
+    "name": "Science Fantasy",
+    "id": "53f2dc3c-f9ee-47cc-b473-3b5bf88422d0"
+  },
+  {
+    "name": "Gothic Fiction",
+    "id": "bf0950e3-cbc4-4a16-b9e3-a495d75ab791"
+  },
+  {
+    "name": "Steampunk",
+    "id": "6c501059-a04a-47d0-a64a-3b12e4479292"
+  },
+  {
+    "name": "Fiction",
+    "id": "fc49f69b-5352-4884-bcab-d5841536003c"
+  },
+  {
+    "name": "Historical Fiction",
+    "id": "480a28a3-da69-4aed-8319-c0fb814b3599"
+  },
+  {
+    "name": "Thriller",
+    "id": "9c76c38c-535a-41a5-b80b-e1060bcd4dd8"
+  },
+  {
+    "name": "Classic",
+    "id": "e9a733d7-7847-43ba-b724-0c2999711e82"
+  },
+  {
+    "name": "Horror",
+    "id": "891fa29f-a593-4b40-abc1-6d71a42eb15f"
+  },
+  {
+    "name": "Crime",
+    "id": "35b4c00f-4abd-40e5-b54c-7e84d5cc0dca"
+  },
+  {
+    "name": "Young Adult",
+    "id": "e580c3c3-8134-468a-8012-d6c6fc331dca"
+  },
+  {
+    "name": "Biography",
+    "id": "011648f0-0dd2-4c44-9672-c41df8ba75d9"
+  },
+  {
+    "name": "Magical Realism",
+    "id": "cdcd2867-c98d-41fa-9b6f-544ff5ab10a5"
+  },
+  {
+    "name": "Post-Apocalyptic",
+    "id": "1ab852be-9dde-4b80-9603-91129f261a36"
+  },
+  {
+    "name": "Adventure",
+    "id": "84f91a14-e53a-4ebb-bd08-69eb2b6da2a5"
+  },
+  {
+    "name": "Epic",
+    "id": "08468547-6791-4b9b-bdb1-25fdd6663234"
+  },
+  {
+    "name": "Children's Literature",
+    "id": "2d6f63bf-9b5b-44f6-8089-f7f551a9fecf"
+  },
+  {
+    "name": "Modernist",
+    "id": "549b3593-1a42-4951-9277-614685b9547f"
+  },
+  {
+    "name": "Poetry",
+    "id": "84302620-f3e2-4e85-9ea9-1437c75e64b0"
+  },
+  {
+    "name": "Existentialism",
+    "id": "0acef16f-eacf-483c-89ee-dee74879f10a"
+  },
+  {
+    "name": "Drama",
+    "id": "33369889-5c6a-4464-9431-c34afb1f030c"
+  },
+  {
+    "name": "Philosophical Fiction",
+    "id": "d3806fbf-af87-4876-a60b-8dca96449cdd"
+  }
+]

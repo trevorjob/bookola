@@ -86,9 +86,15 @@ Customize Bookola to suit your needs by adjusting the configuration settings in 
 Bookola is ready for use after installation. Users can navigate the website, register or log in, explore the book catalog, subscribe to premium services, and join the chatroom for vibrant discussions.
 
 ## Contributing {#contributing}
+
+![Contributing](static/assets/images/imas.png)
+
 Contributions to Bookola are welcome! If you have ideas for new features, improvements, or bug fixes, please submit a pull request. Ensure that your code adheres to the existing coding standards.
 
 ## License {#license}
+
+![Happy Reading](static/assets/images/giphy.gif)
+
 Bookola is licensed under the MIT License - see the LICENSE file for details.
 
 Happy reading with Bookola! 📚🎉

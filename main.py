@@ -26,9 +26,6 @@ from sqlalchemy import text
 
 
 with app.app_context():
-    book_of = choice(Book.query.all())
-    latest = choices(Book.query.all(), k=4)
-    gens = choices(Genre.query.all(), k=4)
 #     db.drop_all()
 #     db.create_all()
 #     with open("genres.json", "r", encoding="utf-8") as f:
@@ -37,25 +34,27 @@ with app.app_context():
 #             gen = Genre(id=genre["id"], name=genre["name"])
 #             db.session.add(gen)
 
-#     with open("books.json", "r", encoding="utf-8") as f:
-#         books = json.load(f)
-#         for book in books:
-#             for genre in genres:
-#                 if book["genre_id"] == genre["name"]:
-#                     boo = Book(
-#                         id=book["id"],
-#                         title=book["title"],
-#                         genre_id=genre["id"],
-#                         cover_image_url=book["cover_image_url"],
-#                         description=book["description"],
-#                         publication_date=book["publication_date"],
-#                         language=book["language"],
-#                         author=book["author"],
-#                         rating=randint(5, 10),
-#                     )
-#                     db.session.add(boo)
-
-#     db.session.commit()
+    # with open("books.json", "r", encoding="utf-8") as f:
+    #     books = json.load(f)
+    #     for book in books:
+    #         for genre in genres:
+    #             if book["genre_id"] == genre["name"]:
+    #                 boo = Book(
+    #                     id=book["id"],
+    #                     title=book["title"],
+    #                     genre_id=genre["id"],
+    #                     cover_image_url=book["cover_image_url"],
+    #                     description=book["description"],
+    #                     publication_date=book["publication_date"],
+    #                     language=book["language"],
+    #                     author=book["author"],
+    #                     rating=randint(5, 10),
+    #                 )
+    #                 db.session.add(boo)
+    book_of = choice(Book.query.all())
+    latest = choices(Book.query.all(), k=4)
+    gens = choices(Genre.query.all(), k=4)
+    # db.session.commit()
 
 
 def get_data(data):
@@ -444,6 +443,9 @@ def reset_password(token):
 
     return render_template("reset_password.html", token=token)
 
+@app.route('/terms_of_service', methods=["GET", "POST"])
+def terms_of_service():
+    return render_template("terms_of_service.html")
 
 @app.route("/logout")
 def logout():
@@ -466,13 +468,13 @@ def fail():
     return render_template("fail.html")
 
 
-
+"""
 @app.errorhandler(404)
 @app.errorhandler(500)
 def handle_errors(error):
-    """404 & 500 error handler"""
+    #404 & 500 error handler
     return render_template("error.html")
-
+"""
 
 if __name__ == "__main__":
     app.run(debug=True)

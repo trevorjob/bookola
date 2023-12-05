@@ -1,10 +1,10 @@
 let socketio = io();
 const messages = document.getElementById("messages");
-const createMessage = (name, msg) => {
+const createMessage = (name, msg, img) => {
   const content = `      <div class="s_message">
   <div class="img-div">
     <img
-      src="/static/assets/images/img1.jpg"
+      src="${img}"
       alt=""
     />
   </div>
@@ -25,7 +25,7 @@ const createMessage = (name, msg) => {
 // const notif = document.querySelector(".notification");
 
 socketio.on("message", (data) => {
-  createMessage(data.name, data.message);
+  createMessage(data.name, data.message, data.img);
   //   notif.classList.remove("turn-on");
   //   setTimeout(() => notif.classList.add("turn-on"), 3000);
 });

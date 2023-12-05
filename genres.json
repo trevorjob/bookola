@@ -1,106 +1,158 @@
 [
   {
     "name": "Fantasy",
-    "id": "26a54e3d-da60-44a7-a88b-fb88cd4fdc8a"
+    "id": "26a54e3d-da60-44a7-a88b-fb88cd4fdc8a",
+    "description": "Immerse yourself in magical realms, mythical creatures, and epic adventures with the enchanting world of Fantasy literature.",
+    "img_url": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFudGFzeXxlbnwwfHwwfHx8MA%3D%3D"
   },
   {
     "name": "Dystopian",
-    "id": "1cce62f3-c99e-4285-a30f-82c3dc4f9760"
+    "id": "1cce62f3-c99e-4285-a30f-82c3dc4f9760",
+    "description": "Explore dark and oppressive futures, where societies have crumbled, and individuals fight for survival in Dystopian fiction.",
+    "img_url": "https://images.unsplash.com/photo-1544853014-9cc4f7f0202a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZHlzdG9waWFufGVufDB8fDB8fHww"
   },
   {
     "name": "Science Fiction",
-    "id": "22b50761-e783-45ca-931c-3faf4359e0ed"
+    "id": "22b50761-e783-45ca-931c-3faf4359e0ed",
+    "description": "Embark on journeys to the stars, encounter futuristic technology, and ponder the possibilities of the unknown in Science Fiction literature.",
+    "img_url": "https://media.istockphoto.com/id/1396801907/photo/a-small-hud-with-a-human-body-image-and-a-scientist-or-a-doctor-working-with-it.webp?b=1&s=170667a&w=0&k=20&c=iubOVkeEV-eRipV6Nf-k2w_UmUiikC6fZaPYnDqIYpY="
   },
   {
     "name": "Mystery",
-    "id": "abdbfa6b-9321-480f-b164-bf3acd2db36f"
+    "id": "abdbfa6b-9321-480f-b164-bf3acd2db36f",
+    "description": "Unravel the enigma and suspense as you delve into Mystery literature, where secrets and puzzles keep you on the edge of your seat.",
+    "img_url": "https://media.istockphoto.com/id/1740997027/photo/mysterious-ancient-castle-in-a-cave-abandoned-castle-in-the-theme-of-treasure-trove-ancient.webp?b=1&s=170667a&w=0&k=20&c=eEFQmmDq-C3dHNM4bCfJ8JKB6u3U_nMYdaEDQ4Xq7oI="
   },
   {
     "name": "Urban Fantasy",
-    "id": "f5db4170-f54c-4a64-89f8-2398491359b2"
+    "id": "f5db4170-f54c-4a64-89f8-2398491359b2",
+    "description": "Experience fantastical elements in an urban setting, blending magic with the modern world in the captivating genre of Urban Fantasy.",
+    "img_url": "https://media.istockphoto.com/id/1313800900/photo/parallel-universe-science-theory.webp?b=1&s=170667a&w=0&k=20&c=EKf-KhgZDK2Pf-k0q1U59798HtlPbLQKyS8WGMJLFd8="
   },
   {
     "name": "Science Fantasy",
-    "id": "53f2dc3c-f9ee-47cc-b473-3b5bf88422d0"
+    "id": "53f2dc3c-f9ee-47cc-b473-3b5bf88422d0",
+    "description": "Merge the worlds of science fiction and fantasy, where futuristic technology coexists with magic, creating a unique and imaginative narrative in Science Fantasy.",
+    "img_url": "https://media.istockphoto.com/id/1256602998/photo/ai-concept-deep-learning-mindfulness-psychology.webp?b=1&s=170667a&w=0&k=20&c=0jvyGfepvxv_qmYgcuga9AZxz8oYKcbBLyaPyh90lco="
   },
   {
     "name": "Gothic Fiction",
-    "id": "bf0950e3-cbc4-4a16-b9e3-a495d75ab791"
+    "id": "bf0950e3-cbc4-4a16-b9e3-a495d75ab791",
+    "description": "Enter the mysterious and eerie worlds of Gothic Fiction, where ancient castles, supernatural occurrences, and romanticism intertwine.",
+    "img_url": "https://media.istockphoto.com/id/155382004/photo/old-castle.webp?b=1&s=170667a&w=0&k=20&c=UssU5wP42JOhX73OyQkOWqrI6Z2vZOv2guKq8U88ACg="
   },
   {
     "name": "Steampunk",
-    "id": "6c501059-a04a-47d0-a64a-3b12e4479292"
+    "id": "6c501059-a04a-47d0-a64a-3b12e4479292",
+    "description": "Travel back in time to a Victorian-era infused with steam-powered technology, adventure, and a touch of the fantastical in the captivating genre of Steampunk.",
+    "img_url": "https://media.istockphoto.com/id/598785208/photo/retro-futuristic-portrait-of-scientist-wearing-smartglasses.webp?b=1&s=170667a&w=0&k=20&c=Bd506loUktWPF6LphSNX_O6zSh9OZTus8ItpWdDuMA0="
   },
   {
     "name": "Fiction",
-    "id": "fc49f69b-5352-4884-bcab-d5841536003c"
+    "id": "fc49f69b-5352-4884-bcab-d5841536003c",
+    "description": "Explore the vast landscape of human experiences and emotions in the diverse world of Fiction, where stories span a spectrum of genres and themes.",
+    "img_url": "https://media.istockphoto.com/id/1475043801/photo/choice-variation-concept.webp?b=1&s=170667a&w=0&k=20&c=nirG-Qxr21Ued2qkJ-DU7xx8zJk-Q2nlbzzsuchxzbI="
   },
   {
     "name": "Historical Fiction",
-    "id": "480a28a3-da69-4aed-8319-c0fb814b3599"
+    "id": "480a28a3-da69-4aed-8319-c0fb814b3599",
+    "description": "Journey into the past with Historical Fiction, where real historical events blend seamlessly with fictional narratives, bringing history to life.",
+    "img_url": "https://media.istockphoto.com/id/1413840552/photo/old-clock-hanging-on-a-chain-on-the-background-of-old-books-lock-as-a-symbol-of-time-a-books.webp?b=1&s=170667a&w=0&k=20&c=XZnZnDLdsehHhlFlVvsQdpi4pJ7lWf9ggs8nkSfCiKI="
   },
   {
     "name": "Thriller",
-    "id": "9c76c38c-535a-41a5-b80b-e1060bcd4dd8"
+    "id": "9c76c38c-535a-41a5-b80b-e1060bcd4dd8",
+    "description": "Experience heart-pounding suspense and excitement with the gripping narratives of Thriller literature, where twists and turns keep you on the edge of your seat.",
+    "img_url": "https://media.istockphoto.com/id/1367630514/photo/mystery-man-stands-alone-in-the-rain-with-umbrella-and-watches-a-house.webp?b=1&s=170667a&w=0&k=20&c=5RHqKzuP3tVulrtdl04cd-KNSN49A1h3otjsvShcyY8="
   },
   {
     "name": "Classic",
-    "id": "e9a733d7-7847-43ba-b724-0c2999711e82"
+    "id": "e9a733d7-7847-43ba-b724-0c2999711e82",
+    "description": "Delve into the timeless and enduring works of literature that have stood the test of time, shaping the literary landscape in the Classic genre.",
+    "img_url": "https://media.istockphoto.com/id/1482333772/photo/bedroom-with-a-bed-and-pink-color-bed-head-with-2-side-table-and-lamp-hanging-from-the-ceiling.webp?b=1&s=170667a&w=0&k=20&c=CbJiNzF4iBB3wOAXkKxBp8QS4cBk2Woc4tze4lSsAIw="
   },
   {
     "name": "Horror",
-    "id": "891fa29f-a593-4b40-abc1-6d71a42eb15f"
+    "id": "891fa29f-a593-4b40-abc1-6d71a42eb15f",
+    "description": "Face your fears and embrace the chilling and macabre tales of Horror, where the supernatural and the unknown create spine-tingling narratives.",
+    "img_url": "https://media.istockphoto.com/id/1434310465/photo/horror-movie-concept.webp?b=1&s=170667a&w=0&k=20&c=M8wVY5uinST7KOwcbaIKjfpylXBzBBY-5kmg31QJ6tk="
   },
   {
     "name": "Crime",
-    "id": "35b4c00f-4abd-40e5-b54c-7e84d5cc0dca"
+    "id": "35b4c00f-4abd-40e5-b54c-7e84d5cc0dca",
+    "description": "Navigate the world of crime, investigations, and suspense with the compelling narratives of Crime fiction, where detectives and criminals clash in intriguing plots.",
+    "img_url": "https://media.istockphoto.com/id/1282811268/photo/on-wood-table-at-party-with-alcohol-and-drugs-or-heroin-pills-gambling.webp?b=1&s=170667a&w=0&k=20&c=cuTNRFzrZQGMpHa5jh6mEfw4Cm81fiR3pq8XL-guJ5o="
   },
   {
     "name": "Young Adult",
-    "id": "e580c3c3-8134-468a-8012-d6c6fc331dca"
+    "id": "e580c3c3-8134-468a-8012-d6c6fc331dca",
+    "description": "Explore the challenges and triumphs of adolescence and young adulthood in the captivating genre of Young Adult literature, where stories resonate with the experiences of youth.",
+    "img_url": "https://media.istockphoto.com/id/1457494741/photo/happy-multiracial-friends-taking-selfie-picture-outside-group-of-young-people-smiling.webp?b=1&s=170667a&w=0&k=20&c=2uiMpEgtCEuE0asLKkRZ_TZwVQTcaIiSX58Y1fcOFk4="
   },
   {
     "name": "Biography",
-    "id": "011648f0-0dd2-4c44-9672-c41df8ba75d9"
+    "id": "011648f0-0dd2-4c44-9672-c41df8ba75d9",
+    "description": "Discover the real-life stories of individuals who have left a lasting impact on the world in the engaging and informative genre of Biography.",
+    "img_url": "https://media.istockphoto.com/id/157593194/photo/my-life-story.webp?b=1&s=170667a&w=0&k=20&c=OFlZ0j_jJpBd56n6BAUAyZ8rdBGOU5KwzN9ngM9itUI="
   },
   {
     "name": "Magical Realism",
-    "id": "cdcd2867-c98d-41fa-9b6f-544ff5ab10a5"
+    "id": "cdcd2867-c98d-41fa-9b6f-544ff5ab10a5",
+    "description": " Immerse yourself in the magical and fantastical elements seamlessly woven into everyday life in the captivating genre of Magical Realism.",
+    "img_url": "https://media.istockphoto.com/id/1190824599/photo/little-boy-admires-christmas-decorations-in-showcase-of-shop-on-winter-evening-tourist.webp?b=1&s=170667a&w=0&k=20&c=6J2S5DeQYfky8YzbxSZTVBkl0vR61ZSuQocsbeDMXKM="
   },
   {
     "name": "Post-Apocalyptic",
-    "id": "1ab852be-9dde-4b80-9603-91129f261a36"
+    "id": "1ab852be-9dde-4b80-9603-91129f261a36",
+    "description": "Witness the aftermath of catastrophic events as characters navigate desolate landscapes and strive for survival in the Post-Apocalyptic genre.",
+    "img_url": "https://media.istockphoto.com/id/1370822454/photo/apocalyptic-city-war-zone.webp?b=1&s=170667a&w=0&k=20&c=Mqr9Pz6FvZbT4sSNhWdXkWTOfYIwE2fKr623oWm0sIk="
   },
   {
     "name": "Adventure",
-    "id": "84f91a14-e53a-4ebb-bd08-69eb2b6da2a5"
+    "id": "84f91a14-e53a-4ebb-bd08-69eb2b6da2a5",
+    "description": "Embark on thrilling journeys and daring escapades in the exciting world of Adventure literature, where courage and exploration take center stage.",
+    "img_url": "https://images.unsplash.com/photo-1528543606781-2f6e6857f318?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YWR2ZW50dXJlfGVufDB8fDB8fHww"
   },
   {
     "name": "Epic",
-    "id": "08468547-6791-4b9b-bdb1-25fdd6663234"
+    "id": "08468547-6791-4b9b-bdb1-25fdd6663234",
+    "description": "Experience grand and heroic tales that span generations, cultures, and worlds in the sweeping narratives of Epic literature.",
+    "img_url": "https://media.istockphoto.com/id/1319949408/photo/ready-to-fight.webp?b=1&s=170667a&w=0&k=20&c=aP44I8wpKvEszEjKbOJp0Di7Y3sxiaSB-DLWeOuLuUM="
   },
   {
     "name": "Children's Literature",
-    "id": "2d6f63bf-9b5b-44f6-8089-f7f551a9fecf"
+    "id": "2d6f63bf-9b5b-44f6-8089-f7f551a9fecf",
+    "description": "Delight in imaginative and heartwarming stories crafted for young readers in the enchanting genre of Children's Literature.",
+    "img_url": "https://media.istockphoto.com/id/1188962799/photo/a-schoolgirl-in-a-school-uniform-sits-cross-legged-on-large-books-and-reads-a-book-in.webp?b=1&s=170667a&w=0&k=20&c=1lbWKLj02I1_KZrhGKufHx5QpwE86TRkRshSm-CTyOE="
   },
   {
     "name": "Modernist",
-    "id": "549b3593-1a42-4951-9277-614685b9547f"
+    "id": "549b3593-1a42-4951-9277-614685b9547f",
+    "description": "Explore the avant-garde and experimental narratives that characterize the Modernist movement, challenging traditional literary conventions.",
+    "img_url": "https://media.istockphoto.com/id/1447708518/photo/modern-villa-exterior-in-summer.webp?b=1&s=170667a&w=0&k=20&c=zh6wcDIxJk2ORk0Kg3hjVxQYWQsoLZ9TwAeCmxeYB-A="
   },
   {
     "name": "Poetry",
-    "id": "84302620-f3e2-4e85-9ea9-1437c75e64b0"
+    "id": "84302620-f3e2-4e85-9ea9-1437c75e64b0",
+    "description": "Delve into the beauty of language, emotions, and artistic expression in the evocative and rhythmic world of Poetry.",
+    "img_url": "https://media.istockphoto.com/id/1438891555/photo/quill-pen-with-inkwell-background.webp?b=1&s=170667a&w=0&k=20&c=kWZsLIifWs_uc599qR9hAng_AbxoPbLIQI-rkbZpMFs="
   },
   {
     "name": "Existentialism",
-    "id": "0acef16f-eacf-483c-89ee-dee74879f10a"
+    "id": "0acef16f-eacf-483c-89ee-dee74879f10a",
+    "description": "Contemplate the complexities of existence, freedom, and choice in the philosophical and thought-provoking genre of Existentialism.",
+    "img_url": "https://media.istockphoto.com/id/511879982/photo/winter-stargazing-in-connecticut.webp?b=1&s=170667a&w=0&k=20&c=bQSnGOmIXzwHVrETPADn6HjyyjvTQ6mnA97Kxe4Xbdc="
   },
   {
     "name": "Drama",
-    "id": "33369889-5c6a-4464-9431-c34afb1f030c"
+    "id": "33369889-5c6a-4464-9431-c34afb1f030c",
+    "description": "Immerse yourself in the intricacies of human relationships, emotions, and conflicts in the compelling narratives of Drama.",
+    "img_url": "https://media.istockphoto.com/id/1220793403/photo/theater-stage-with-red-velvet-curtains-and-spotlights.webp?b=1&s=170667a&w=0&k=20&c=W-SQ3q4Z3569yEDWFpS_6DIfcNFXIVt9L_yRCvBKHfQ="
   },
   {
     "name": "Philosophical Fiction",
-    "id": "d3806fbf-af87-4876-a60b-8dca96449cdd"
+    "id": "d3806fbf-af87-4876-a60b-8dca96449cdd",
+    "description": "Explore profound philosophical questions and ideas embedded in fiction, where narratives provoke contemplation and reflection.",
+    "img_url": "https://media.istockphoto.com/id/1648617666/photo/open-book-on-wooden-table-and-jainism-symbol-front-view.webp?b=1&s=170667a&w=0&k=20&c=J1eu3kMRVO3qi7q4VvlARaSFGzmYlpKY9wieEovFlKY="
   }
 ]

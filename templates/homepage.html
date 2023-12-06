@@ -19,9 +19,11 @@ content %}
       <h5>Bookola <span class="text-warning">bookstore</span></h5>
       <h2 class="lead">Your Gateway to a World of Books.</h2>
       <p>Explore a vast collection of books tailored just for you.</p>
+      {% if not current_user.subscribed %}
       <a href="{{ url_for('subscription') }}" class="btn btn-primary"
         >Subscribe Now</a
       >
+      {% endif %}
     </div>
     <img id="bookImage" class="img-fluid w-50 mt-4" src="" alt="" />
   </div>
@@ -41,13 +43,17 @@ content %}
             <div class="h1 mb-3">
               <img
                 src="{{ book.cover_image_url }}"
-                class="card-img-top"
+                class="card-img-top c_d"
                 alt="books"
               />
             </div>
             <h3 class="card-title mb-3">{{ book.title }}</h3>
             <p class="card-text">{{ book.author }}</p>
-            <a href="#" class="btn btn-primary">Read Now</a>
+            <a
+              href="{{ url_for('book_detail', book_id=book.id) }}"
+              class="btn btn-primary"
+              >Read Now</a
+            >
           </div>
         </div>
       </div>
@@ -63,10 +69,10 @@ content %}
 <section id="learn" class="p-5">
   <div class="container">
     <div class="row align-items-center justify-content-between">
-      <div class="col-md">
+      <div class="col-md bkm">
         <h2 class="text-center">Book of the month</h2>
         <img
-          class="img-fluid"
+          class="img-fluid c_h"
           src="{{ book_of_the_week.cover_image_url}}"
           alt=""
         />
@@ -74,8 +80,11 @@ content %}
       <div class="col-md p-5">
         <h2>{{book_of_the_week.title}}</h2>
         <p class="lead">{{book_of_the_week.author}}</p>
-        <p>{{book_of_the_week.description}}</p>
-        <a href="" class="btn btn-light mt-3">
+        <p>{{book_of_the_week.description[:200]}}....</p>
+        <a
+          href="{{ url_for('book_detail', book_id=book_of_the_week.id) }}"
+          class="btn btn-light mt-3"
+        >
           <i class="bi bi-chevron-right"></i> Read More</a
         >
       </div>
@@ -95,16 +104,13 @@ content %}
           <div class="card-body text-center">
             <div class="h1 mb-3">
               <img
-                src="./static/assets/images/book-with-red-cover_1101-95.avif"
-                class="card-img-top"
+                src="{{genre.img_url}}"
+                class="card-img-top c_d"
                 alt="books"
               />
             </div>
             <h3 class="card-title mb-3">{{genre.name}}</h3>
-            <p class="card-text">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Architecto, nisi.
-            </p>
+            <p class="card-text">{{genre.description}}</p>
 
             <a
               href="{{ url_for('books', genre_id=genre.id) }}"

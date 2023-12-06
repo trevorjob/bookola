@@ -468,13 +468,12 @@ def fail():
     return render_template("fail.html")
 
 
-"""
 @app.errorhandler(404)
 @app.errorhandler(500)
 def handle_errors(error):
     #404 & 500 error handler
     return render_template("error.html")
-"""
+
 
 if __name__ == "__main__":
     app.run(debug=True)

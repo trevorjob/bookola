@@ -1,5 +1,13 @@
-{% include "base.html" %} {% block nav %} {% include "navbar.html" %}{% endblock
-%} {% block content %}
+{% include "base.html" %} {% block styles %}
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/book_detail.css') }}"
+/>
+
+{% endblock %}{% block nav %} {% include "navbar.html" %}{% endblock %} {% block
+content %}
 
 <!-- Book Details Section -->
 <section class="p-5 m_t">
@@ -12,6 +20,27 @@
           class="img-fluid c_h"
           alt="Book Cover"
         />
+        <div class="comments">
+          {% for review in book.reviews %}
+          <div class="s_message">
+            <img class="c_img" src="{{ review.user.profile_pic_url }}" alt="" />
+            <div class="flex_d">
+              <span class="nm">{{review.user.username}}</span>
+              <p class="m_text">{{ review.review_text }}</p>
+            </div>
+          </div>
+          {% endfor %}
+
+          <form action="" method="post">
+            <input
+              class="comment-inp"
+              name="comment"
+              placeholder="add a comment .."
+              type="text"
+            />
+            <button class="comment-btn" type="submit">post</button>
+          </form>
+        </div>
       </div>
       <div class="col-md-8">
         <h2 class="text-dark p-5">{{ book.title }}</h2>
@@ -39,7 +68,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ book.title }}</h5>
               <p class="card-text">{{ book.author }}</p>
-              <a href="#" class="btn btn-primary">Read</a>
+              <a href="{{ url_for('book_detail', bk_id=book.id) }}">read</a>
             </div>
           </div>
         </div>
@@ -64,7 +93,7 @@
             <div class="card-body">
               <h5 class="card-title">{{ book.title }}</h5>
               <p class="card-text">{{ book.author }}</p>
-              <a href="#" class="btn btn-primary">Read</a>
+              <a href="{{ url_for('book_detail', bk_id=book.id) }}">read</a>
             </div>
           </div>
         </div>

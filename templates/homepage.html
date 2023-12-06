@@ -49,7 +49,7 @@ content %}
             <h3 class="card-title mb-3">{{ book.title }}</h3>
             <p class="card-text">{{ book.author }}</p>
             <a
-              href="{{ url_for('book_detail', book_id=book.id) }}"
+              href="{{ url_for('book_detail', bk_id=book.id) }}"
               class="btn btn-primary"
               >Read Now</a
             >
@@ -81,7 +81,7 @@ content %}
         <p class="lead">{{book_of_the_week.author}}</p>
         <p>{{book_of_the_week.description[:200]}}....</p>
         <a
-          href="{{ url_for('book_detail', book_id=book_of_the_week.id) }}"
+          href="{{ url_for('book_detail', bk_id=book_of_the_week.id) }}"
           class="btn btn-light mt-3"
         >
           <i class="bi bi-chevron-right"></i> Read More</a

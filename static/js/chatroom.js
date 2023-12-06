@@ -1,6 +1,6 @@
 let socketio = io();
 const messages = document.getElementById("messages");
-const createMessage = (name, msg, img) => {
+const createMessage = (name, msg, img, time) => {
   const content = `      <div class="s_message">
   <div class="img-div">
     <img
@@ -11,7 +11,7 @@ const createMessage = (name, msg, img) => {
   <div class="flex_d">
     <div>
       <span class="nm">${name}</span>
-      <span class="m_time">09:00</span>
+      <span class="m_time">${time}</span>
     </div>
     <p class="m_text">
       ${msg}
@@ -25,7 +25,7 @@ const createMessage = (name, msg, img) => {
 // const notif = document.querySelector(".notification");
 
 socketio.on("message", (data) => {
-  createMessage(data.name, data.message, data.img);
+  createMessage(data.name, data.message, data.img, data.time);
   //   notif.classList.remove("turn-on");
   //   setTimeout(() => notif.classList.add("turn-on"), 3000);
 });

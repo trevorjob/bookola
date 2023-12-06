@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_gravatar import Gravatar
 from flask_mail import Mail
 from flask_socketio import SocketIO
 from flask_login import LoginManager
 import stripe
+import os
 
 app = Flask(__name__, template_folder="../templates", static_folder="../static")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///sites.db"
@@ -18,7 +20,9 @@ mail = Mail(app)
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 socketio = SocketIO(app)
-stripe.api_key = ""
+stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
+YOUR_DOMAIN = "http://localhost:5000"
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -39,6 +39,7 @@ class User(Base, UserMixin, db.Model):
     username = db.Column(db.String(60), nullable=False)
     password_hash = db.Column(db.String(80), nullable=False)
     profile_pic_url = db.Column(db.String(128), nullable=True)
+    subscribed = db.Column(db.Boolean, default=False, nullable=False)
     # password_token = db.Column(db.String(128), nullable=True)
 
     reviews = db.relationship("Review", backref="user")

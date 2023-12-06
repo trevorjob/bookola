@@ -15,27 +15,7 @@
 <div class="content">
   <div class="message-box">
     <h2>Chat room</h2>
-    <div class="messages" id="messages">
-      <div class="s_message">
-        <div class="img-div">
-          <img
-            src="{{ url_for('static', filename='assets/images/img1.jpg') }}"
-            alt=""
-          />
-        </div>
-        <div class="flex_d">
-          <div>
-            <span class="nm">Adeola</span>
-            <span class="m_time">09:00</span>
-          </div>
-          <p class="m_text">
-            hello Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit
-            magnam reiciendis lor Lorem ipsum dolor sit amet consectetur
-            adipisicing elit.
-          </p>
-        </div>
-      </div>
-    </div>
+    <div class="messages" id="messages"></div>
     <div class="inputs">
       <input
         type="text"
@@ -56,7 +36,8 @@
   createMessage(
     "{{msg.user.username}}",
     "{{msg.text}}",
-    "{{msg.user.profile_pic_url}}"
+    "{{msg.user.profile_pic_url}}",
+    '{{msg.created_at.strftime("%H:%M")}}'
   );
 </script>
 {% endfor %} {% endblock %}

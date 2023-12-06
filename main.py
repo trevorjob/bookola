@@ -2,13 +2,14 @@
 """This is the main entry point of the web application.
 It contains the initialisation of a web application, including setting
 up route, defining views and configuring various settings."""
+import hashlib
 import json
-from random import choice, sample, randint
-from uuid import uuid4
 from functools import wraps
+from random import choice, randint, sample
+from uuid import uuid4
 
 import stripe
-from flask import jsonify, redirect, render_template, request, session, url_for, flash
+from flask import flash, jsonify, redirect, render_template, request, session, url_for
 from flask_login import UserMixin, current_user, login_required, login_user, logout_user
 from flask_socketio import join_room, leave_room, send
 from sqlalchemy import text
@@ -16,7 +17,6 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from models import YOUR_DOMAIN, app, db, login_manager, socketio, stripe
-import hashlib
 from models.base import *
 from models.book import *
 from models.community import *
@@ -57,13 +57,16 @@ from models.user import *
 #                     rating=randint(5, 10),
 #                 )
 #                 db.session.add(boo)
-# db.session.commit()
+#                 db.session.commit()
 with app.app_context():
     # session["recents"] = []
     ses = []
+
     book_of = choice(Book.query.all())
     latest = sample(Book.query.all(), k=4)
     gens = sample(Genre.query.all(), k=4)
+
+cur_id = {}
 
 
 # HELPER FUNCTIONS
@@ -151,7 +154,6 @@ def homepage():
     if subed:
         current_user.subscribed = True
         saveDB()
-    print(current_user.subscribed)
 
     return render_template(
         "homepage.html",
@@ -186,6 +188,7 @@ def login():
             user = User.query.filter_by(email=email).first()
 
             if user and check_password_hash(user.password_hash, password):
+                cur_id["user_id"] = user.id
                 session["user_id"] = user.id
                 login_user(user)
                 return redirect(url_for("homepage"))
@@ -317,7 +320,7 @@ def subscription():
 @is_logged
 def checkout_subs():
     """A method route for subscription packages"""
-
+    logout_user()
     if request.method == "POST":
         subscription_level = request.form.get("subs")
 
@@ -352,12 +355,16 @@ def checkout_subs():
 @app.route("/success")
 def success():
     """Success page route"""
+    user = getOneFromDB(User, cur_id["user_id"])
+    login_user(user)
     return render_template("success.html")
 
 
 @app.route("/fail")
 def fail():
     """Failure to load page route"""
+    user = getOneFromDB(User, cur_id["user_id"])
+    login_user(user)
     return render_template("fail.html")
 
 
@@ -379,6 +386,7 @@ def chatroom(community_id):
         saveDB()
 
     if community:
+        print(community.messages)
         return render_template(
             "chat_room.html",
             community=community,
@@ -421,8 +429,13 @@ def message(data):
         "img": user.profile_pic_url,
     }
     message = ChatMessage(
-        id=str(uuid4()), text=content["message"], user_id=user.id, community_id=chat
+        id=str(uuid4()),
+        text=content["message"],
+        user_id=user.id,
+        community_id=chat,
+        created_at=datetime.utcnow(),
     )
+    content["time"] = message.created_at.strftime("%H:%M")
     send(content, to=chat)
 
     addToDB(message)

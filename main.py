@@ -315,6 +315,11 @@ def book_detail(bk_id):
     )
 
 
+@app.route("/rand")
+def rand():
+    return render_template("rand.html")
+
+
 ########################## SUBSCRIPTION PAGE ROUTE #########################
 @app.route("/subscription", methods=["GET", "POST"])
 @is_logged

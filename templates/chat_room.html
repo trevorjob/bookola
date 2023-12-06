@@ -53,6 +53,10 @@
 <script src="{{ url_for('static', filename='js/chatroom.js')}}"></script>
 {% for msg in messages %}
 <script type="text/javascript">
-  createMessage("{{msg.user.username}}", "{{msg.text}}");
+  createMessage(
+    "{{msg.user.username}}",
+    "{{msg.text}}",
+    "{{msg.user.profile_pic_url}}"
+  );
 </script>
 {% endfor %} {% endblock %}

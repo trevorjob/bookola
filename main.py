@@ -69,7 +69,7 @@ with app.app_context():
 cur_id = {}
 
 
-# HELPER FUNCTIONS
+########################### HELPER FUNCTIONS ##########################################
 def get_data(data):
     """A method that get data from the database"""
     return request.form.get(data)
@@ -283,14 +283,28 @@ def books(genre_id):
 
 
 ########################## BOOK DETAILS PAGE ROUTE #########################
-@app.route("/book/<book_id>", methods=["GET"])
+@app.route("/book/<bk_id>", methods=["GET", "POST"])
 @is_logged
 @is_subed
-def book_detail(book_id):
-    book = getOneFromDB(Book, book_id)
+def book_detail(bk_id):
+    if request.method == "POST":
+        comment = get_data("comment")
+        review = Review(
+            review_text=comment,
+            id=str(uuid4()),
+            book_id=bk_id,
+            user_id=current_user.id,
+        )
+
+        db.session.add(review)
+        db.session.commit()
+
+    book = getOneFromDB(Book, bk_id)
     similar_books = sample(Book.query.filter_by(genre_id=book.genre_id).all(), k=6)
     same_author = Book.query.filter_by(author=book.author).all()
-    ses.append(book)
+
+    if book not in ses:
+        ses.append(book)
 
     return render_template(
         "book_detail.html",

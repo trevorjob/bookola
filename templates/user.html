@@ -92,8 +92,7 @@ content %}
         <h1 class="mb-3">Recents</h1>
         {% for recent in recents %}
         <div class="card-body">
-          <a href="url_for('book_detail', book_id=recent.id)">
-
+          <a href="{{url_for('book_detail', bk_id=recent.id)}}">
             <div class="row">
               <div class="col-md-3">
                 <label for="name">{{recent.title}}</label>
@@ -101,8 +100,8 @@ content %}
               <div class="col-md-9 text-secondary">
                 <label for="name">{{recent.author}}</label>
               </div>
-            </a>
-          </div>
+            </div>
+          </a>
         </div>
         {% endfor %}
       </div>

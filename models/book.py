@@ -29,11 +29,11 @@ class Book(Base, db.Model):
 
     __tablename__ = "book"
     # Book attributes/columns
-    title = db.Column(db.String, nullable=False)
+    title = db.Column(db.Text, nullable=False)
     publication_date = db.Column(db.String(60), nullable=True)
     language = db.Column(db.String(60), nullable=True)
     description = db.Column(db.Text, nullable=True)
-    cover_image_url = db.Column(db.String, nullable=True)
+    cover_image_url = db.Column(db.Text, nullable=True)
     rating = db.Column(db.Integer, nullable=False)
     genre_id = db.Column(db.String(60), db.ForeignKey("genre.id"), nullable=False)
     author = db.Column(db.String(60), nullable=False)

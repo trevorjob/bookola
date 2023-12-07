@@ -25,8 +25,8 @@ class Genre(Base, db.Model):
 
     __tablename__ = "genre"
     name = db.Column(db.String(60), nullable=False)
-    description = db.Column(db.String, nullable=False)
-    img_url =  db.Column(db.String, nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    img_url =  db.Column(db.Text, nullable=False)
     books = db.relationship("Book", backref="genre")
     communities = db.relationship(
         "Community",

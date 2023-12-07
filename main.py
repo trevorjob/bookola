@@ -9,11 +9,9 @@ from random import choice, randint, sample
 from uuid import uuid4
 
 import stripe
-from flask import flash, jsonify, redirect, render_template, request, session, url_for
-from flask_login import UserMixin, current_user, login_required, login_user, logout_user
+from flask import flash, redirect, render_template, request, session, url_for
+from flask_login import current_user, login_user, logout_user
 from flask_socketio import join_room, leave_room, send
-from sqlalchemy import text
-from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from models import YOUR_DOMAIN, app, db, login_manager, socketio, stripe
@@ -27,39 +25,38 @@ from models.subscribe import *
 from models.user import *
 
 # with app.app_context():
-# db.drop_all()
-# db.create_all()
-# with open("genres.json", "r", encoding="utf-8") as f:
-#     genres = json.load(f)
-#     for genre in genres:
-#         gen = Genre(
-#             id=genre["id"],
-#             name=genre["name"],
-#             description=genre["description"],
-#             img_url=genre["img_url"],
-#         )
-#         db.session.add(gen)
-
-# with open("books.json", "r", encoding="utf-8") as f:
-#     books = json.load(f)
-#     for book in books:
+#     db.drop_all()
+#     db.create_all()
+#     with open("genres.json", "r", encoding="utf-8") as f:
+#         genres = json.load(f)
 #         for genre in genres:
-#             if book["genre_id"] == genre["name"]:
-#                 boo = Book(
-#                     id=book["id"],
-#                     title=book["title"],
-#                     genre_id=genre["id"],
-#                     cover_image_url=book["cover_image_url"],
-#                     description=book["description"],
-#                     publication_date=book["publication_date"],
-#                     language=book["language"],
-#                     author=book["author"],
-#                     rating=randint(5, 10),
-#                 )
-#                 db.session.add(boo)
-#                 db.session.commit()
+#             gen = Genre(
+#                 id=genre["id"],
+#                 name=genre["name"],
+#                 description=genre["description"],
+#                 img_url=genre["img_url"],
+#             )
+#             db.session.add(gen)
+
+#     with open("books.json", "r", encoding="utf-8") as f:
+#         books = json.load(f)
+#         for book in books:
+#             for genre in genres:
+#                 if book["genre_id"] == genre["name"]:
+#                     boo = Book(
+#                         id=book["id"],
+#                         title=book["title"],
+#                         genre_id=genre["id"],
+#                         cover_image_url=book["cover_image_url"],
+#                         description=book["description"],
+#                         publication_date=book["publication_date"],
+#                         language=book["language"],
+#                         author=book["author"],
+#                         rating=randint(5, 10),
+#                     )
+#                     db.session.add(boo)
+#     db.session.commit()
 with app.app_context():
-    # session["recents"] = []
     ses = []
 
     book_of = choice(Book.query.all())

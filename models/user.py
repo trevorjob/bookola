@@ -11,8 +11,8 @@ from models.base import Base
 
 user_communities = db.Table(
     "user_communities",
-    db.Column("user_id", db.Integer, db.ForeignKey("user.id")),
-    db.Column("community_id", db.Integer, db.ForeignKey("community.id")),
+    db.Column("user_id", db.String(60), db.ForeignKey("user.id")),
+    db.Column("community_id", db.String(60), db.ForeignKey("community.id")),
 )
 
 

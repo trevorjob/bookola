@@ -20,7 +20,7 @@ db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 socketio = SocketIO(app)
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
-YOUR_DOMAIN = "0.0.0.0:5000"
+YOUR_DOMAIN = "https://bookola.onrender.com"
 
 
 if __name__ == "__main__":

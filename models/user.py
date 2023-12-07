@@ -11,8 +11,8 @@ from models.base import Base
 
 user_communities = db.Table(
     "user_communities",
-    db.Column("user_id", db.String(60), db.ForeignKey("user.id")),
-    db.Column("community_id", db.String(60), db.ForeignKey("community.id")),
+    db.Column("user_id", db.String, db.ForeignKey("user.id")),
+    db.Column("community_id", db.String, db.ForeignKey("community.id")),
 )
 
 
@@ -34,9 +34,9 @@ class User(Base, UserMixin, db.Model):
     __tablename__ = "user"
     # User attributes/columns
     email = db.Column(db.Text, unique=True, nullable=False)
-    first_name = db.Column(db.String(60), nullable=False)
-    last_name = db.Column(db.String(60), nullable=False)
-    username = db.Column(db.String(60), nullable=False)
+    first_name = db.Column(db.Text, nullable=False)
+    last_name = db.Column(db.Text, nullable=False)
+    username = db.Column(db.Text, nullable=False)
     password_hash = db.Column(db.Text, nullable=False)
     profile_pic_url = db.Column(db.Text, nullable=True)
     subscribed = db.Column(db.Boolean, default=False, nullable=False)

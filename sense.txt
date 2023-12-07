@@ -1,0 +1,3 @@
+export DB_URI=sqlite:///sites.db
+export FLASK_SECRET_KEY=8BYkEfBA6O6donzWlSihBXox7C0sKR6b
+export STRIPE_SECRET_KEY=sk_test_51OHcDoLr3itnznEmNMaKZS1gmRdxCLAzF74DnMsR9vPBD8EESgcNt5Ggd6Fhyzu5h8LLEoNAoGoqL26URPlTtJ0g00jOm2CvKj

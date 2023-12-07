@@ -168,3 +168,7 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+sense.txt
+data.csv
+gens.py
+books.py

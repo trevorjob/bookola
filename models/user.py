@@ -33,12 +33,12 @@ class User(Base, UserMixin, db.Model):
     # super()
     __tablename__ = "user"
     # User attributes/columns
-    email = db.Column(db.String(128), unique=True, nullable=False)
+    email = db.Column(db.Text, unique=True, nullable=False)
     first_name = db.Column(db.String(60), nullable=False)
     last_name = db.Column(db.String(60), nullable=False)
     username = db.Column(db.String(60), nullable=False)
-    password_hash = db.Column(db.String(80), nullable=False)
-    profile_pic_url = db.Column(db.String(128), nullable=True)
+    password_hash = db.Column(db.Text, nullable=False)
+    profile_pic_url = db.Column(db.Text, nullable=True)
     subscribed = db.Column(db.Boolean, default=False, nullable=False)
     # password_token = db.Column(db.String(128), nullable=True)
 

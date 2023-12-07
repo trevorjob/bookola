@@ -1,0 +1,38 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  font-family: poppins;
+  list-style: none;
+  text-decoration: none;
+  /* width: 100%; */
+  /* overflow-x: hidden; */
+
+  /* color: whitesmoke; */
+}
+/* Default font size */
+body {
+  font-size: 85%; /* 16px when the default font size is 16px */
+}
+
+/* Media query for screens smaller than 600 pixels */
+@media screen and (max-width: 700px) {
+  body {
+    font-size: 70%; /* 85% of the default font size */
+  }
+}
+
+/* Media query for screens between 601 and 900 pixels */
+@media screen and (min-width: 701px) and (max-width: 900px) {
+  body {
+    font-size: 100%; /* 110% of the default font size */
+  }
+}
+
+/* Media query for screens larger than 900 pixels */
+@media screen and (min-width: 901px) {
+  body {
+    font-size: 110%; /* 120% of the default font size */
+  }
+}

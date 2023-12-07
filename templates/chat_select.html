@@ -1,0 +1,71 @@
+{% include "base.html" %} {% block styles %}
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/navbar.css') }}"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/chat_select.css') }}"
+/>
+{% endblock %} {% block nav %} {% include "navbar.html" %}{% endblock %} {%
+block content %}
+
+<section class="chat-section">
+  <div class="container-fluid">
+    <div class="top-desc">
+      <h2>My Chat Rooms</h2>
+      <a
+        type="button"
+        class="create-chat"
+        href="{{ url_for('create_chatroom') }}"
+        >create chat room</a
+      >
+    </div>
+    <div class="my-chats row">
+      {% for community in user_communities %}
+      <div class="col-6 col-xs-2 col-sm-2 col-md-2">
+        <div class="col-flex chat-card">
+          <img
+            class="chat-thumbnail"
+            src="{{ url_for('static', filename='assets/images/comedy.jpg') }}"
+            alt=""
+          />
+          <a
+            href="{{url_for('chatroom', community_id=community.id)}}"
+            class="chat-title"
+            >{{ community.name }}</a
+          >
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="top-desc">
+      <h2>Explore</h2>
+      <!-- <a type="button" href="#">create chat room</a> -->
+    </div>
+    <div class="explore-chats row">
+      {% for community in other_communities %}
+      <div class="col-6 col-xs-2 col-sm-2 col-md-2">
+        <div class="col-flex chat-card">
+          <img
+            class="chat-thumbnail"
+            src="{{ url_for('static', filename='assets/images/comedy.jpg') }}"
+            alt=""
+          />
+          <a
+            href="{{url_for('chatroom', community_id=community.id)}}"
+            class="chat-title"
+            >{{ community.name }}</a
+          >
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

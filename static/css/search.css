@@ -1,0 +1,67 @@
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Set the minimum height of the body to 100% of the viewport height */
+}
+
+/* Header styles */
+header {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 15px;
+    text-align: center;
+}
+
+/* Content section styles */
+section {
+    margin: 20px 0;
+}
+
+/* List styles */
+ul {
+    list-style: none;
+}
+
+li {
+    padding: 10px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Back-to-top button styles */
+a[href="#top"] {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 24px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Hover effect on the back-to-top button */
+a[href="#top"]:hover {
+    color: #ffc107;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 24px;
+    }
+
+    ul {
+        padding: 0;
+    }
+
+    li {
+        font-size: 14px;
+    }
+}

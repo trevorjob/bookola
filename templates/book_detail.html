@@ -1,0 +1,110 @@
+{% include "base.html" %} {% block styles %}
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/book_detail.css') }}"
+/>
+
+{% endblock %}{% block nav %} {% include "navbar.html" %}{% endblock %} {% block
+content %}
+
+<!-- Book Details Section -->
+<section class="p-5 m_t">
+  <div class="container">
+    <!-- Book Image and Description -->
+    <div class="row">
+      <div class="col-md-4">
+        <img
+          src="{{ book.cover_image_url }}"
+          class="img-fluid c_h"
+          alt="Book Cover"
+        />
+        <div class="comments">
+          {% for review in book.reviews %}
+          <div class="s_message">
+            <img class="c_img" src="{{ review.user.profile_pic_url }}" alt="" />
+            <div class="flex_d">
+              <span class="nm">{{review.user.username}}</span>
+              <p class="m_text">{{ review.review_text }}</p>
+            </div>
+          </div>
+          {% endfor %}
+
+          <form
+            action="{{ url_for('book_detail', bk_id=book.id) }}"
+            method="post"
+          >
+            <input
+              class="comment-inp"
+              name="comment"
+              placeholder="add a comment .."
+              type="text"
+            />
+            <button class="comment-btn" type="submit">post</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <h2 class="text-dark p-5">{{ book.title }}</h2>
+        <p class="text-muted">{{ book.author }}</p>
+        <p>{{ book.description }}</p>
+        <a href="{{url_for('rand')}}" class="btn btn-primary">Read Book</a>
+      </div>
+    </div>
+
+    <!-- End of Book Details Section -->
+
+    <!-- Similar Books Section -->
+    <div class="mt-5">
+      <h3 class="text-dark">Similar Books</h3>
+      <div class="row">
+        <!-- Similar Book 1 -->
+        {% for book in similar_books %}
+        <div class="col-md-2 mb-1">
+          <div class="card text-dark">
+            <img
+              src="{{ book.cover_image_url }}"
+              class="card-img-top c_d"
+              alt="Similar Book 1"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ book.title }}</h5>
+              <p class="card-text">{{ book.author }}</p>
+              <a href="{{ url_for('book_detail', bk_id=book.id) }}">read</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <!-- End of Similar Books Section -->
+
+    <!-- Books by the Same Author Section -->
+    <div class="mt-5">
+      <h3 class="text-dark">Books by the Same Author</h3>
+      <div class="row">
+        <!-- Book by Same Author 1 -->
+        {% for book in same_author %}
+        <div class="col-md-2 mb-1">
+          <div class="card text-dark">
+            <img
+              src="{{ book.cover_image_url }}"
+              class="card-img-top c_d"
+              alt="same author Book 1"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{{ book.title }}</h5>
+              <p class="card-text">{{ book.author }}</p>
+              <a href="{{ url_for('book_detail', bk_id=book.id) }}">read</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <!-- End of Books by the Same Author Section -->
+  </div>
+</section>
+
+{% block footer %} {% include "footer.html" %}{% endblock %} {% endblock %}

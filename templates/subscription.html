@@ -1,0 +1,171 @@
+{% include "base.html" %} {% block styles %}
+<!-- font awesome icons -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+  integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/subscription.css') }}"
+/>
+
+{% endblock %} {% block nav %} {% include "navbar.html" %}{% endblock %} {%
+block content %}
+
+<!-- pricing -->
+<section class="bg-secondary p-5 p-lg-0 pt-lg-5 text-sm-start">
+  <div class="container py-5">
+    <div class="row text-center">
+      <div class="col-lg-4 mb-5 mb-lg-0">
+        <div class="bg-white p-5 rounded-lg shadow">
+          <h1 class="h6 text-uppercase font-weight-bold mb-4">Free</h1>
+
+          <h2 class="h1 font-weight-bold">
+            $0
+            <span class="text-small font-weight-normal ml-2"> /month</span>
+          </h2>
+
+          <div class="custom-seperator my-4 mx-auto bg-primary"></div>
+          <ul class="list-unstyled my-5 text-small text-left">
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">1 User.</i>
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">Access to basic library.</i>
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2"
+                >Limited number of simultaneous reads and downloads.</i
+              >
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">Customer support.</i>
+            </li>
+
+            <li class="mb-3 text-muted">
+              <i class="fa fa-times mr-2"></i
+              ><del>Simultaneous reads and downloads.</del>
+            </li>
+
+            <li class="mb-3 text-muted">
+              <i class="fa fa-times mr-2"></i
+              ><del>Full access to the library.</del>
+            </li>
+            <li class="mb-3 text-muted">
+              <i class="fa fa-times mr-2"></i
+              ><del>Access to early releases.</del>
+            </li>
+          </ul>
+          <form action="/checkout" method="post">
+            <input type="hidden" name="subs" value="free">
+            <button type="submit" id="checkout-free" class="btn btn-primary btn-block p-2 shadow rounded-pill"
+            >Subscribe</button
+            >
+          </form>
+        </div>
+      </div>
+
+      <div class="col-lg-4 mb-5 mb-lg-0">
+        <div class="bg-white p-5 rounded-lg shadow">
+          <h1 class="h6 text-uppercase font-weight-bold mb-4">Premium</h1>
+          <h2 class="h1 font-weight-bold">
+            $17.97<span class="text-small font-weight-normal ml-2"> /month</span>
+          </h2>
+
+          <div class="custom-seperator my-4 mx-auto bg-primary"></div>
+          <ul class="list-unstyled my-5 text-small text-left">
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">3 Users.</i>
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">All regular sub.</i>
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">Access to early releases.</i>
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2"
+                >Increased number of simultaneous reads and downloads.</i
+              >
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2"
+                >Enhanced customer support with faster response time.</i
+              >
+            </li>
+
+            <li class="mb-3 text-muted">
+              <i class="fa fa-times mr-2"></i
+              ><del>Full access to the library.</del>
+            </li>
+          </ul>
+          <form action="/checkout" method="post">
+            <input type="hidden" name="subs" value="premium">
+            <button type="submit" id="checkout-premium" class="btn btn-primary btn-block p-2 shadow rounded-pill"
+            >Subscribe</button
+            >
+          </form> 
+        </div>
+      </div>
+
+      <div class="col-lg-4 mb-5 mb-lg-0">
+        <div class="bg-white p-5 rounded-lg shadow">
+          <h1 class="h6 text-uppercase font-weight-bold mb-4">Platinum</h1>
+          <h2 class="h1 font-weight-bold">
+            $50.00<span class="text-small font-weight-normal ml-2"> /month</span>
+          </h2>
+
+          <div class="custom-seperator my-4 mx-auto bg-primary"></div>
+          <ul class="list-unstyled my-5 text-small text-left">
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">5 Users.</i>
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">All regular and premium sub.</i>
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2"
+                >Full access to the entire library including rare books.</i
+              >
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2"
+                >Unlimited simultaneous reads and downloads.</i
+              >
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">Access to chat rooms.</i>
+            </li>
+
+            <li class="mb-3">
+              <i class="bi bi-check mr-2">Monthly book review.</i>
+            </li>
+          </ul>
+          <form action="/checkout" method="post">
+            <input type="hidden" name="subs" value="platinum">
+            <button type="submit" id="checkout-platinum" class="btn btn-primary btn-block p-2 shadow rounded-pill"
+            >Subscribe</button
+            >
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% block footer %} {% include "footer.html" %}{% endblock %} {% endblock %}

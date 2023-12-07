@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>Bookola-Registration</title>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-lg-5">
+        <div class="card bg-secondary text-white">
+          <h2 class="card-title text-light mt-3 text-center" >Bookola</h2>
+          <p class="card-text text-center"> Welcome to our bookstore</p>
+          <hr class=" border position-relative " style="width: 70%; align-self: center; margin: 0px;">
+          <div class="card-body">
+            <form class="row g-3 mt-3 needs-validation" action="" method="post" novalidate>
+              <div class="col-md-6">
+                <label for="firstname" class="form-label">First Name</label>
+                <input type="text" class="form-control rounded-pill" name="firstname" id="enterfirstname" placeholder="Sheldon" value="" required autocomplete="given-name">
+                <div class="invalid-feedback">
+                  Enter First Name !
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="lastname" class="form-label">Last Name</label>
+                <input type="text" class="form-control rounded-pill" name="lastname" id="enterlastname" placeholder="Cooper" value="" required autocomplete="family-name">
+                <div class="invalid-feedback">
+                  Enter Last Name !
+                </div>
+              </div>
+
+              <label for="username" class="form-label">Username</label>
+              <div class="input-group has-validation">
+                <input type="text" class="form-control rounded-pill" name="username" placeholder="sheldon12" aria-describedby="inputGroupPrepend" required autocomplete="username">
+                <div class="invalid-feedback">
+                  Please Create a unique username.
+                </div>
+              </div>
+
+              <label for="email" class="form-label">Email</label>
+              <div class="input-group has-validation">
+                <input type="email" class="form-control rounded-pill" name="email" placeholder="sheldon@gmail.com" aria-describedby="inputGroupPrepend" autocomplete="email">
+                <div class="invalid-feedback">
+                  Please Enter Valid Email.
+                </div>
+              </div>
+              
+              <label for="validationPassword">Password</label>
+              <input type="password" class="form-control rounded-pill" id="validationPassword" minlength="8" name="password" placeholder="***********" value="" required>
+              <label for="Confirm-Password">Confirm-Password</label>
+              <input type="password" class="form-control rounded-pill"  minlength="8" name="confirm-password" placeholder="***********" value="" required>
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input rounded-pill" type="checkbox" value="" id="invalidCheck" required>
+                  <label class="form-check-label" for="invalidCheck">
+                    Agree to terms and conditions
+                  </label>
+                  <div class="invalid-feedback">
+                    You must agree before submitting.
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 text-center ">
+                <button class="btn btn-primary" title="Submit Your Form"  name="reg_user" type="submit"> CREATE ACCOUNT</button>
+              </div>
+              <span class="extra-line text-center">
+                <span>Already have an account?</span>
+                <a href="{{ url_for('login') }}">Login</a>
+              </span>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Bootstrap js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  
+</body>
+
+</html>

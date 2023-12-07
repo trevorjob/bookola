@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Bookola-Login</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-lg-4 mt-5">
+          <div class="card bg-secondary text-light">
+            <h2 class="card-title text-light mt-3 text-center">Bookola</h2>
+            <p class="card-text text-center"> Welcome back! please enter your details.</p>
+            <hr class=" border position-relative " style="width: 70%; align-self: center; margin: 0px;">
+            <div class="card-body">
+              <form class="row g-3 mt-0 needs-validation" action="" method="post" novalidate>
+                <label for="email" class="text-center" class="form-label">Email</label>
+                <div class="input-group has-validation">
+                  <input type="email" class="form-control rounded-pill" name="email"  aria-describedby="inputGroupPrepend" required autocomplete="username">
+                  <div class="invalid-feedback">
+                    Please Enter a Valid Email.
+                  </div>
+                </div>          
+                
+                <label for="password" class="text-center" class="form-label">Password</label>
+                <div class="input-group has-validation">
+                  <input type="password" class="form-control rounded-pill" name="password"  aria-describedby="inputGroupPrepend" required autocomplete="current-password">
+                  <div class="invalid-feedback">
+                    Enter Password
+                  </div>
+                </div> 
+                <div class="col-6">
+                  <div class="form-check">
+                    <input class="form-check-input" name="remeberme" type="checkbox" value="" id="invalidCheck">
+                    <label class="form-check-label" for="invalidCheck">
+                      Remember Me
+                    </label>
+                  </div>
+                </div>
+                <div class="col-6" align="right">
+                  <a href="{{ url_for('forgot_password') }}">Forgot Password</a>
+                </div>
+                <div class="col-md-12 text-center ">
+              <button class="btn btn-primary" title="Submit Your Form" aria-label="Left Align" name="log_user" type="submit"> Log In</button>
+            </div>
+            <span class="extra-line text-center">
+              <span>Don't have an account ?</span>
+              <a href="{{ url_for('signup') }}">Sign Up</a>
+            </span>
+          </form>
+        </div>
+      </div>
+    </div>	
+  </div>
+</div>
+<!--  Bootstrap js -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

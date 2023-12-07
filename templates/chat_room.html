@@ -1,0 +1,43 @@
+{% include "base.html" %} {% block styles %}
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/chat_room.css') }}"
+/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+
+{% endblock %} {% block content %}
+<div class="top-desc">
+  <p>Bookola</p>
+  <a class="exit-btn" href="{{url_for('select_chat')}}">exit</a>
+</div>
+<div class="content">
+  <div class="message-box">
+    <h2>Chat room</h2>
+    <div class="messages" id="messages"></div>
+    <div class="inputs">
+      <input
+        type="text"
+        rows="3"
+        placeholder="message"
+        name="message"
+        id="message"
+      />
+      <button type="button" name="send" id="send-btn" onclick="sendMessage()">
+        send
+      </button>
+    </div>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='js/chatroom.js')}}"></script>
+{% for msg in messages %}
+<script type="text/javascript">
+  createMessage(
+    "{{msg.user.username}}",
+    "{{msg.text}}",
+    "{{msg.user.profile_pic_url}}",
+    '{{msg.created_at.strftime("%H:%M")}}'
+  );
+</script>
+{% endfor %} {% endblock %}

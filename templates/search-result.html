@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- bootsrap cdn -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+
+    <!-- bootstrap icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='./static/style/search.css') }}"
+    />
+    <title>Search Results</title>
+    <style>
+      /*  custom styles */
+    </style>
+  </head>
+  <body>
+    <!-- Content section -->
+    <section class="p-5">
+      <div class="container">
+        {% if results %}
+        <h2 class="text-center text-dark">Search Results</h2>
+        <!-- Display search results here -->
+        <ul>
+          {% for result in results %}
+          <li>
+            <a href="{{ url_for('book_detail', bk_id=result.id) }}"
+              >{{ result.title }}</a
+            >
+          </li>
+          <hr />
+          {% endfor %}
+        </ul>
+        {% else %}
+        <h2 class="text-center text-dark">Cant find results for {{ q }}</h2>
+        {% endif %}
+      </div>
+    </section>
+    <!-- bootstrap javascript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

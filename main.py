@@ -38,32 +38,30 @@ with app.app_context():
             )
             db.session.add(gen)
 
-with open("books.json", "r", encoding="utf-8") as f:
-    books = json.load(f)
-    for book in books:
-        for genre in genres:
-            if book["genre_id"] == genre["name"]:
-                boo = Book(
-                    id=book["id"],
-                    title=book["title"],
-                    genre_id=genre["id"],
-                    cover_image_url=book["cover_image_url"],
-                    description=book["description"],
-                    publication_date=book["publication_date"],
-                    language=book["language"],
-                    author=book["author"],
-                    rating=randint(5, 10),
-                )
-                db.session.add(boo)
-    db.session.commit()
-with app.app_context():
-    ses = []
-
+    with open("books.json", "r", encoding="utf-8") as f:
+        books = json.load(f)
+        for book in books:
+            for genre in genres:
+                if book["genre_id"] == genre["name"]:
+                    boo = Book(
+                        id=book["id"],
+                        title=book["title"],
+                        genre_id=genre["id"],
+                        cover_image_url=book["cover_image_url"],
+                        description=book["description"],
+                        publication_date=book["publication_date"],
+                        language=book["language"],
+                        author=book["author"],
+                        rating=randint(5, 10),
+                    )
+                    db.session.add(boo)
     book_of = choice(Book.query.all())
     latest = sample(Book.query.all(), k=4)
     gens = sample(Genre.query.all(), k=4)
+    db.session.commit()
 
-cur_id = {}
+    ses = []
+    cur_id = {}
 
 
 ########################### HELPER FUNCTIONS ##########################################

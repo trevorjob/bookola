@@ -6,4 +6,4 @@ flask_login
 flask_wtf 
 stripe
 gunicorn
-psycopg
+psycopg2-binary==2.9.6

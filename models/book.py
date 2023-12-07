@@ -36,7 +36,7 @@ class Book(Base, db.Model):
     cover_image_url = db.Column(db.Text, nullable=True)
     rating = db.Column(db.Integer, nullable=False)
     genre_id = db.Column(db.String(60), db.ForeignKey("genre.id"), nullable=False)
-    author = db.Column(db.String(60), nullable=False)
+    author = db.Column(db.Text, nullable=False)
 
     #     author = db.relationship("Author", back_populates="book")
     #     genres = db.relationship("Genre", back_populates="book", lazy=True)

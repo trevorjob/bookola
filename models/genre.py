@@ -7,9 +7,9 @@ from models.base import *
 
 genre_communities = db.Table(
     "genre_communities",
-    db.Column("genre_id", db.Integer, db.ForeignKey("genre.id"), primary_key=True),
+    db.Column("genre_id", db.String(60), db.ForeignKey("genre.id"), primary_key=True),
     db.Column(
-        "community_id", db.Integer, db.ForeignKey("community.id"), primary_key=True
+        "community_id", db.String(60), db.ForeignKey("community.id"), primary_key=True
     ),
 )
 

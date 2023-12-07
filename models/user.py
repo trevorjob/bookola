@@ -2,7 +2,7 @@
 """
 Define the User class for the 'users' table in the database.
 """
-from flask import current_app, url_for
+from flask import url_for
 from flask_login import UserMixin
 from flask_mail import Message
 

@@ -2,7 +2,7 @@
 """
 Define the User class for the 'users' table in the database.
 """
-from flask import current_app, url_for
+from flask import url_for
 from flask_login import UserMixin
 from flask_mail import Message
 
@@ -42,7 +42,7 @@ class User(Base, UserMixin, db.Model):
     subscribed = db.Column(db.Boolean, default=False, nullable=False)
     # password_token = db.Column(db.String(128), nullable=True)
 
-    reviews = db.relationship("Review", backref="user")
+    # reviews = db.relationship("Review", backref="user")
     communities = db.relationship(
         "Community",
         secondary=user_communities,

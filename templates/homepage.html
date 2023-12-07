@@ -16,7 +16,7 @@ content %}
 >
   <div class="container">
     <div>
-      <h5>Bookola <span class="text-warning">bookstore</span></h5>
+      <h5>Bookola <span class="text-warning">Digital Library</span></h5>
       <h2 class="lead">Your Gateway to a World of Books.</h2>
       <p>Explore a vast collection of books tailored just for you.</p>
       {% if not current_user.subscribed %}
@@ -50,7 +50,7 @@ content %}
             <h3 class="card-title mb-3">{{ book.title }}</h3>
             <p class="card-text">{{ book.author }}</p>
             <a
-              href="{{ url_for('book_detail', book_id=book.id) }}"
+              href="{{ url_for('book_detail', bk_id=book.id) }}"
               class="btn btn-primary"
               >Read Now</a
             >
@@ -70,7 +70,7 @@ content %}
   <div class="container">
     <div class="row align-items-center justify-content-between">
       <div class="col-md bkm">
-        <h2 class="text-center">Book of the month</h2>
+        <h2 class="text-center">Editors Pick</h2>
         <img
           class="img-fluid c_h"
           src="{{ book_of_the_week.cover_image_url}}"
@@ -82,7 +82,7 @@ content %}
         <p class="lead">{{book_of_the_week.author}}</p>
         <p>{{book_of_the_week.description[:200]}}....</p>
         <a
-          href="{{ url_for('book_detail', book_id=book_of_the_week.id) }}"
+          href="{{ url_for('book_detail', bk_id=book_of_the_week.id) }}"
           class="btn btn-light mt-3"
         >
           <i class="bi bi-chevron-right"></i> Read More</a

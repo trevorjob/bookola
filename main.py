@@ -2,21 +2,19 @@
 """This is the main entry point of the web application.
 It contains the initialisation of a web application, including setting
 up route, defining views and configuring various settings."""
+import hashlib
 import json
-from random import choice, sample, randint
-from uuid import uuid4
 from functools import wraps
+from random import choice, randint, sample
+from uuid import uuid4
 
 import stripe
-from flask import jsonify, redirect, render_template, request, session, url_for, flash
-from flask_login import UserMixin, current_user, login_required, login_user, logout_user
+from flask import flash, redirect, render_template, request, session, url_for
+from flask_login import current_user, login_user, logout_user
 from flask_socketio import join_room, leave_room, send
-from sqlalchemy import text
-from sqlalchemy.exc import IntegrityError
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from models import YOUR_DOMAIN, app, db, login_manager, socketio, stripe
-import hashlib
 from models.base import *
 from models.book import *
 from models.community import *
@@ -59,16 +57,53 @@ from models.user import *
 #                 )
 #                 db.session.add(boo)
 # db.session.commit()
+
 with app.app_context():
-    # session["recents"] = []
+    db.drop_all()
+    db.create_all()
+    with open("genres.json", "r", encoding="utf-8") as f:
+        genres = json.load(f)
+        for genre in genres:
+            gen = Genre(
+                id=genre["id"],
+                name=genre["name"],
+                description=genre["description"],
+                img_url=genre["img_url"],
+            )
+            db.session.add(gen)
+
+    with open("books.json", "r", encoding="utf-8") as f:
+        books = json.load(f)
+        for book in books:
+            for genre in genres:
+                if book["genre_id"] == genre["name"]:
+                    boo = Book(
+                        id=book["id"],
+                        title=book["title"],
+                        genre_id=genre["id"],
+                        cover_image_url=book["cover_image_url"],
+                        description=book["description"],
+                        publication_date=book["publication_date"],
+                        language=book["language"],
+                        author=book["author"],
+                        rating=randint(5, 10),
+                    )
+                    db.session.add(boo)
+    db.session.commit()
+with app.app_context():
     ses = []
+
     book_of = choice(Book.query.all())
     latest = sample(Book.query.all(), k=4)
     gens = sample(Genre.query.all(), k=4)
 
+cur_id = {}
+
 
 
 # HELPER FUNCTIONS
+
+########################### HELPER FUNCTIONS ##########################################
 def get_data(data):
     """A method that get data from the database"""
     return request.form.get(data)
@@ -153,7 +188,6 @@ def homepage():
     if subed:
         current_user.subscribed = True
         saveDB()
-    print(current_user.subscribed)
 
     return render_template(
         "homepage.html",
@@ -188,6 +222,7 @@ def login():
             user = User.query.filter_by(email=email).first()
 
             if user and check_password_hash(user.password_hash, password):
+                cur_id["user_id"] = user.id
                 session["user_id"] = user.id
                 login_user(user)
                 return redirect(url_for("homepage"))
@@ -282,14 +317,28 @@ def books(genre_id):
 
 
 ########################## BOOK DETAILS PAGE ROUTE #########################
-@app.route("/book/<book_id>", methods=["GET"])
+@app.route("/book/<bk_id>", methods=["GET", "POST"])
 @is_logged
 @is_subed
-def book_detail(book_id):
-    book = getOneFromDB(Book, book_id)
+def book_detail(bk_id):
+    if request.method == "POST":
+        comment = get_data("comment")
+        review = Review(
+            review_text=comment,
+            id=str(uuid4()),
+            book_id=bk_id,
+            user_id=current_user.id,
+        )
+
+        db.session.add(review)
+        db.session.commit()
+
+    book = getOneFromDB(Book, bk_id)
     similar_books = sample(Book.query.filter_by(genre_id=book.genre_id).all(), k=6)
     same_author = Book.query.filter_by(author=book.author).all()
-    ses.append(book)
+
+    if book not in ses:
+        ses.append(book)
 
     return render_template(
         "book_detail.html",
@@ -298,6 +347,11 @@ def book_detail(book_id):
         similar_books=similar_books,
         same_author=same_author,
     )
+
+
+@app.route("/rand")
+def rand():
+    return render_template("rand.html")
 
 
 ########################## SUBSCRIPTION PAGE ROUTE #########################
@@ -319,7 +373,7 @@ def subscription():
 @is_logged
 def checkout_subs():
     """A method route for subscription packages"""
-
+    logout_user()
     if request.method == "POST":
         subscription_level = request.form.get("subs")
 
@@ -354,12 +408,16 @@ def checkout_subs():
 @app.route("/success")
 def success():
     """Success page route"""
+    user = getOneFromDB(User, cur_id["user_id"])
+    login_user(user)
     return render_template("success.html")
 
 
 @app.route("/fail")
 def fail():
     """Failure to load page route"""
+    user = getOneFromDB(User, cur_id["user_id"])
+    login_user(user)
     return render_template("fail.html")
 
 
@@ -381,6 +439,7 @@ def chatroom(community_id):
         saveDB()
 
     if community:
+        print(community.messages)
         return render_template(
             "chat_room.html",
             community=community,
@@ -423,8 +482,13 @@ def message(data):
         "img": user.profile_pic_url,
     }
     message = ChatMessage(
-        id=str(uuid4()), text=content["message"], user_id=user.id, community_id=chat
+        id=str(uuid4()),
+        text=content["message"],
+        user_id=user.id,
+        community_id=chat,
+        created_at=datetime.utcnow(),
     )
+    content["time"] = message.created_at.strftime("%H:%M")
     send(content, to=chat)
 
     addToDB(message)

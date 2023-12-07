@@ -32,7 +32,7 @@ class Book(Base, db.Model):
     title = db.Column(db.String, nullable=False)
     publication_date = db.Column(db.String(60), nullable=True)
     language = db.Column(db.String(60), nullable=True)
-    description = db.Column(db.String, nullable=True)
+    description = db.Column(db.Text, nullable=True)
     cover_image_url = db.Column(db.String, nullable=True)
     rating = db.Column(db.Integer, nullable=False)
     genre_id = db.Column(db.String(60), db.ForeignKey("genre.id"), nullable=False)

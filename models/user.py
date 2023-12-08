@@ -5,8 +5,9 @@ Define the User class for the 'users' table in the database.
 from flask import url_for
 from flask_login import UserMixin
 from flask_mail import Message
+from itsdangerous import URLSafeSerializer as Serializer
 
-from models import db, mail
+from models import db, mail, app, login_manager
 from models.base import Base
 
 user_communities = db.Table(
@@ -40,7 +41,7 @@ class User(Base, UserMixin, db.Model):
     password_hash = db.Column(db.Text, nullable=False)
     profile_pic_url = db.Column(db.Text, nullable=True)
     subscribed = db.Column(db.Boolean, default=False, nullable=False)
-    # password_token = db.Column(db.String(128), nullable=True)
+    password_reset_token = db.Column(db.String(128), unique=True, nullable=True)
 
     # reviews = db.relationship("Review", backref="user")
     communities = db.relationship(
@@ -58,6 +59,21 @@ class User(Base, UserMixin, db.Model):
 
     def is_anonymous(self):
         return False
+
+def get_token(self,expired_sec=300):
+    serial=Serializer(app.config['SECRET_KEY'], expire_in=expired_sec)
+    return serial.dumps({'user_id':self.id}).decode('utf-8')
+
+@staticmethod
+def verify_token(token):
+    """Verify users"""
+    serial=Serializer(app.config['SECRET_KEY'])
+    try:
+        user_id=serial.loads(token)['user_id']
+    except:
+        return None
+    return User.query.get(user_id)
+
 
 
 def send_password_reset_email(email, token):

@@ -4,6 +4,7 @@ It contains the initialisation of a web application, including setting
 up route, defining views and configuring various settings."""
 import hashlib
 import json
+import secrets
 from functools import wraps
 from random import choice, randint, sample
 from uuid import uuid4
@@ -13,8 +14,10 @@ from flask import flash, redirect, render_template, request, session, url_for
 from flask_login import current_user, login_user, logout_user
 from flask_socketio import join_room, leave_room, send
 from werkzeug.security import check_password_hash, generate_password_hash
+from models.forms import ResetRequestForm, ResetPasswordForm
+from flask_mail import Message
 
-from models import YOUR_DOMAIN, app, db, login_manager, socketio, stripe
+from models import YOUR_DOMAIN, app, db, login_manager, socketio, stripe, mail
 from models.base import *
 from models.book import *
 from models.community import *
@@ -23,6 +26,7 @@ from models.message import *
 from models.reviews import *
 from models.subscribe import *
 from models.user import *
+
 
 with app.app_context():
     # db.drop_all()
@@ -54,7 +58,7 @@ with app.app_context():
     #                     author=book["author"],
     #                     rating=randint(5, 10),
     #                 )
-    #                 db.session.add(boo)
+    #                db.session.add(boo)
     book_of = choice(Book.query.all())
     latest = sample(Book.query.all(), k=4)
     gens = sample(Genre.query.all(), k=4)
@@ -63,6 +67,9 @@ with app.app_context():
     ses = []
     cur_id = {}
 
+
+
+# HELPER FUNCTIONS
 
 ########################### HELPER FUNCTIONS ##########################################
 def get_data(data):
@@ -321,8 +328,8 @@ def rand():
 def subscription():
     """Subscription packages"""
     packages = [
-        {"name": "Regular", "price": 0.00},
-        {"name": "Premum", "price": 5.99},
+        {"name": "Free", "price": 0.00},
+        {"name": "Premium", "price": 5.99},
         {"name": "Platinum", "price": 10.00},
     ]
     return render_template(
@@ -507,43 +514,46 @@ def create_chatroom():
 
 ########################## PASSWORD MANAGER ROUTE #########################
 
-
 @app.route("/forgot_password", methods=["GET", "POST"])
-@is_logged
 def forgot_password():
-    """Forgot password route"""
+    """ Forgot password route """
+    form = ResetRequestForm()
+
     if request.method == "POST":
         email = request.form.get("email")
         user = User.query.filter_by(email=email).first()
+        print(user.email)
 
         if user:
             # Generate a password reset token and save it to the user
-            password_reset_token = generate_password_hash(email, method="sha256")
+            password_reset_token = secrets.token_urlsafe(32)
             user.password_reset_token = password_reset_token
             db.session.commit()
 
-            # Send password reset email
+            # Build the reset link using url_for
+            #reset_link = url_for('reset_password', token=password_reset_token, _external=True, _scheme='http')
+
+            # Send password reset email with the reset link
             send_password_reset_email(user.email, password_reset_token)
             flash("Password recovery email sent")
             return redirect(url_for("login"))
         else:
             flash("Email not found. Please check the email address and try again.")
 
-    return render_template("forgot_password.html")
+    return render_template("forgot_password.html", current_user=current_user, form=form)
 
 
 @app.route("/reset_password/<token>", methods=["GET", "POST"])
-@is_logged
 def reset_password(token):
-    """Reset password and authentication"""
+    """ Reset password and authentication """
     user = User.query.filter_by(password_reset_token=token).first()
-
     if not user:
         flash("Invalid or expired password reset token")
         return redirect(url_for("login"))
 
-    if request.method == "POST":
-        new_password = request.form.get("new_password")
+    form = ResetPasswordForm()
+    if request.method == 'POST':
+        new_password = form.new_password.data
 
         # Update the user's password and reset the password reset token
         user.password_hash = generate_password_hash(new_password)
@@ -556,13 +566,17 @@ def reset_password(token):
         )
         return redirect(url_for("login"))
 
-    return render_template("reset_password.html", token=token)
+    return render_template("reset_password.html", form=form, token=token)
+
+@app.route('/terms_of_service', methods=["GET", "POST"])
+def terms_of_service():
+    return render_template("terms_of_service.html")
 
 
 @app.errorhandler(404)
 @app.errorhandler(500)
 def handle_errors(error):
-    """404 & 500 error handler"""
+    #404 & 500 error handler
     return render_template("error.html")
 
 

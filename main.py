@@ -140,7 +140,7 @@ def is_logged(function):
 
 
 ########################## HOME PAGE ROUTE #########################
-@app.route("/homepage", methods=["GET"])
+@app.route("/", methods=["GET"])
 def homepage():
     lastest_books = latest
     book_of_the_week = book_of
@@ -172,7 +172,7 @@ def search_results():
 ########################## LOGIN PAGE ROUTE #########################
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     """Login route"""
     if request.method == "POST":

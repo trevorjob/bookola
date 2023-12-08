@@ -42,7 +42,7 @@ class User(Base, UserMixin, db.Model):
     subscribed = db.Column(db.Boolean, default=False, nullable=False)
     # password_token = db.Column(db.String(128), nullable=True)
 
-    reviews = db.relationship("Review", backref="user")
+    # reviews = db.relationship("Review", backref="user")
     communities = db.relationship(
         "Community",
         secondary=user_communities,

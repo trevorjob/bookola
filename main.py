@@ -27,37 +27,37 @@ from models.subscribe import *
 from models.user import *
 
 # with app.app_context():
-# db.drop_all()
-# db.create_all()
-# with open("genres.json", "r", encoding="utf-8") as f:
-#     genres = json.load(f)
-#     for genre in genres:
-#         gen = Genre(
-#             id=genre["id"],
-#             name=genre["name"],
-#             description=genre["description"],
-#             img_url=genre["img_url"],
-#         )
-#         db.session.add(gen)
-
-# with open("books.json", "r", encoding="utf-8") as f:
-#     books = json.load(f)
-#     for book in books:
+#     db.drop_all()
+#     db.create_all()
+#     with open("genres.json", "r", encoding="utf-8") as f:
+#         genres = json.load(f)
 #         for genre in genres:
-#             if book["genre_id"] == genre["name"]:
-#                 boo = Book(
-#                     id=book["id"],
-#                     title=book["title"],
-#                     genre_id=genre["id"],
-#                     cover_image_url=book["cover_image_url"],
-#                     description=book["description"],
-#                     publication_date=book["publication_date"],
-#                     language=book["language"],
-#                     author=book["author"],
-#                     rating=randint(5, 10),
-#                 )
-#                 db.session.add(boo)
-#                 db.session.commit()
+#             gen = Genre(
+#                 id=genre["id"],
+#                 name=genre["name"],
+#                 description=genre["description"],
+#                 img_url=genre["img_url"],
+#             )
+#             db.session.add(gen)
+
+#     with open("books.json", "r", encoding="utf-8") as f:
+#         books = json.load(f)
+#         for book in books:
+#             for genre in genres:
+#                 if book["genre_id"] == genre["name"]:
+#                     boo = Book(
+#                         id=book["id"],
+#                         title=book["title"],
+#                         genre_id=genre["id"],
+#                         cover_image_url=book["cover_image_url"],
+#                         description=book["description"],
+#                         publication_date=book["publication_date"],
+#                         language=book["language"],
+#                         author=book["author"],
+#                         rating=randint(5, 10),
+#                     )
+#                     db.session.add(boo)
+#     db.session.commit()
 with app.app_context():
     # session["recents"] = []
     ses = []
@@ -69,7 +69,7 @@ with app.app_context():
 cur_id = {}
 
 
-# HELPER FUNCTIONS
+########################### HELPER FUNCTIONS ##########################################
 def get_data(data):
     """A method that get data from the database"""
     return request.form.get(data)
@@ -283,14 +283,28 @@ def books(genre_id):
 
 
 ########################## BOOK DETAILS PAGE ROUTE #########################
-@app.route("/book/<book_id>", methods=["GET"])
+@app.route("/book/<bk_id>", methods=["GET", "POST"])
 @is_logged
 @is_subed
-def book_detail(book_id):
-    book = getOneFromDB(Book, book_id)
+def book_detail(bk_id):
+    if request.method == "POST":
+        comment = get_data("comment")
+        review = Review(
+            review_text=comment,
+            id=str(uuid4()),
+            book_id=bk_id,
+            user_id=current_user.id,
+        )
+
+        db.session.add(review)
+        db.session.commit()
+
+    book = getOneFromDB(Book, bk_id)
     similar_books = sample(Book.query.filter_by(genre_id=book.genre_id).all(), k=6)
     same_author = Book.query.filter_by(author=book.author).all()
-    ses.append(book)
+
+    if book not in ses:
+        ses.append(book)
 
     return render_template(
         "book_detail.html",
@@ -299,6 +313,11 @@ def book_detail(book_id):
         similar_books=similar_books,
         same_author=same_author,
     )
+
+
+@app.route("/rand")
+def rand():
+    return render_template("rand.html")
 
 
 ########################## SUBSCRIPTION PAGE ROUTE #########################

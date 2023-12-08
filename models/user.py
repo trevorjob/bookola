@@ -2,7 +2,7 @@
 """
 Define the User class for the 'users' table in the database.
 """
-from flask import current_app, url_for
+from flask import url_for
 from flask_login import UserMixin
 from flask_mail import Message
 
@@ -11,8 +11,8 @@ from models.base import Base
 
 user_communities = db.Table(
     "user_communities",
-    db.Column("user_id", db.Integer, db.ForeignKey("user.id")),
-    db.Column("community_id", db.Integer, db.ForeignKey("community.id")),
+    db.Column("user_id", db.String, db.ForeignKey("user.id")),
+    db.Column("community_id", db.String, db.ForeignKey("community.id")),
 )
 
 
@@ -33,12 +33,12 @@ class User(Base, UserMixin, db.Model):
     # super()
     __tablename__ = "user"
     # User attributes/columns
-    email = db.Column(db.String(128), unique=True, nullable=False)
-    first_name = db.Column(db.String(60), nullable=False)
-    last_name = db.Column(db.String(60), nullable=False)
-    username = db.Column(db.String(60), nullable=False)
-    password_hash = db.Column(db.String(80), nullable=False)
-    profile_pic_url = db.Column(db.String(128), nullable=True)
+    email = db.Column(db.Text, unique=True, nullable=False)
+    first_name = db.Column(db.Text, nullable=False)
+    last_name = db.Column(db.Text, nullable=False)
+    username = db.Column(db.Text, nullable=False)
+    password_hash = db.Column(db.Text, nullable=False)
+    profile_pic_url = db.Column(db.Text, nullable=True)
     subscribed = db.Column(db.Boolean, default=False, nullable=False)
     # password_token = db.Column(db.String(128), nullable=True)
 

@@ -2,6 +2,8 @@ flask
 flask_sqlalchemy  
 flask_mail  
 flask_socketio  
-flask_login  
+flask_login 
+flask_wtf 
 stripe
 gunicorn
+psycopg2-binary==2.9.6

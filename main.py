@@ -68,8 +68,6 @@ with app.app_context():
 
 
 # HELPER FUNCTIONS
-
-
 ########################### HELPER FUNCTIONS ##########################################
 def get_data(data):
     """A method that get data from the database"""
@@ -186,13 +184,15 @@ def login():
         email = get_data("email")
         password = get_data("password")
 
+        remember_me = get_data('rememberme')
+        
         if email is not None and password is not None:
             user = User.query.filter_by(email=email).first()
 
             if user and check_password_hash(user.password_hash, password):
                 cur_id["user_id"] = user.id
                 session["user_id"] = user.id
-                login_user(user)
+                login_user(user, remember=remember_me)
                 return redirect(url_for("homepage"))
         return redirect(url_for("login"))
 
@@ -563,7 +563,7 @@ def forgot_password():
             # Send password reset email with the reset link
             send_password_reset_email(user.email, password_reset_token)
             flash("Password recovery email sent")
-            return redirect(url_for("login"))
+            return redirect(url_for("nandom"))
         else:
             flash("Email not found. Please check the email address and try again.")
 
@@ -596,7 +596,12 @@ def reset_password(token):
     return render_template("reset_password.html", form=form, token=token)
 
 
-@app.route("/terms_of_service", methods=["GET", "POST"])
+@app.route('/nandom', methods=['GET', 'POST'])
+def nandom():
+    """Email success notification request route"""
+    return render_template("nandom.html")
+
+@app.route('/terms_of_service', methods=["GET", "POST"])
 def terms_of_service():
     return render_template("terms_of_service.html")
 

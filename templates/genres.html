@@ -1,0 +1,49 @@
+{% include "base.html" %} {% block styles %}
+
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/homepage.css') }}"
+/>
+
+{% endblock %}{% block nav %} {% include "navbar.html" %}{% endblock %}{% block
+content %}
+
+<!-- genre -->
+<section class="p-5 m_t">
+  <div class="container">
+    <h2 class="text-center text-dark">Genres</h2>
+    <div class="row text-center g-4">
+      {% for genre in genres %}
+      <div class="col-md col col-md-3">
+        <div class="card text-dark">
+          <div class="card-body text-center">
+            <div class="h1 mb-3">
+              <img
+                src="{{genre.img_url}}"
+                class="card-img-top c_d"
+                alt="books"
+              />
+            </div>
+            <h3 class="card-title mb-3">{{genre.name}}</h3>
+            <p class="card-text">{{genre.description}}</p>
+
+            <a
+              href="{{ url_for('books', genre_id=genre.id) }}"
+              class="btn btn-primary"
+              >View All</a
+            >
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- end of genre-->
+{% block footer %} {% include "footer.html" %}{% endblock %}
+
+<!-- custom javascript -->
+<script src="{{ url_for('static', filename='js/homepage.js')}}"></script>
+{% endblock %}

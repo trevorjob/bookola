@@ -21,12 +21,16 @@ content %}
           alt="Book Cover"
         />
         <div class="comments">
-          {% for review in book.reviews %}
+          {% for s_review in reviews %}
           <div class="s_message">
-            <img class="c_img" src="{{ review.user.profile_pic_url }}" alt="" />
+            <img
+              class="c_img"
+              src="{{ s_review.user.profile_pic_url }}"
+              alt=""
+            />
             <div class="flex_d">
-              <span class="nm">{{review.user.username}}</span>
-              <p class="m_text">{{ review.review_text }}</p>
+              <span class="nm">{{s_review.user.username}}</span>
+              <p class="m_text">{{ s_review.review_text }}</p>
             </div>
           </div>
           {% endfor %}

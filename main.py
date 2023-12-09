@@ -372,7 +372,7 @@ def checkout_subs():
     return "Invalid subcription"
 
 
-@app.route("/success")
+@app.route("/success", methods=["GET", "POSTS"])
 def success():
     """Success page route"""
     user = getOneFromDB(User, cur_id["user_id"])
@@ -380,7 +380,7 @@ def success():
     return render_template("success.html")
 
 
-@app.route("/fail")
+@app.route("/fail", methods=["GET", "POST"])
 def fail():
     """Failure to load page route"""
     user = getOneFromDB(User, cur_id["user_id"])
@@ -576,13 +576,13 @@ def nandom():
 def terms_of_service():
     return render_template("terms_of_service.html")
 
-
+"""
 @app.errorhandler(404)
 @app.errorhandler(500)
 def handle_errors(error):
     #404 & 500 error handler
     return render_template("error.html")
-
+"""
 
 if __name__ == "__main__":
     app.run(debug=True)

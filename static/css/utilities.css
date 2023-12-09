@@ -32,5 +32,9 @@
 }
 
 .m_t {
-  margin-top: 10rem;
+  margin-top: 5rem;
+}
+
+.gen-btn {
+  justify-self: flex-end;
 }

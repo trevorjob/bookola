@@ -58,18 +58,17 @@ with app.app_context():
     #                     author=book["author"],
     #                     rating=randint(5, 10),
     #                 )
-    #                db.session.add(boo)
+    #                 db.session.add(boo)
+    # db.session.commit()
     book_of = choice(Book.query.all())
     latest = sample(Book.query.all(), k=4)
     gens = sample(Genre.query.all(), k=4)
-    # db.session.commit()
 
-    ses = []
     cur_id = {}
 
 
-
 # HELPER FUNCTIONS
+
 
 ########################### HELPER FUNCTIONS ##########################################
 def get_data(data):
@@ -152,6 +151,7 @@ def homepage():
     lastest_books = latest
     book_of_the_week = book_of
     genres = gens
+    session.setdefault("ses", [])
     subed = bool(request.args.get("subed"))
     if subed:
         current_user.subscribed = True
@@ -265,11 +265,21 @@ def signup():
 @is_logged
 def user_profile():
     if request.method == "POST":
-        current_user.email = get_data("email")
         current_user.username = get_data("username")
         db.session.commit()
 
-    return render_template("user.html", current_user=current_user, recents=ses)
+    cur_ses = []
+    for sess in session["ses"]:
+        cur_ses.append(getOneFromDB(Book, sess))
+
+    if len(cur_ses) <= 6:
+        curs = cur_ses
+    else:
+        curs = cur_ses[-6:]
+
+    return render_template(
+        "user.html", current_user=current_user, recents=reversed(curs)
+    )
 
 
 ########################## BOOK GENRES PAGE ROUTE #########################
@@ -282,6 +292,14 @@ def books(genre_id):
     return render_template(
         "books.html", current_user=current_user, books=genre.books, genre=genre.name
     )
+
+
+############################# ALL GENRES PAGE #################
+@app.route("/genres")
+@is_logged
+def genres():
+    genres = getAllFromDB(Genre)
+    return render_template("genres.html", genres=genres)
 
 
 ########################## BOOK DETAILS PAGE ROUTE #########################
@@ -304,9 +322,16 @@ def book_detail(bk_id):
     book = getOneFromDB(Book, bk_id)
     similar_books = sample(Book.query.filter_by(genre_id=book.genre_id).all(), k=6)
     same_author = Book.query.filter_by(author=book.author).all()
+    recents = list(book.reviews)
+    if len(recents) <= 5:
+        reviews = recents
+    else:
+        reviews = recents[-5:]
 
-    if book not in ses:
-        ses.append(book)
+    if book.id not in session["ses"]:
+        new_ses = session["ses"]
+        new_ses.append(book.id)
+        session["ses"] = new_ses
 
     return render_template(
         "book_detail.html",
@@ -314,6 +339,7 @@ def book_detail(bk_id):
         book=book,
         similar_books=similar_books,
         same_author=same_author,
+        reviews=reversed(reviews),
     )
 
 
@@ -514,9 +540,10 @@ def create_chatroom():
 
 ########################## PASSWORD MANAGER ROUTE #########################
 
+
 @app.route("/forgot_password", methods=["GET", "POST"])
 def forgot_password():
-    """ Forgot password route """
+    """Forgot password route"""
     form = ResetRequestForm()
 
     if request.method == "POST":
@@ -531,7 +558,7 @@ def forgot_password():
             db.session.commit()
 
             # Build the reset link using url_for
-            #reset_link = url_for('reset_password', token=password_reset_token, _external=True, _scheme='http')
+            # reset_link = url_for('reset_password', token=password_reset_token, _external=True, _scheme='http')
 
             # Send password reset email with the reset link
             send_password_reset_email(user.email, password_reset_token)
@@ -545,14 +572,14 @@ def forgot_password():
 
 @app.route("/reset_password/<token>", methods=["GET", "POST"])
 def reset_password(token):
-    """ Reset password and authentication """
+    """Reset password and authentication"""
     user = User.query.filter_by(password_reset_token=token).first()
     if not user:
         flash("Invalid or expired password reset token")
         return redirect(url_for("login"))
 
     form = ResetPasswordForm()
-    if request.method == 'POST':
+    if request.method == "POST":
         new_password = form.new_password.data
 
         # Update the user's password and reset the password reset token
@@ -568,7 +595,8 @@ def reset_password(token):
 
     return render_template("reset_password.html", form=form, token=token)
 
-@app.route('/terms_of_service', methods=["GET", "POST"])
+
+@app.route("/terms_of_service", methods=["GET", "POST"])
 def terms_of_service():
     return render_template("terms_of_service.html")
 
@@ -576,7 +604,7 @@ def terms_of_service():
 @app.errorhandler(404)
 @app.errorhandler(500)
 def handle_errors(error):
-    #404 & 500 error handler
+    # 404 & 500 error handler
     return render_template("error.html")
 
 

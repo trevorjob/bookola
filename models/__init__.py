@@ -18,8 +18,8 @@ app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY")
 # Mail Configuration
 app.config["MAIL_SERVER"] = 'smtp.gmail.com'
 app.config["MAIL_PORT"] = 465
-app.config["MAIL_USERNAME"] = 'deosundeola@gmail.com'
-app.config["MAIL_PASSWORD"] = "zuyu etkf rscg lgzd"
+app.config["MAIL_USERNAME"] = 'doe70097@gmail.com'
+app.config["MAIL_PASSWORD"] = 'awhw jjwx ktbr lyls'
 app.config["MAIL_USE_TLS"] = False
 app.config['MAIL_USE_SSL'] = True
 # Enable mail debugging for development

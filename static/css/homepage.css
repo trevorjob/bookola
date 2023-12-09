@@ -1,7 +1,10 @@
+
+
 #hero-section {
     background-size: cover;
     background-position: center;
     transition: background-image 0.5s ease-in-out;
+    
 }
 
 #hero-section .container {
@@ -10,6 +13,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh; 
+
 }
 
 #hero-section h5,
@@ -17,6 +21,7 @@
 #hero-section p,
 #hero-section a {
     text-align: center;
+
 }
 
 

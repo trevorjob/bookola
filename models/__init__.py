@@ -1,9 +1,5 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-<<<<<<< HEAD
-# from flask_gravatar import Gravatar
-=======
->>>>>>> 66a986f9ec6e6b328f816481cc0f0a10596b5621
 from flask_mail import Mail
 from flask_socketio import SocketIO
 from flask_login import LoginManager

@@ -1,1 +1,1 @@
-web: gunicorn -w 25 main:app
+web: gunicorn -k gevent -w 50 main:app

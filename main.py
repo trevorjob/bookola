@@ -29,37 +29,37 @@ from models.user import *
 
 
 with app.app_context():
-    # db.drop_all()
-    # db.create_all()
-    # with open("genres.json", "r", encoding="utf-8") as f:
-    #     genres = json.load(f)
-    #     for genre in genres:
-    #         gen = Genre(
-    #             id=genre["id"],
-    #             name=genre["name"],
-    #             description=genre["description"],
-    #             img_url=genre["img_url"],
-    #         )
-    #         db.session.add(gen)
+    db.drop_all()
+    db.create_all()
+    with open("genres.json", "r", encoding="utf-8") as f:
+        genres = json.load(f)
+        for genre in genres:
+            gen = Genre(
+                id=genre["id"],
+                name=genre["name"],
+                description=genre["description"],
+                img_url=genre["img_url"],
+            )
+            db.session.add(gen)
 
-    # with open("books.json", "r", encoding="utf-8") as f:
-    #     books = json.load(f)
-    #     for book in books:
-    #         for genre in genres:
-    #             if book["genre_id"] == genre["name"]:
-    #                 boo = Book(
-    #                     id=book["id"],
-    #                     title=book["title"],
-    #                     genre_id=genre["id"],
-    #                     cover_image_url=book["cover_image_url"],
-    #                     description=book["description"],
-    #                     publication_date=book["publication_date"],
-    #                     language=book["language"],
-    #                     author=book["author"],
-    #                     rating=randint(5, 10),
-    #                 )
-    #                 db.session.add(boo)
-    # db.session.commit()
+    with open("books.json", "r", encoding="utf-8") as f:
+        books = json.load(f)
+        for book in books:
+            for genre in genres:
+                if book["genre_id"] == genre["name"]:
+                    boo = Book(
+                        id=book["id"],
+                        title=book["title"],
+                        genre_id=genre["id"],
+                        cover_image_url=book["cover_image_url"],
+                        description=book["description"],
+                        publication_date=book["publication_date"],
+                        language=book["language"],
+                        author=book["author"],
+                        rating=randint(5, 10),
+                    )
+                    db.session.add(boo)
+    db.session.commit()
     book_of = choice(Book.query.all())
     latest = sample(Book.query.all(), k=4)
     gens = sample(Genre.query.all(), k=4)
@@ -184,8 +184,8 @@ def login():
         email = get_data("email")
         password = get_data("password")
 
-        remember_me = get_data('rememberme')
-        
+        remember_me = get_data("rememberme")
+
         if email is not None and password is not None:
             user = User.query.filter_by(email=email).first()
 
@@ -596,12 +596,13 @@ def reset_password(token):
     return render_template("reset_password.html", form=form, token=token)
 
 
-@app.route('/nandom', methods=['GET', 'POST'])
+@app.route("/nandom", methods=["GET", "POST"])
 def nandom():
     """Email success notification request route"""
     return render_template("nandom.html")
 
-@app.route('/terms_of_service', methods=["GET", "POST"])
+
+@app.route("/terms_of_service", methods=["GET", "POST"])
 def terms_of_service():
     return render_template("terms_of_service.html")
 

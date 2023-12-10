@@ -4,11 +4,11 @@ It contains the initialisation of a web application, including setting
 up route, defining views and configuring various settings."""
 import hashlib
 import json
+import os
 import secrets
 from functools import wraps
 from random import choice, randint, sample
 from uuid import uuid4
-import os
 
 import stripe
 from flask import flash, redirect, render_template, request, session, url_for
@@ -211,9 +211,7 @@ def logout():
     """Logout users"""
     if current_user.is_authenticated:
         sess = session.get("profile", None)
-        print(sess)
         if sess:
-            print("this is not logged in")
             session["profile"] = None
 
         logout_user()
@@ -269,7 +267,7 @@ def generate_profile(curs):
     from openai import OpenAI
 
     if len(curs) >= 3:
-        prompt = f"Generate a very very very short personality profile and special charachter for me. my name is {current_user.username} who has read the following books: {', '.join(curs)}. return as html element in html div with only one h2 header which would be the title or name given to me also refer to me as you and your"
+        prompt = f"Generate a very short personality profile and special charachter for me. my name is {current_user.username} who has read the following books: {', '.join(curs)}. return as html element in html div with my fictional persona as the heading in a h2 tag e.g(<h2>Sam, Mythic Wanderer</h2> or <h2>The Adventurous Mavin</h2>) also refer to me as you and your"
         client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
         completion = client.chat.completions.create(
@@ -292,6 +290,8 @@ def generate_profile(curs):
 def get_head(html_string):
     from bs4 import BeautifulSoup
 
+    if not html_string:
+        return
     # Create a BeautifulSoup object
     soup = BeautifulSoup(html_string, "html.parser")
 
@@ -328,12 +328,18 @@ def user_profile():
     else:
         curs = cur_ses[-6:]
     profile_data = session.get("profile", None)
-
     if not profile_data:
         generate_profile([co.title for co in curs])
         profile_data = session.get("profile", None)
+    if profile_data:
+        rest_bod, h2_head = get_head(profile_data)
+    else:
+        h2_head = "<h2>You Are Still A Mystery</h2>"
+        rest_bod = (
+            "<p>Explore Our Massive Collection Of Books And Show Us Who You Are And What You're Made Of. </p>"
+            "<p>Happy Reading.</p>"
+        )
 
-    rest_bod, h2_head = get_head(profile_data)
     return render_template(
         "user.html",
         current_user=current_user,
@@ -384,15 +390,12 @@ def book_detail(bk_id):
     similar_books = sample(Book.query.filter_by(genre_id=book.genre_id).all(), k=6)
     same_author = Book.query.filter_by(author=book.author).all()
     recents = list(book.reviews)
-    if len(recents) <= 5:
-        reviews = recents
-    else:
-        reviews = recents[-5:]
-
-    if book.id not in session["ses"]:
-        new_ses = session["ses"]
-        new_ses.append(book.id)
-        session["ses"] = new_ses
+    reviews = []
+    if recents:
+        if len(recents) <= 5:
+            reviews = recents
+        else:
+            reviews = recents[-5:]
 
     return render_template(
         "book_detail.html",
@@ -404,8 +407,12 @@ def book_detail(bk_id):
     )
 
 
-@app.route("/rand")
-def rand():
+@app.route("/rand/<bk_id>")
+def rand(bk_id):
+    if bk_id not in session["ses"]:
+        new_ses = session["ses"]
+        new_ses.append(bk_id)
+        session["ses"] = new_ses
     return render_template("rand.html")
 
 
@@ -441,8 +448,8 @@ def checkout_subs():
             )
             return redirect(checkout_session.url, code=303)
         elif subscription_level == "premium":
-            checkout_session = stripe.checkout.Session.create(
-                line_items=[{"price": "price_1OHpulLr3itnznEm553iHv2g", "quantity": 3}],
+            checkout_session = stripe.cice_1OHpuheckout.Session.create(
+                line_items=[{"price": "prlLr3itnznEm553iHv2g", "quantity": 3}],
                 mode="subscription",
                 success_url=YOUR_DOMAIN + "/success",
                 cancel_url=YOUR_DOMAIN + "/fail",
@@ -460,7 +467,7 @@ def checkout_subs():
     return "Invalid subcription"
 
 
-@app.route("/success")
+@app.route("/success", methods=["GET", "POSTS"])
 def success():
     """Success page route"""
     user = getOneFromDB(User, cur_id["user_id"])
@@ -468,7 +475,7 @@ def success():
     return render_template("success.html")
 
 
-@app.route("/fail")
+@app.route("/fail", methods=["GET", "POST"])
 def fail():
     """Failure to load page route"""
     user = getOneFromDB(User, cur_id["user_id"])
@@ -589,6 +596,7 @@ def select_chat():
 @is_logged
 def create_chatroom():
     """Users create chatroom"""
+    all_genres = getAllFromDB(Genre)
     if request.method == "POST":
         name = get_data("name")
         community = Community(id=str(uuid4()), name=name, creator_id=current_user.id)
@@ -596,7 +604,7 @@ def create_chatroom():
         current_user.communities.append(community)
         saveDB()
         return redirect(url_for("select_chat"))
-    return render_template("create_chatroom.html")
+    return render_template("create_chatroom.html", genres=all_genres)
 
 
 ########################## PASSWORD MANAGER ROUTE #########################
@@ -667,13 +675,13 @@ def nandom():
 def terms_of_service():
     return render_template("terms_of_service.html")
 
-
+"""
 @app.errorhandler(404)
 @app.errorhandler(500)
 def handle_errors(error):
     # 404 & 500 error handler
     return render_template("error.html")
-
+"""
 
 if __name__ == "__main__":
     app.run(debug=True)

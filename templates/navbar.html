@@ -1,12 +1,15 @@
 <!-- Navigation bar -->
 
 <!-- custom css -->
-<link rel="stylesheet" href="../static/css/navbar.css">
+<link rel="stylesheet" href="../static/css/navbar.css" />
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top py-3 fixed-top">
+<nav
+  class="navbar navbar-expand-lg navbar-light bg-light fixed-top py-3 fixed-top"
+>
   <div class="container">
-    <a class="navbar-brand" href="#"><span class="text-warning">Book</span>ola</a>
-
+    <a class="navbar-brand" href="{{ url_for('homepage') }}"
+      ><span class="text-warning">Book</span>ola</a
+    >
 
     <button
       class="navbar-toggler"
@@ -35,7 +38,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="blog" class="nav-link">Blog</a>
+          <a href="{{ url_for('homepage') }}" class="nav-link">Blog</a>
         </li>
 
         <li class="nav-item">

@@ -8,58 +8,40 @@
 {% endblock %} {% block content %}
 <div class="top-desc">
   <p>Bookola</p>
-  <a class="exit-btn" href="#">back</a>
+  <a class="exit-btn" href="{{ url_for('select_chat') }}">back</a>
 </div>
 <form action="{{url_for('create_chatroom')}}" method="POST">
   <div class="info">
     <div>
       <label for="name">name</label>
-      <input type="name" name="name" placeholder="Your Name" id="name" />
+      <input
+        type="name"
+        name="name"
+        placeholder="Name Your Chatroom"
+        id="name"
+      />
     </div>
-    <!-- <div>
-          <label for="any-join">anybody can join</label>
-          <input type="checkbox" name="" name="any-join" id="any-join" />
-        </div> -->
   </div>
   <div class="genre-tiles container-fluid">
     <div class="row">
+      <div class="center">
+        <h1>Select Your Room Genres</h1>
+      </div>
+      {% for genre in genres %}
       <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
         <div class="tile">
-          <input type="checkbox" name="" id="tile1" class="checkbox" />
-          <label for="tile1" class="tile-label">Horror</label>
+          <input
+            type="checkbox"
+            name=""
+            id="tile{{loop.index}}"
+            class="checkbox"
+          />
+          <label for="tile{{loop.index}}" class="tile-label"
+            >{{genre.name}}</label
+          >
         </div>
       </div>
-
-      <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
-        <div class="tile">
-          <input type="checkbox" name="" id="tile2" class="checkbox" />
-          <label for="tile2" class="tile-label">Fantasy</label>
-        </div>
-      </div>
-      <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
-        <div class="tile">
-          <input type="checkbox" name="" id="tile3" class="checkbox" />
-          <label for="tile3" class="tile-label">Sci-fi</label>
-        </div>
-      </div>
-      <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
-        <div class="tile">
-          <input type="checkbox" name="" id="tile4" class="checkbox" />
-          <label for="tile4" class="tile-label">Comedy</label>
-        </div>
-      </div>
-      <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
-        <div class="tile">
-          <input type="checkbox" name="" id="tile5" class="checkbox" />
-          <label for="tile5" class="tile-label">Romance</label>
-        </div>
-      </div>
-      <div class="top-tile col-6 col-xs-2 col-sm-2 col-md-2">
-        <div class="tile">
-          <input type="checkbox" name="" id="tile6" class="checkbox" />
-          <label for="tile6" class="tile-label">Adventure</label>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
   <div class="submit-div">

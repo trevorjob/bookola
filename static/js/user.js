@@ -38,14 +38,14 @@ function revealText(text) {
         textElement.innerHTML += currentLetter;
         letterIndex++;
         // Use recursion to continue showing letters
-        setTimeout(showLetters, 10);
+        setTimeout(showLetters, 20);
       } else {
         // Move to the next paragraph
         paragraphIndex++;
         letterIndex = 0;
         // textElement.innerHTML += "<br>"; // Add line break between paragraphs
         // Use recursion to continue showing letters
-        setTimeout(showLetters, 10);
+        setTimeout(showLetters, 20);
       }
     }
   }

@@ -53,7 +53,9 @@ content %}
         <h2 class="text-dark p-5">{{ book.title }}</h2>
         <p class="text-muted">{{ book.author }}</p>
         <p>{{ book.description }}</p>
-        <a href="{{url_for('rand')}}" class="btn btn-primary">Read Book</a>
+        <a href="{{url_for('rand', bk_id=book.id)}}" class="btn btn-primary"
+          >Read Book</a
+        >
       </div>
     </div>
 

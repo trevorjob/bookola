@@ -267,7 +267,7 @@ def generate_profile(curs):
     from openai import OpenAI
 
     if len(curs) >= 3:
-        prompt = f"Generate a very very very short personality profile and special charachter for me. my name is {current_user.username} who has read the following books: {', '.join(curs)}. return as html element in html div with my fictional name/persona as the heading in a h2 tag e.g(<h2>Sam, Mythic Wanderer</h2> or <h2>The Adventurous Mavin</h2>) also refer to me as you and your"
+        prompt = f"Generate a very short personality profile and special charachter for me. my name is {current_user.username} who has read the following books: {', '.join(curs)}. return as html element in html div with my fictional persona as the heading in a h2 tag e.g(<h2>Sam, Mythic Wanderer</h2> or <h2>The Adventurous Mavin</h2>) also refer to me as you and your"
         client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
         completion = client.chat.completions.create(
@@ -340,7 +340,6 @@ def user_profile():
             "<p>Happy Reading.</p>"
         )
 
-    print(profile_data)
     return render_template(
         "user.html",
         current_user=current_user,

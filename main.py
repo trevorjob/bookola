@@ -240,8 +240,8 @@ def signup():
         user = User.query.filter_by(email=email).first()
 
         if user:
-            print("All fields are required", "danger")
-            return redirect(url_for("signup"))
+            flash("user already exists", "danger")
+            return redirect(url_for("login"))
 
         password_hash = generate_password_hash(password)
 
@@ -448,8 +448,8 @@ def checkout_subs():
             )
             return redirect(checkout_session.url, code=303)
         elif subscription_level == "premium":
-            checkout_session = stripe.cice_1OHpuheckout.Session.create(
-                line_items=[{"price": "prlLr3itnznEm553iHv2g", "quantity": 3}],
+            checkout_session = stripe.checkout.Session.create(
+                line_items=[{"price": "price_1OHpulLr3itnznEm553iHv2g", "quantity": 3}],
                 mode="subscription",
                 success_url=YOUR_DOMAIN + "/success",
                 cancel_url=YOUR_DOMAIN + "/fail",
@@ -675,13 +675,13 @@ def nandom():
 def terms_of_service():
     return render_template("terms_of_service.html")
 
-"""
+
 @app.errorhandler(404)
 @app.errorhandler(500)
 def handle_errors(error):
     # 404 & 500 error handler
     return render_template("error.html")
-"""
+
 
 if __name__ == "__main__":
     app.run(debug=True)

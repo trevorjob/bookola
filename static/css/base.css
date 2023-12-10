@@ -14,6 +14,7 @@
 /* Default font size */
 body {
   font-size: 85%; /* 16px when the default font size is 16px */
+  background-color: #e5e5e5;
 }
 
 /* Media query for screens smaller than 600 pixels */

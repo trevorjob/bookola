@@ -4,6 +4,7 @@ It contains the initialisation of a web application, including setting
 up route, defining views and configuring various settings."""
 import hashlib
 import json
+import os
 import secrets
 from functools import wraps
 from random import choice, randint, sample
@@ -12,21 +13,20 @@ from uuid import uuid4
 import stripe
 from flask import flash, redirect, render_template, request, session, url_for
 from flask_login import current_user, login_user, logout_user
+from flask_mail import Message
 from flask_socketio import join_room, leave_room, send
 from werkzeug.security import check_password_hash, generate_password_hash
-from models.forms import ResetRequestForm, ResetPasswordForm
-from flask_mail import Message
 
-from models import YOUR_DOMAIN, app, db, login_manager, socketio, stripe, mail
+from models import YOUR_DOMAIN, app, db, login_manager, mail, socketio, stripe
 from models.base import *
 from models.book import *
 from models.community import *
+from models.forms import ResetPasswordForm, ResetRequestForm
 from models.genre import *
 from models.message import *
 from models.reviews import *
 from models.subscribe import *
 from models.user import *
-
 
 with app.app_context():
     # db.drop_all()
@@ -210,6 +210,10 @@ def login():
 def logout():
     """Logout users"""
     if current_user.is_authenticated:
+        sess = session.get("profile", None)
+        if sess:
+            session["profile"] = None
+
         logout_user()
         flash("Logged out successful", "success")
 
@@ -259,15 +263,62 @@ def signup():
 
 
 ########################## USER PROFILE PAGE ROUTE #########################
+def generate_profile(curs):
+    from openai import OpenAI
+
+    if len(curs) >= 3:
+        prompt = f"Generate a very very very short personality profile and special charachter for me. my name is {current_user.username} who has read the following books: {', '.join(curs)}. return as html element in html div with my fictional name/persona as the heading in a h2 tag e.g(<h2>Sam, Mythic Wanderer</h2> or <h2>The Adventurous Mavin</h2>) also refer to me as you and your"
+        client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a creative assistant, skilled in explaining complex book related concepts with creative flair. you are very direct and always goes straight to the point",
+                },
+                {
+                    "role": "user",
+                    "content": prompt,
+                },
+            ],
+        )
+
+        session["profile"] = completion.choices[0].message.content
+
+
+def get_head(html_string):
+    from bs4 import BeautifulSoup
+
+    if not html_string:
+        return
+    # Create a BeautifulSoup object
+    soup = BeautifulSoup(html_string, "html.parser")
+
+    # Get the first h2 tag
+    first_h2_tag = soup.find("h2")
+
+    # Initialize variables to store the extracted h2 tag and modified HTML
+    extracted_h2_tag = None
+    modified_html = None
+
+    # Check if the first h2 tag exists
+    if first_h2_tag:
+        # Store the first h2 tag
+        extracted_h2_tag = str(first_h2_tag)
+
+        # Remove the first h2 tag from the HTML
+        first_h2_tag.extract()
+
+        # Store the modified HTML
+        modified_html = str(soup)
+
+    return modified_html, extracted_h2_tag
 
 
 @app.route("/user", methods=["GET", "POST"])
 @is_logged
 def user_profile():
-    if request.method == "POST":
-        current_user.username = get_data("username")
-        db.session.commit()
-
     cur_ses = []
     for sess in session["ses"]:
         cur_ses.append(getOneFromDB(Book, sess))
@@ -276,9 +327,26 @@ def user_profile():
         curs = cur_ses
     else:
         curs = cur_ses[-6:]
+    profile_data = session.get("profile", None)
+    if not profile_data:
+        generate_profile([co.title for co in curs])
+        profile_data = session.get("profile", None)
+    if profile_data:
+        rest_bod, h2_head = get_head(profile_data)
+    else:
+        h2_head = "<h2>You Are Still A Mystery</h2>"
+        rest_bod = (
+            "<p>Explore Our Massive Collection Of Books And Show Us Who You Are And What You're Made Of. </p>"
+            "<p>Happy Reading.</p>"
+        )
 
+    print(profile_data)
     return render_template(
-        "user.html", current_user=current_user, recents=reversed(curs)
+        "user.html",
+        current_user=current_user,
+        recents=reversed(curs),
+        profile_data=rest_bod,
+        header=h2_head,
     )
 
 
@@ -323,15 +391,12 @@ def book_detail(bk_id):
     similar_books = sample(Book.query.filter_by(genre_id=book.genre_id).all(), k=6)
     same_author = Book.query.filter_by(author=book.author).all()
     recents = list(book.reviews)
-    if len(recents) <= 5:
-        reviews = recents
-    else:
-        reviews = recents[-5:]
-
-    if book.id not in session["ses"]:
-        new_ses = session["ses"]
-        new_ses.append(book.id)
-        session["ses"] = new_ses
+    reviews = []
+    if recents:
+        if len(recents) <= 5:
+            reviews = recents
+        else:
+            reviews = recents[-5:]
 
     return render_template(
         "book_detail.html",
@@ -343,8 +408,12 @@ def book_detail(bk_id):
     )
 
 
-@app.route("/rand")
-def rand():
+@app.route("/rand/<bk_id>")
+def rand(bk_id):
+    if bk_id not in session["ses"]:
+        new_ses = session["ses"]
+        new_ses.append(bk_id)
+        session["ses"] = new_ses
     return render_template("rand.html")
 
 
@@ -528,6 +597,7 @@ def select_chat():
 @is_logged
 def create_chatroom():
     """Users create chatroom"""
+    all_genres = getAllFromDB(Genre)
     if request.method == "POST":
         name = get_data("name")
         community = Community(id=str(uuid4()), name=name, creator_id=current_user.id)
@@ -535,7 +605,7 @@ def create_chatroom():
         current_user.communities.append(community)
         saveDB()
         return redirect(url_for("select_chat"))
-    return render_template("create_chatroom.html")
+    return render_template("create_chatroom.html", genres=all_genres)
 
 
 ########################## PASSWORD MANAGER ROUTE #########################

@@ -380,8 +380,8 @@ def checkout_subs():
             )
             return redirect(checkout_session.url, code=303)
         elif subscription_level == "premium":
-            checkout_session = stripe.checkout.Session.create(
-                line_items=[{"price": "price_1OHpulLr3itnznEm553iHv2g", "quantity": 3}],
+            checkout_session = stripe.cice_1OHpuheckout.Session.create(
+                line_items=[{"price": "prlLr3itnznEm553iHv2g", "quantity": 3}],
                 mode="subscription",
                 success_url=YOUR_DOMAIN + "/success",
                 cancel_url=YOUR_DOMAIN + "/fail",

@@ -1,7 +1,7 @@
 .chat-section {
-  background-color: #000;
+  background-color: #e5e5e5;
   margin-top: 80px;
-  color: whitesmoke;
+  color: #525252;
 }
 
 .my-chats,
@@ -29,13 +29,13 @@
 /* Default State */
 .create-chat {
   background-color: #525252;
-  color: #fff;
+  color: #e5e5e5;
 }
 
 /* Hover State */
 .create-chat:hover {
-  background-color: #000;
-  color: #fff;
+  background-color: #e5e5e5;
+  color: #525252;
   transform: scale(1.1);
 }
 
@@ -44,12 +44,10 @@
   max-width: 10rem;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.6s;
   margin-bottom: 1.5rem;
-  /* padding: 1rem 0; */
-  background-color: #313131;
-  border: 1px solid white;
+  background-color: #fff;
+  border: 1px solid #0000002d;
 }
 
 /* Card Image Styles */
@@ -61,7 +59,7 @@
 }
 .chat-card a {
   text-decoration: none;
-  color: whitesmoke;
+  color: #525252;
   padding-bottom: 1rem;
 }
 

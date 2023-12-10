@@ -1,6 +1,7 @@
 body {
-  background-color: #000;
   padding: 1.5rem;
+  background-color: #e5e5e5;
+  color: #525252;
 }
 
 .tile {
@@ -9,8 +10,8 @@ body {
   min-width: 10rem;
   margin: 2rem;
   padding: 1rem;
-  background-color: #313131;
-  border: 1px solid whitesmoke;
+  /* background-color: #313131; */
+  border: 1px solid #c49300;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -65,7 +66,7 @@ body {
 }
 .submit {
   background-color: #525252;
-  color: #fff;
+  color: #e5e5e5;
   padding: 10px;
   border: none;
   border-radius: 5px;
@@ -75,7 +76,8 @@ body {
 }
 
 .submit:hover {
-  background-color: #000; /* Darker shade on hover */
+  background-color: #e5e5e5; /* Darker shade on hover */
+  color: #525252;
 }
 .top-desc {
   display: flex;
@@ -99,12 +101,17 @@ body {
 /* Default State */
 .exit-btn {
   background-color: #525252;
-  color: #fff;
+  color: #e5e5e5;
 }
 
 /* Hover State */
 .exit-btn:hover {
-  background-color: #252323;
-  color: #fff;
+  background-color: #e5e5e5;
+  color: #525252;
   transform: scale(1.1);
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

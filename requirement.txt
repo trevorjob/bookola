@@ -5,5 +5,7 @@ flask_socketio
 flask_login 
 flask_wtf 
 stripe
+openai
+beautifulsoup4
 gunicorn
 psycopg2-binary==2.9.6

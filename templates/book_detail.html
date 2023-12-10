@@ -66,7 +66,7 @@ content %}
         <!-- Similar Book 1 -->
         {% for book in similar_books %}
         <div class="col-md-2 mb-1">
-          <div class="card text-dark">
+          <div class="card h-100 w-100 text-dark">
             <img
               src="{{ book.cover_image_url }}"
               class="card-img-top c_d"
@@ -91,7 +91,7 @@ content %}
         <!-- Book by Same Author 1 -->
         {% for book in same_author %}
         <div class="col-md-2 mb-1">
-          <div class="card text-dark">
+          <div class="card h-100 w-100 text-dark">
             <img
               src="{{ book.cover_image_url }}"
               class="card-img-top c_d"

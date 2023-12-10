@@ -21,12 +21,16 @@ content %}
           alt="Book Cover"
         />
         <div class="comments">
-          {% for review in book.reviews %}
+          {% for s_review in reviews %}
           <div class="s_message">
-            <img class="c_img" src="{{ review.user.profile_pic_url }}" alt="" />
+            <img
+              class="c_img"
+              src="{{ s_review.user.profile_pic_url }}"
+              alt=""
+            />
             <div class="flex_d">
-              <span class="nm">{{review.user.username}}</span>
-              <p class="m_text">{{ review.review_text }}</p>
+              <span class="nm">{{s_review.user.username}}</span>
+              <p class="m_text">{{ s_review.review_text }}</p>
             </div>
           </div>
           {% endfor %}
@@ -49,7 +53,9 @@ content %}
         <h2 class="text-dark p-5">{{ book.title }}</h2>
         <p class="text-muted">{{ book.author }}</p>
         <p>{{ book.description }}</p>
-        <a href="{{url_for('rand')}}" class="btn btn-primary">Read Book</a>
+        <a href="{{url_for('rand', bk_id=book.id)}}" class="btn btn-primary"
+          >Read Book</a
+        >
       </div>
     </div>
 

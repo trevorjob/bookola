@@ -4,6 +4,7 @@ It contains the initialisation of a web application, including setting
 up route, defining views and configuring various settings."""
 import hashlib
 import json
+import os
 import secrets
 from functools import wraps
 from random import choice, randint, sample
@@ -12,21 +13,20 @@ from uuid import uuid4
 import stripe
 from flask import flash, redirect, render_template, request, session, url_for
 from flask_login import current_user, login_user, logout_user
+from flask_mail import Message
 from flask_socketio import join_room, leave_room, send
 from werkzeug.security import check_password_hash, generate_password_hash
-from models.forms import ResetRequestForm, ResetPasswordForm
-from flask_mail import Message
 
-from models import YOUR_DOMAIN, app, db, login_manager, socketio, stripe, mail
+from models import YOUR_DOMAIN, app, db, login_manager, mail, socketio, stripe
 from models.base import *
 from models.book import *
 from models.community import *
+from models.forms import ResetPasswordForm, ResetRequestForm
 from models.genre import *
 from models.message import *
 from models.reviews import *
 from models.subscribe import *
 from models.user import *
-
 
 with app.app_context():
     # db.drop_all()
@@ -58,14 +58,14 @@ with app.app_context():
     #                     author=book["author"],
     #                     rating=randint(5, 10),
     #                 )
-    #                db.session.add(boo)
+    #                 db.session.add(boo)
+    # db.session.commit()
     book_of = choice(Book.query.all())
     latest = sample(Book.query.all(), k=4)
     gens = sample(Genre.query.all(), k=4)
-    # db.session.commit()
 
-    ses = []
     cur_id = {}
+
 
 # HELPER FUNCTIONS
 ########################### HELPER FUNCTIONS ##########################################
@@ -144,11 +144,12 @@ def is_logged(function):
 
 
 ########################## HOME PAGE ROUTE #########################
-@app.route("/homepage", methods=["GET"])
+@app.route("/", methods=["GET"])
 def homepage():
     lastest_books = latest
     book_of_the_week = book_of
     genres = gens
+    session.setdefault("ses", [])
     subed = bool(request.args.get("subed"))
     if subed:
         current_user.subscribed = True
@@ -176,15 +177,15 @@ def search_results():
 ########################## LOGIN PAGE ROUTE #########################
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     """Login route"""
     if request.method == "POST":
         email = get_data("email")
         password = get_data("password")
 
-        remember_me = get_data('rememberme')
-        
+        remember_me = get_data("rememberme")
+
         if email is not None and password is not None:
             user = User.query.filter_by(email=email).first()
 
@@ -209,6 +210,10 @@ def login():
 def logout():
     """Logout users"""
     if current_user.is_authenticated:
+        sess = session.get("profile", None)
+        if sess:
+            session["profile"] = None
+
         logout_user()
         flash("Logged out successful", "success")
 
@@ -258,17 +263,90 @@ def signup():
 
 
 ########################## USER PROFILE PAGE ROUTE #########################
+def generate_profile(curs):
+    from openai import OpenAI
+
+    if len(curs) >= 3:
+        prompt = f"Generate a very short personality profile and special charachter for me. my name is {current_user.username} who has read the following books: {', '.join(curs)}. return as html element in html div with my fictional persona as the heading in a h2 tag e.g(<h2>Sam, Mythic Wanderer</h2> or <h2>The Adventurous Mavin</h2>) also refer to me as you and your"
+        client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
+
+        completion = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a creative assistant, skilled in explaining complex book related concepts with creative flair. you are very direct and always goes straight to the point",
+                },
+                {
+                    "role": "user",
+                    "content": prompt,
+                },
+            ],
+        )
+
+        session["profile"] = completion.choices[0].message.content
+
+
+def get_head(html_string):
+    from bs4 import BeautifulSoup
+
+    if not html_string:
+        return
+    # Create a BeautifulSoup object
+    soup = BeautifulSoup(html_string, "html.parser")
+
+    # Get the first h2 tag
+    first_h2_tag = soup.find("h2")
+
+    # Initialize variables to store the extracted h2 tag and modified HTML
+    extracted_h2_tag = None
+    modified_html = None
+
+    # Check if the first h2 tag exists
+    if first_h2_tag:
+        # Store the first h2 tag
+        extracted_h2_tag = str(first_h2_tag)
+
+        # Remove the first h2 tag from the HTML
+        first_h2_tag.extract()
+
+        # Store the modified HTML
+        modified_html = str(soup)
+
+    return modified_html, extracted_h2_tag
 
 
 @app.route("/user", methods=["GET", "POST"])
 @is_logged
 def user_profile():
-    if request.method == "POST":
-        current_user.email = get_data("email")
-        current_user.username = get_data("username")
-        db.session.commit()
+    cur_ses = []
+    for sess in session["ses"]:
+        cur_ses.append(getOneFromDB(Book, sess))
 
-    return render_template("user.html", current_user=current_user, recents=ses)
+    if len(cur_ses) <= 6:
+        curs = cur_ses
+    else:
+        curs = cur_ses[-6:]
+    profile_data = session.get("profile", None)
+    if not profile_data:
+        generate_profile([co.title for co in curs])
+        profile_data = session.get("profile", None)
+    if profile_data:
+        rest_bod, h2_head = get_head(profile_data)
+    else:
+        h2_head = "<h2>You Are Still A Mystery</h2>"
+        rest_bod = (
+            "<p>Explore Our Massive Collection Of Books And Show Us Who You Are And What You're Made Of. </p>"
+            "<p>Happy Reading.</p>"
+        )
+
+    return render_template(
+        "user.html",
+        current_user=current_user,
+        recents=reversed(curs),
+        profile_data=rest_bod,
+        header=h2_head,
+    )
 
 
 ########################## BOOK GENRES PAGE ROUTE #########################
@@ -281,6 +359,14 @@ def books(genre_id):
     return render_template(
         "books.html", current_user=current_user, books=genre.books, genre=genre.name
     )
+
+
+############################# ALL GENRES PAGE #################
+@app.route("/genres")
+@is_logged
+def genres():
+    genres = getAllFromDB(Genre)
+    return render_template("genres.html", genres=genres)
 
 
 ########################## BOOK DETAILS PAGE ROUTE #########################
@@ -303,9 +389,13 @@ def book_detail(bk_id):
     book = getOneFromDB(Book, bk_id)
     similar_books = sample(Book.query.filter_by(genre_id=book.genre_id).all(), k=6)
     same_author = Book.query.filter_by(author=book.author).all()
-
-    if book not in ses:
-        ses.append(book)
+    recents = list(book.reviews)
+    reviews = []
+    if recents:
+        if len(recents) <= 5:
+            reviews = recents
+        else:
+            reviews = recents[-5:]
 
     return render_template(
         "book_detail.html",
@@ -313,11 +403,16 @@ def book_detail(bk_id):
         book=book,
         similar_books=similar_books,
         same_author=same_author,
+        reviews=reversed(reviews),
     )
 
 
-@app.route("/rand")
-def rand():
+@app.route("/rand/<bk_id>")
+def rand(bk_id):
+    if bk_id not in session["ses"]:
+        new_ses = session["ses"]
+        new_ses.append(bk_id)
+        session["ses"] = new_ses
     return render_template("rand.html")
 
 
@@ -501,6 +596,7 @@ def select_chat():
 @is_logged
 def create_chatroom():
     """Users create chatroom"""
+    all_genres = getAllFromDB(Genre)
     if request.method == "POST":
         name = get_data("name")
         community = Community(id=str(uuid4()), name=name, creator_id=current_user.id)
@@ -508,14 +604,15 @@ def create_chatroom():
         current_user.communities.append(community)
         saveDB()
         return redirect(url_for("select_chat"))
-    return render_template("create_chatroom.html")
+    return render_template("create_chatroom.html", genres=all_genres)
 
 
 ########################## PASSWORD MANAGER ROUTE #########################
 
+
 @app.route("/forgot_password", methods=["GET", "POST"])
 def forgot_password():
-    """ Forgot password route """
+    """Forgot password route"""
     form = ResetRequestForm()
 
     if request.method == "POST":
@@ -530,7 +627,7 @@ def forgot_password():
             db.session.commit()
 
             # Build the reset link using url_for
-            #reset_link = url_for('reset_password', token=password_reset_token, _external=True, _scheme='http')
+            # reset_link = url_for('reset_password', token=password_reset_token, _external=True, _scheme='http')
 
             # Send password reset email with the reset link
             send_password_reset_email(user.email, password_reset_token)
@@ -544,14 +641,14 @@ def forgot_password():
 
 @app.route("/reset_password/<token>", methods=["GET", "POST"])
 def reset_password(token):
-    """ Reset password and authentication """
+    """Reset password and authentication"""
     user = User.query.filter_by(password_reset_token=token).first()
     if not user:
         flash("Invalid or expired password reset token")
         return redirect(url_for("login"))
 
     form = ResetPasswordForm()
-    if request.method == 'POST':
+    if request.method == "POST":
         new_password = form.new_password.data
 
         # Update the user's password and reset the password reset token
@@ -567,12 +664,14 @@ def reset_password(token):
 
     return render_template("reset_password.html", form=form, token=token)
 
-@app.route('/nandom', methods=['GET', 'POST'])
+
+@app.route("/nandom", methods=["GET", "POST"])
 def nandom():
     """Email success notification request route"""
     return render_template("nandom.html")
 
-@app.route('/terms_of_service', methods=["GET", "POST"])
+
+@app.route("/terms_of_service", methods=["GET", "POST"])
 def terms_of_service():
     return render_template("terms_of_service.html")
 
@@ -580,7 +679,7 @@ def terms_of_service():
 @app.errorhandler(404)
 @app.errorhandler(500)
 def handle_errors(error):
-    #404 & 500 error handler
+    # 404 & 500 error handler
     return render_template("error.html")
 
 

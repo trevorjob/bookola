@@ -40,50 +40,17 @@ content %}
 
       <div class="col-md-8 mt-1 pt-lg-5">
         <div class="card mb-3 content">
-          <h1 class="m-3 pt-3">About</h1>
           <div class="card-body">
-            <form action="" method="post">
-              <div class="row">
-                <div class="col-md-3">
-                  <label for="username">Username</label>
-                </div>
-
-                <div class="col-md-9 text-secondary">
-                  <input
-                    type="text"
-                    value="{{current_user.username}}"
-                    name="username"
-                    id=""
-                  />
-                </div>
+            <div id="loaderContainer" class="load profile-content">
+              <div class="loader"></div>
+              <p>generating profile information...</p>
+            </div>
+            <div class="text-container" id="textContainer">
+              <div class="title-t">{{header|safe}}</div>
+              <div class="profile d-n hidden" id="text">
+                {{ profile_data|safe }}
               </div>
-              <hr />
-              <div class="row">
-                <div class="col-md-3">
-                  <label for="email">Email</label>
-                </div>
-                <div class="col-md-9 text-secondary">
-                  <input
-                    type="email"
-                    name="email"
-                    value="{{current_user.email}}"
-                    placeholder="mary@gmail.com"
-                    id=""
-                  />
-                </div>
-              </div>
-              <hr />
-              <div class="row">
-                <div class="col-md-3">
-                  <label for="password">Password</label>
-                </div>
-                <div class="col-md-9 text-secondary">
-                  <input type="password" name="password" id="" />
-                </div>
-              </div>
-              <hr />
-              <button type="submit">save changes</button>
-            </form>
+            </div>
           </div>
         </div>
       </div>
@@ -108,6 +75,7 @@ content %}
     </div>
   </div>
 </div>
+<script src="{{ url_for('static', filename='js/user.js')}}"></script>
 
 <!-- Footer -->
 {% block footer %} {% include "footer.html" %}{% endblock %}

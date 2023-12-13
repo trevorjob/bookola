@@ -122,6 +122,7 @@ def load_user(user_id):
 
 ################### FUNCTION DECORATORS #######################
 def is_subed(function):
+    """An helper function"""
     @wraps(function)
     def wrapped(*args, **kwargs):
         if current_user.subscribed:
@@ -133,6 +134,7 @@ def is_subed(function):
 
 
 def is_logged(function):
+    """Helper function"""
     @wraps(function)
     def wrapped(*args, **kwargs):
         if current_user.is_authenticated:
@@ -146,6 +148,7 @@ def is_logged(function):
 ########################## HOME PAGE ROUTE #########################
 @app.route("/", methods=["GET"])
 def homepage():
+    """Homepage route"""
     lastest_books = latest
     book_of_the_week = book_of
     genres = gens
@@ -169,6 +172,7 @@ def homepage():
 
 @app.route("/search_results", methods=["POST"])
 def search_results():
+    """Search results route"""
     search_term = request.form.get("q")
     results = Book.query.filter(Book.title.ilike(f"%{search_term}%")).all()
     return render_template("search-result.html", results=results, q=search_term)
@@ -264,6 +268,7 @@ def signup():
 
 ########################## USER PROFILE PAGE ROUTE #########################
 def generate_profile(curs):
+    """Generates users profile routes"""
     from openai import OpenAI
 
     if len(curs) >= 3:
@@ -288,6 +293,7 @@ def generate_profile(curs):
 
 
 def get_head(html_string):
+    """Helper function to get the head of the html string"""
     from bs4 import BeautifulSoup
 
     if not html_string:
@@ -319,6 +325,7 @@ def get_head(html_string):
 @app.route("/user", methods=["GET", "POST"])
 @is_logged
 def user_profile():
+    """User profile route"""
     cur_ses = []
     for sess in session["ses"]:
         cur_ses.append(getOneFromDB(Book, sess))
@@ -355,6 +362,7 @@ def user_profile():
 @app.route("/books/<genre_id>", methods=["GET"])
 @is_logged
 def books(genre_id):
+    """Book genres route"""
     genre = getOneFromDB(Genre, genre_id)
     return render_template(
         "books.html", current_user=current_user, books=genre.books, genre=genre.name
@@ -365,6 +373,7 @@ def books(genre_id):
 @app.route("/genres")
 @is_logged
 def genres():
+    """Get all the genres from the database"""
     genres = getAllFromDB(Genre)
     return render_template("genres.html", genres=genres)
 
@@ -374,6 +383,7 @@ def genres():
 @is_logged
 @is_subed
 def book_detail(bk_id):
+    """Book detail request route"""
     if request.method == "POST":
         comment = get_data("comment")
         review = Review(
@@ -409,6 +419,7 @@ def book_detail(bk_id):
 
 @app.route("/rand/<bk_id>")
 def rand(bk_id):
+    """Returns a random book"""
     if bk_id not in session["ses"]:
         new_ses = session["ses"]
         new_ses.append(bk_id)
@@ -420,7 +431,7 @@ def rand(bk_id):
 @app.route("/subscription", methods=["GET", "POST"])
 @is_logged
 def subscription():
-    """Subscription packages"""
+    """Subscribe to a package route"""
     packages = [
         {"name": "Free", "price": 0.00},
         {"name": "Premium", "price": 5.99},
@@ -673,15 +684,16 @@ def nandom():
 
 @app.route("/terms_of_service", methods=["GET", "POST"])
 def terms_of_service():
+    """Terms of service route"""    
     return render_template("terms_of_service.html")
 
-"""
+
 @app.errorhandler(404)
 @app.errorhandler(500)
 def handle_errors(error):
     # 404 & 500 error handler
     return render_template("error.html")
-"""
+
 
 if __name__ == "__main__":
     app.run(debug=True)

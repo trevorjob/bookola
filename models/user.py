@@ -51,16 +51,19 @@ class User(Base, UserMixin, db.Model):
     )
 
     def is_active(self):
-        # Define your own logic for determining if the user is active or not
+        """Define your own logic for determining if the user is active or not"""
         return True
 
     def is_authenticated(self):
+        """check if the user is authenticated"""
         return True
 
     def is_anonymous(self):
+        """Returns False for users"""
         return False
 
 def get_token(self,expired_sec=300):
+    """Get token for users"""
     serial=Serializer(app.config['SECRET_KEY'], expire_in=expired_sec)
     return serial.dumps({'user_id':self.id}).decode('utf-8')
 
@@ -77,6 +80,7 @@ def verify_token(token):
 
 
 def send_password_reset_email(email, token):
+    """Send password reset email to user"""
     subject = "Password Reset Request"
     reset_url = url_for("reset_password", token=token, _external=True)
     body = f"Click the following link to reset your password: {reset_url}"

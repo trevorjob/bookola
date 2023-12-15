@@ -29,7 +29,7 @@ from models.subscribe import *
 from models.user import *
 
 with app.app_context():
-    # db.drop_all()
+    # # db.drop_all()
     # db.create_all()
     # with open("genres.json", "r", encoding="utf-8") as f:
     #     genres = json.load(f)
@@ -58,7 +58,7 @@ with app.app_context():
     #                     author=book["author"],
     #                     rating=randint(5, 10),
     #                 )
-    #                 db.session.add(boo)
+    #                db.session.add(boo)
     # db.session.commit()
     book_of = choice(Book.query.all())
     latest = sample(Book.query.all(), k=4)
@@ -470,10 +470,9 @@ def checkout_subs():
             checkout_session = stripe.checkout.Session.create(
                 line_items=[{"price": "price_1OHpydLr3itnznEm1hxM1If1", "quantity": 5}],
                 mode="subscription",
-                success_url=YOUR_DOMAIN + "/Success",
+                success_url=YOUR_DOMAIN + "/success",
                 cancel_url=YOUR_DOMAIN + "/fail",
             )
-
             return redirect(checkout_session.url, code=303)
     return "Invalid subcription"
 
@@ -687,13 +686,13 @@ def terms_of_service():
     """Terms of service route"""    
     return render_template("terms_of_service.html")
 
-
+"""
 @app.errorhandler(404)
 @app.errorhandler(500)
 def handle_errors(error):
     # 404 & 500 error handler
     return render_template("error.html")
-
+"""
 
 if __name__ == "__main__":
     app.run(debug=True)

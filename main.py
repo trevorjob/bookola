@@ -59,7 +59,7 @@ with app.app_context():
                         rating=randint(5, 10),
                     )
                     db.session.add(boo)
-    # db.session.commit()
+    db.session.commit()
     book_of = choice(Book.query.all())
     latest = sample(Book.query.all(), k=4)
     gens = sample(Genre.query.all(), k=4)

@@ -1,30 +1,38 @@
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum odit eligendi
-alias aspernatur, delectus ab cum accusantium fugiat, modi expedita iure
-eveniet! Sit perferendis impedit corporis vitae? Facere, impedit maxime.lo Lorem
-ipsum dolor sit amet consectetur, adipisicing elit. Nulla culpa beatae, ea,
-doloremque labore dicta quis eos, sed iusto consequatur modi magni architecto
-et. Repellat perspiciatis dolor nam voluptatibus itaque! Lorem ipsum dolor sit
-amet consectetur adipisicing elit. Harum dolor aliquam blanditiis tempore
-mollitia, neque cupiditate et modi nulla ullam delectus odio laudantium
-molestiae nisi reprehenderit esse accusantium! Reiciendis, perferendis? Lorem
-ipsum dolor sit amet, consectetur adipisicing elit. Laborum quos deserunt
-possimus, blanditiis inventore enim quo maiores a voluptas, repudiandae quia,
-consectetur id sequi facere cumque error. Debitis, similique! Accusamus! Lorem
-ipsum dolor sit amet consectetur adipisicing elit. Repellat exercitationem error
-laudantium eligendi, nihil nobis explicabo numquam consectetur ipsam tenetur
-quod cupiditate mollitia quis ipsa voluptas ea delectus reiciendis iusto! Lorem
-ipsum dolor sit amet, consectetur adipisicing elit. Architecto eius nisi,
-deleniti ullam recusandae quibusdam dicta quisquam perspiciatis reiciendis eum
-dolorem sapiente. Non voluptatum dicta, aliquam dolore distinctio eum dolor.
-Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo pariatur
-voluptatibus, iusto voluptate, sapiente magnam rem fugiat quo eveniet animi, eum
-temporibus! Neque explicabo eius culpa sapiente eligendi eos nulla! Lorem ipsum
-dolor sit amet consectetur adipisicing elit. Repellendus id voluptates autem cum
-fugiat ducimus vero ab exercitationem repudiandae nesciunt. Optio fugiat
-excepturi possimus eligendi placeat id itaque sunt amet? Lorem, ipsum dolor sit
-amet consectetur adipisicing elit. Quibusdam, cum dignissimos sequi esse
-inventore numquam temporibus ullam debitis, nobis consequatur harum! Temporibus
-suscipit illum tempora recusandae et id nisi consectetur. Lorem ipsum dolor sit,
-amet consectetur adipisicing elit. Laboriosam similique soluta laborum
-blanditiis quam! Ab, ipsam pariatur culpa sequi laborum praesentium error
-eveniet alias tempora, repudiandae similique molestiae sapiente dolorem.
+{% include "base.html" %} {% block styles %}
+<!-- font awesome icons -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+  integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+/>
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/subscription.css') }}"
+/>
+
+{% endblock %} {% block nav %} {% include "navbar.html" %}{% endblock %} {%
+block content %}
+<div class="top-desc m_tl">
+  <a class="exit-btn" href="{{ url_for('book_detail', bk_id=book_id) }}"
+    >back</a
+  >
+</div>
+<!-- pricing -->
+<section class="bg-secondary p-5 p-lg-0 pt-lg-5 text-sm-start">
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores
+  exercitationem nulla ducimus repellat quibusdam, a ipsa laborum aliquid
+  eveniet quam fuga facere hic vero amet aperiam ullam vitae odio minima?Lorem
+  ipsum dolor sit amet consectetur adipisicing elit. Pariatur quo quas
+  voluptatum numquam consequatur a asperiores qui ad quidem modi? Voluptate
+  asperiores deleniti quidem earum magnam consequuntur fugit laboriosam
+  adipisci. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure
+  veritatis vero alias distinctio ratione! Dolor animi quo saepe, aspernatur
+  alias accusantium sequi cupiditate doloribus repellat nemo nesciunt, pariatur
+  placeat accusamus.lo Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+  Et neque fugiat, natus alias in ab perspiciatis hic minus minima dicta odio
+  illo vitae error nemo accusantium debitis, eos eius. Possimus!
+</section>
+{% endblock %}

@@ -29,37 +29,6 @@ from models.subscribe import *
 from models.user import *
 
 with app.app_context():
-    # db.drop_all()
-    # db.create_all()
-    # with open("genres.json", "r", encoding="utf-8") as f:
-    #     genres = json.load(f)
-    #     for genre in genres:
-    #         gen = Genre(
-    #             id=genre["id"],
-    #             name=genre["name"],
-    #             description=genre["description"],
-    #             img_url=genre["img_url"],
-    #         )
-    #         db.session.add(gen)
-
-    # with open("books.json", "r", encoding="utf-8") as f:
-    #     books = json.load(f)
-    #     for book in books:
-    #         for genre in genres:
-    #             if book["genre_id"] == genre["name"]:
-    #                 boo = Book(
-    #                     id=book["id"],
-    #                     title=book["title"],
-    #                     genre_id=genre["id"],
-    #                     cover_image_url=book["cover_image_url"],
-    #                     description=book["description"],
-    #                     publication_date=book["publication_date"],
-    #                     language=book["language"],
-    #                     author=book["author"],
-    #                     rating=randint(5, 10),
-    #                 )
-    #                 db.session.add(boo)
-    # db.session.commit()
     book_of = choice(Book.query.all())
     latest = sample(Book.query.all(), k=4)
     gens = sample(Genre.query.all(), k=4)
@@ -327,18 +296,19 @@ def user_profile():
         curs = cur_ses
     else:
         curs = cur_ses[-6:]
-    profile_data = session.get("profile", None)
-    if not profile_data:
-        generate_profile([co.title for co in curs])
-        profile_data = session.get("profile", None)
-    if profile_data:
-        rest_bod, h2_head = get_head(profile_data)
-    else:
-        h2_head = "<h2>You Are Still A Mystery</h2>"
-        rest_bod = (
-            "<p>Explore Our Massive Collection Of Books And Show Us Who You Are And What You're Made Of. </p>"
-            "<p>Happy Reading.</p>"
-        )
+        # profile_data = session.get("profile", None)
+        # profile_data = "profile data"
+        # if not profile_data:
+        #     generate_profile([co.title for co in curs])
+        #     profile_data = session.get("profile", None)
+        # if profile_data:
+        #     rest_bod, h2_head = get_head(profile_data)
+        # else:
+    h2_head = "<h2>You Are Still A Mystery</h2>"
+    rest_bod = (
+        "<p>Explore Our Massive Collection Of Books And Show Us Who You Are And What You're Made Of. </p>"
+        "<p>Happy Reading.</p>"
+    )
 
     return render_template(
         "user.html",
@@ -413,7 +383,7 @@ def rand(bk_id):
         new_ses = session["ses"]
         new_ses.append(bk_id)
         session["ses"] = new_ses
-    return render_template("rand.html")
+    return render_template("rand.html", book_id=bk_id)
 
 
 ########################## SUBSCRIPTION PAGE ROUTE #########################
@@ -441,7 +411,7 @@ def checkout_subs():
 
         if subscription_level == "free":
             checkout_session = stripe.checkout.Session.create(
-                line_items=[{"price": "price_1OIK6TLr3itnznEmmFb6Rboj", "quantity": 1}],
+                line_items=[{"price": "price_1PfSmQ2M3SvTHCj43TWnKU7K", "quantity": 1}],
                 mode="payment",
                 success_url=YOUR_DOMAIN + "/success",
                 cancel_url=YOUR_DOMAIN + "/fail",
@@ -449,7 +419,7 @@ def checkout_subs():
             return redirect(checkout_session.url, code=303)
         elif subscription_level == "premium":
             checkout_session = stripe.checkout.Session.create(
-                line_items=[{"price": "price_1OHpulLr3itnznEm553iHv2g", "quantity": 3}],
+                line_items=[{"price": "price_1PfSmQ2M3SvTHCj43TWnKU7K", "quantity": 3}],
                 mode="subscription",
                 success_url=YOUR_DOMAIN + "/success",
                 cancel_url=YOUR_DOMAIN + "/fail",
@@ -457,7 +427,7 @@ def checkout_subs():
             return redirect(checkout_session.url, code=303)
         elif subscription_level == "platinum":
             checkout_session = stripe.checkout.Session.create(
-                line_items=[{"price": "price_1OHpydLr3itnznEm1hxM1If1", "quantity": 5}],
+                line_items=[{"price": "price_1PfSmQ2M3SvTHCj43TWnKU7K", "quantity": 5}],
                 mode="subscription",
                 success_url=YOUR_DOMAIN + "/Success",
                 cancel_url=YOUR_DOMAIN + "/fail",
